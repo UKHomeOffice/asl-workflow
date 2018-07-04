@@ -1,0 +1,5 @@
+---
+- name: permissions
+  recipe: internal-service
+  clients: queue-consumer
+  image: quay.io/ukhomeofficedigital/asl-workflow:{{.DRONE_COMMIT_SHA}}
