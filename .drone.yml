@@ -95,12 +95,6 @@ pipeline:
       environment: preprod
       event: deployment
 
-services:
-  database:
-    image: postgres
-    environment:
-      - POSTGRES_USER=asl-test
-
 matrix:
   NPM_AUTH_USERNAME:
     - asl
