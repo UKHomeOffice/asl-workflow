@@ -4,11 +4,9 @@ pipeline:
     image: node:8
     secrets:
       - npm_auth_token
-    environment:
-      - POSTGRES_USER=asl-test
-      - POSTGRES_HOST=database
     commands:
-      - npm install
+      - npm install -g npm@6
+      - npm ci
       - npm test
     when:
       event: [push, pull_request, tag]
