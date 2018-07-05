@@ -3,3 +3,5 @@
   recipe: internal-service
   clients: queue-consumer
   image: quay.io/ukhomeofficedigital/asl-workflow:{{.DRONE_COMMIT_SHA}}
+  env:
+    RESOLVER_URL: https://resolver:10443

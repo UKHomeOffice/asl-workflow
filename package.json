@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-workflow#readme",
   "dependencies": {
-    "@asl/service": "^3.3.1"
+    "express": "^4.16.3",
+    "http-proxy-middleware": "^0.18.0"
   },
   "devDependencies": {
     "dotenv": "^6.0.0",
