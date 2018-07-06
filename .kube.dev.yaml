@@ -4,4 +4,5 @@
   clients: queue-consumer
   image: quay.io/ukhomeofficedigital/asl-workflow:{{.DRONE_COMMIT_SHA}}
   env:
+    NODE_TLS_REJECT_UNAUTHORIZED: '"0"'
     RESOLVER_URL: https://resolver:10443
