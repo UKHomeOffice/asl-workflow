@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-workflow#readme",
   "dependencies": {
+    "@asl/service": "^4.0.0",
     "aws-sdk": "^2.270.1"
   },
   "devDependencies": {
