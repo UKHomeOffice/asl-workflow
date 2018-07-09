@@ -1,8 +1,27 @@
 ---
 - name: workflow
-  recipe: internal-service
-  clients: queue-consumer
+  recipe: webapp
+  url: workflow.notprod.asl.homeoffice.gov.uk
   image: quay.io/ukhomeofficedigital/asl-workflow:{{.DRONE_COMMIT_SHA}}
   env:
-    NODE_TLS_REJECT_UNAUTHORIZED: '"0"'
-    RESOLVER_URL: https://resolver:10443
+    PERMISSIONS_SERVICE: https://permissions.notprod.asl.homeoffice.gov.uk
+    KEYCLOAK_REALM: Asl-dev
+    KEYCLOAK_URL: https://sso-dev.notprod.homeoffice.gov.uk/auth
+    KEYCLOAK_CLIENT: asl-dev-connect
+    KEYCLOAK_SECRET:
+      secret: true
+      name: asl-dev-auth
+      key: secret
+    SQS_REGION: eu-west-2
+    SQS_ACCESS_KEY:
+      secret: true
+      name: asl-changerequests-dev-sqs
+      key: access_key_id
+    SQS_SECRET:
+      secret: true
+      name: asl-changerequests-dev-sqs
+      key: secret_access_key
+    SQS_URL:
+      secret: true
+      name: asl-changerequests-dev-sqs
+      key: sqs_queue_url
