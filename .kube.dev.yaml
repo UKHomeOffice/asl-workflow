@@ -1,7 +1,7 @@
 ---
 - name: workflow
-  recipe: internal-service
-  clients: queue-consumer
+  recipe: webapp
+  url: workflow.notprod.asl.homeoffice.gov.uk
   image: quay.io/ukhomeofficedigital/asl-workflow:{{.DRONE_COMMIT_SHA}}
   env:
     PERMISSIONS_SERVICE: https://permissions.notprod.asl.homeoffice.gov.uk
