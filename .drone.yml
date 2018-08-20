@@ -1,11 +1,10 @@
 pipeline:
 
   test:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
-      - npm install -g npm@6
       - npm ci
       - npm test
     when:
@@ -31,7 +30,7 @@ pipeline:
       - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-workflow .
     when:
       branch: master
-      event: [push, tag]
+      event: [push, pull_request, tag]
 
   image_to_quay:
     image: docker:17.09.1
@@ -61,7 +60,7 @@ pipeline:
       event: push
 
   configure_deploy:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
