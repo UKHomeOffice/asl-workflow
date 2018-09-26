@@ -25,3 +25,23 @@
       secret: true
       name: asl-changerequests-dev-sqs
       key: sqs_queue_url
+    DATABASE_HOST:
+      secret: true
+      name: asl-dev-workflow-rds
+      key: endpoint
+    DATABASE_NAME:
+      secret: true
+      name: asl-dev-workflow-rds
+      key: db_name
+    DATABASE_USERNAME:
+      secret: true
+      name: asl-dev-workflow-rds
+      key: username
+    DATABASE_PASSWORD:
+      secret: true
+      name: asl-dev-workflow-rds
+      key: password
+    DATABASE_PORT:
+      secret: true
+      name: asl-dev-workflow-rds
+      key: port
