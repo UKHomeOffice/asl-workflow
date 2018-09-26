@@ -102,6 +102,23 @@ pipeline:
       environment: preprod
       event: deployment
 
+  slack:
+    image: plugins/slack
+    secrets:
+      - slack_webhook
+    channel: developers
+    template: >
+      {{#success build.status}}
+        Deployment of {{repo.name}} to {{build.deployTo}} succeeded.
+        `{{build.message}}`
+      {{else}}
+        @channel Deployment of {{repo.name}} to {{build.deployTo}} failed - {{build.link}}
+        `{{build.message}}`
+      {{/success}}
+    when:
+      status:  [ failure, success ]
+      event: deployment
+
 matrix:
   NPM_AUTH_USERNAME:
     - asl
