@@ -32,7 +32,7 @@
     DATABASE_NAME:
       secret: true
       name: asl-dev-workflow-rds
-      key: db_name
+      key: default_db
     DATABASE_USERNAME:
       secret: true
       name: asl-dev-workflow-rds
