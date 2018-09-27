@@ -27,21 +27,21 @@
       key: sqs_queue_url
     DATABASE_HOST:
       secret: true
-      name: asl-dev-workflow-rds
+      name: asl-dev-workflow-rds-debug
       key: endpoint
     DATABASE_NAME:
       secret: true
-      name: asl-dev-workflow-rds
+      name: asl-dev-workflow-rds-debug
       key: default_db
     DATABASE_USERNAME:
       secret: true
-      name: asl-dev-workflow-rds
+      name: asl-dev-workflow-rds-debug
       key: username
     DATABASE_PASSWORD:
       secret: true
-      name: asl-dev-workflow-rds
+      name: asl-dev-workflow-rds-debug
       key: password
     DATABASE_PORT:
       secret: true
-      name: asl-dev-workflow-rds
+      name: asl-dev-workflow-rds-debug
       key: port
