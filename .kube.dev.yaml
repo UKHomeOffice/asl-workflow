@@ -45,3 +45,23 @@
       secret: true
       name: asl-dev-workflow-rds
       key: port
+    ASL_DATABASE_HOST:
+      secret: true
+      name: asl-dev-rds
+      key: endpoint
+    ASL_DATABASE_NAME:
+      secret: true
+      name: asl-dev-rds
+      key: db_name
+    ASL_DATABASE_USERNAME:
+      secret: true
+      name: asl-dev-rds
+      key: username
+    ASL_DATABASE_PASSWORD:
+      secret: true
+      name: asl-dev-rds
+      key: password
+    ASL_DATABASE_PORT:
+      secret: true
+      name: asl-dev-rds
+      key: port
