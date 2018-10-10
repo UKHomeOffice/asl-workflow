@@ -13,7 +13,7 @@ module.exports = {
     port: process.env.DATABASE_PORT,
     user: process.env.DATABASE_USERNAME || 'postgres'
   },
-  taskflowdb: {
+  taskflowDB: {
     database: process.env.TASKFLOW_DATABASE_NAME || 'taskflow'
   },
   auth: {
