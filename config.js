@@ -7,11 +7,14 @@ module.exports = {
     url: process.env.SQS_URL
   },
   db: {
-    database: process.env.DATABASE_NAME || 'taskflow',
+    database: process.env.DATABASE_NAME || 'asl',
     host: process.env.DATABASE_HOST,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
     user: process.env.DATABASE_USERNAME || 'postgres'
+  },
+  taskflowDB: {
+    database: process.env.TASKFLOW_DATABASE_NAME || 'taskflow'
   },
   auth: {
     realm: process.env.KEYCLOAK_REALM,
