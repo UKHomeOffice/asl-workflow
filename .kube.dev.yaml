@@ -25,43 +25,43 @@
       secret: true
       name: asl-changerequests-dev-sqs
       key: sqs_queue_url
-    TASKFLOW_DATABASE_HOST:
-      secret: true
-      name: asl-dev-workflow-rds
-      key: endpoint
-    TASKFLOW_DATABASE_NAME:
-      secret: true
-      name: asl-dev-workflow-rds
-      key: default_db
-    TASKFLOW_DATABASE_USERNAME:
-      secret: true
-      name: asl-dev-workflow-rds
-      key: username
-    TASKFLOW_DATABASE_PASSWORD:
-      secret: true
-      name: asl-dev-workflow-rds
-      key: password
-    TASKFLOW_DATABASE_PORT:
-      secret: true
-      name: asl-dev-workflow-rds
-      key: port
     DATABASE_HOST:
       secret: true
-      name: asl-dev-rds
+      name: asl-dev-workflow-rds
       key: endpoint
     DATABASE_NAME:
       secret: true
-      name: asl-dev-rds
-      key: db_name
+      name: asl-dev-workflow-rds
+      key: default_db
     DATABASE_USERNAME:
       secret: true
-      name: asl-dev-rds
+      name: asl-dev-workflow-rds
       key: username
     DATABASE_PASSWORD:
       secret: true
-      name: asl-dev-rds
+      name: asl-dev-workflow-rds
       key: password
     DATABASE_PORT:
+      secret: true
+      name: asl-dev-workflow-rds
+      key: port
+    ASL_DATABASE_HOST:
+      secret: true
+      name: asl-dev-rds
+      key: endpoint
+    ASL_DATABASE_NAME:
+      secret: true
+      name: asl-dev-rds
+      key: db_name
+    ASL_DATABASE_USERNAME:
+      secret: true
+      name: asl-dev-rds
+      key: username
+    ASL_DATABASE_PASSWORD:
+      secret: true
+      name: asl-dev-rds
+      key: password
+    ASL_DATABASE_PORT:
       secret: true
       name: asl-dev-rds
       key: port

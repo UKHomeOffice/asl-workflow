@@ -6,19 +6,19 @@ module.exports = {
     secret: process.env.SQS_SECRET,
     url: process.env.SQS_URL
   },
-  db: {
-    database: process.env.DATABASE_NAME || 'asl',
+  taskflowDB: {
+    database: process.env.DATABASE_NAME || 'taskflow',
     host: process.env.DATABASE_HOST,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
     user: process.env.DATABASE_USERNAME || 'postgres'
   },
-  taskflowDB: {
-    database: process.env.TASKFLOW_DATABASE_NAME || 'taskflow',
-    host: process.env.TASKFLOW_DATABASE_HOST,
-    password: process.env.TASKFLOW_DATABASE_PASSWORD,
-    port: process.env.TASKFLOW_DATABASE_PORT,
-    user: process.env.TASKFLOW_DATABASE_USERNAME || 'postgres'
+  db: {
+    database: process.env.ASL_DATABASE_NAME || 'asl',
+    host: process.env.ASL_DATABASE_HOST,
+    password: process.env.ASL_DATABASE_PASSWORD,
+    port: process.env.ASL_DATABASE_PORT,
+    user: process.env.ASL_DATABASE_USERNAME || 'postgres'
   },
   auth: {
     realm: process.env.KEYCLOAK_REALM,
