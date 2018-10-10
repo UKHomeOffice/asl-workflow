@@ -15,6 +15,10 @@ module.exports = {
   },
   taskflowDB: {
     database: process.env.TASKFLOW_DATABASE_NAME || 'taskflow'
+    host: process.env.TASKFLOW_DATABASE_HOST,
+    password: process.env.TASKFLOW_DATABASE_PASSWORD,
+    port: process.env.TASKFLOW_DATABASE_PORT,
+    user: process.env.TASKFLOW_DATABASE_USERNAME || 'postgres'
   },
   auth: {
     realm: process.env.KEYCLOAK_REALM,
