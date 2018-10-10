@@ -14,7 +14,7 @@ module.exports = {
     user: process.env.DATABASE_USERNAME || 'postgres'
   },
   taskflowDB: {
-    database: process.env.TASKFLOW_DATABASE_NAME || 'taskflow'
+    database: process.env.TASKFLOW_DATABASE_NAME || 'taskflow',
     host: process.env.TASKFLOW_DATABASE_HOST,
     password: process.env.TASKFLOW_DATABASE_PASSWORD,
     port: process.env.TASKFLOW_DATABASE_PORT,
