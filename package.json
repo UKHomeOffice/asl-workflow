@@ -4,7 +4,9 @@
   "description": "Workflow API for processing change requests",
   "main": "index.js",
   "scripts": {
-    "test": "eslint .",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "eslint .",
+    "test:unit": "NODE_ENV=test mocha ./test --recursive --exit",
     "dev": "nodemon -r dotenv/config index.js"
   },
   "repository": {
@@ -29,6 +31,7 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.0.1",
     "eslint-config-lennym": "^2.0.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.17.5"
   }
 }
