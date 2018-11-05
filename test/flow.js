@@ -21,4 +21,10 @@ describe('Flows', () => {
     ], 'only the next steps are returned');
   });
 
+  it('does not fall over if there is no flow defined for a model', () => {
+    assert.deepEqual(getAllSteps('not-a-model'), []);
+    assert.deepEqual(getNextSteps('pil', 'not-a-step'), []);
+    assert.deepEqual(getNextSteps('not-a-model', 'not-a-step'), []);
+  });
+
 });
