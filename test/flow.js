@@ -13,9 +13,9 @@ describe('Flows', () => {
   it('inherits the default flow', () => {
     expect(getAllSteps('establishment')).to.include.members([
       'autoresolved',
-      'applicant',
-      'licensing',
-      'inspector',
+      'returned-to-applicant',
+      'with-licensing',
+      'referred-to-inspector',
       'resolved'
     ]);
   });
@@ -23,27 +23,27 @@ describe('Flows', () => {
   it('can provide all the available steps for a PIL flow', () => {
     expect(getAllSteps('pil')).to.have.members([
       'autoresolved',
-      'applicant',
-      'ntco',
-      'licensing',
-      'inspector',
+      'returned-to-applicant',
+      'submitted-to-ntco',
+      'with-licensing',
+      'referred-to-inspector',
       'resolved'
     ]);
   });
 
   it('can provide the next steps for a case', () => {
-    expect(getNextSteps('pil', 'ntco')).to.have.members([
-      'applicant',
-      'licensing'
+    expect(getNextSteps('pil', 'submitted-to-ntco')).to.have.members([
+      'returned-to-applicant',
+      'with-licensing'
     ]);
   });
 
   it('returns the default flow if there is no flow defined for a model', () => {
     expect(getAllSteps('not-a-model')).to.have.members([
       'autoresolved',
-      'applicant',
-      'licensing',
-      'inspector',
+      'returned-to-applicant',
+      'with-licensing',
+      'referred-to-inspector',
       'resolved'
     ]);
   });
