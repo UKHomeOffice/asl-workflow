@@ -9,6 +9,7 @@ module.exports = {
       port: process.env.DATABASE_PORT,
       user: process.env.DATABASE_USERNAME || 'postgres'
     },
+    pool: { min: 1, max: 1 },
     seeds: {
       directory: './seeds/taskflow'
     }
