@@ -18,7 +18,8 @@ module.exports = {
     host: process.env.ASL_DATABASE_HOST,
     password: process.env.ASL_DATABASE_PASSWORD,
     port: process.env.ASL_DATABASE_PORT,
-    user: process.env.ASL_DATABASE_USERNAME || 'postgres'
+    user: process.env.ASL_DATABASE_USERNAME || 'postgres',
+    application_name: 'workflow'
   },
   auth: {
     realm: process.env.KEYCLOAK_REALM,
