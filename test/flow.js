@@ -1,4 +1,3 @@
-const assert = require('assert');
 const { expect } = require('chai');
 const { getAllSteps, getNextSteps } = require('../lib/flow');
 
@@ -39,10 +38,20 @@ describe('Flows', () => {
     ]);
   });
 
-  it('does not fall over if there is no flow defined for a model', () => {
-    assert.deepEqual(getAllSteps('not-a-model'), []);
-    assert.deepEqual(getNextSteps('pil', 'not-a-step'), []);
-    assert.deepEqual(getNextSteps('not-a-model', 'not-a-step'), []);
+  it('returns the default flow if there is no flow defined for a model', () => {
+    expect(getAllSteps('not-a-model')).to.have.members([
+      'autoresolved',
+      'applicant',
+      'licensing',
+      'inspector',
+      'resolved'
+    ]);
   });
 
+  it('returns an empty array of next steps if the step is not known', () => {
+    /* eslint-disable no-unused-expressions */
+    expect(getNextSteps('pil', 'not-a-step')).to.be.an('array').that.is.empty;
+    expect(getNextSteps('not-a-model', 'not-a-step')).to.be.an('array').that.is.empty;
+    /* eslint-enable no-unused-expressions */
+  });
 });
