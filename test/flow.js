@@ -1,24 +1,42 @@
 const assert = require('assert');
+const { expect } = require('chai');
 const { getAllSteps, getNextSteps } = require('../lib/flow');
 
 describe('Flows', () => {
 
+  it('supports models that only ever autoresolve', () => {
+    expect(getAllSteps('certificate')).to.have.members(['autoresolved']);
+    expect(getAllSteps('exemption')).to.have.members(['autoresolved']);
+    expect(getAllSteps('invitation')).to.have.members(['autoresolved']);
+    expect(getAllSteps('profile')).to.have.members(['autoresolved']);
+  });
+
+  it('inherits the default flow', () => {
+    expect(getAllSteps('establishment')).to.include.members([
+      'autoresolved',
+      'applicant',
+      'licensing',
+      'inspector',
+      'resolved'
+    ]);
+  });
+
   it('can provide all the available steps for a PIL flow', () => {
-    assert.deepEqual(getAllSteps('pil'), [
+    expect(getAllSteps('pil')).to.have.members([
       'autoresolved',
       'applicant',
       'ntco',
       'licensing',
       'inspector',
       'resolved'
-    ], 'all steps are returned');
+    ]);
   });
 
   it('can provide the next steps for a case', () => {
-    assert.deepEqual(getNextSteps('pil', 'ntco'), [
+    expect(getNextSteps('pil', 'ntco')).to.have.members([
       'applicant',
       'licensing'
-    ], 'only the next steps are returned');
+    ]);
   });
 
   it('does not fall over if there is no flow defined for a model', () => {
