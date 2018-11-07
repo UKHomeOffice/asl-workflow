@@ -1,30 +1,36 @@
-const assert = require('assert');
+const { expect } = require('chai');
 const { getAllSteps, getNextSteps } = require('../lib/flow');
+const {
+  returnedToApplicant,
+  withNtco,
+  ntcoEndorsed,
+  withLicensing,
+  referredToInspector,
+  inspectorRecommended,
+  inspectorRejected
+} = require('../lib/flow/status');
 
 describe('Flows', () => {
 
-  it('can provide all the available steps for a PIL flow', () => {
-    assert.deepEqual(getAllSteps('pil'), [
-      'autoresolved',
-      'applicant',
-      'ntco',
-      'licensing',
-      'inspector',
-      'resolved'
-    ], 'all steps are returned');
+  it('can provide all the available steps', () => {
+    expect(getAllSteps()).to.have.members([
+      returnedToApplicant,
+      withNtco,
+      ntcoEndorsed,
+      withLicensing,
+      referredToInspector,
+      inspectorRecommended,
+      inspectorRejected
+    ]);
   });
 
   it('can provide the next steps for a case', () => {
-    assert.deepEqual(getNextSteps('pil', 'ntco'), [
-      'applicant',
-      'licensing'
-    ], 'only the next steps are returned');
+    expect(getNextSteps(withNtco)).to.have.members([ntcoEndorsed, returnedToApplicant]);
   });
 
-  it('does not fall over if there is no flow defined for a model', () => {
-    assert.deepEqual(getAllSteps('not-a-model'), []);
-    assert.deepEqual(getNextSteps('pil', 'not-a-step'), []);
-    assert.deepEqual(getNextSteps('not-a-model', 'not-a-step'), []);
+  it('returns an empty array of next steps if the step is not known', () => {
+    /* eslint-disable no-unused-expressions */
+    expect(getNextSteps('not-a-step')).to.be.an('array').that.is.empty;
+    /* eslint-enable no-unused-expressions */
   });
-
 });
