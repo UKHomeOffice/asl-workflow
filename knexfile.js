@@ -11,7 +11,7 @@ module.exports = {
     },
     pool: { min: 1, max: 1 },
     seeds: {
-      directory: './seeds/taskflow'
+      directory: './seeds'
     }
   }
 

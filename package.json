@@ -24,9 +24,10 @@
   "dependencies": {
     "@asl/schema": "^7.0.0",
     "@asl/service": "^6.1.5",
-    "@ukhomeoffice/taskflow": "^0.4.0",
+    "@ukhomeoffice/taskflow": "^0.4.2",
     "aws-sdk": "^2.270.1",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
