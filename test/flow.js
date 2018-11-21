@@ -1,10 +1,9 @@
 const { expect } = require('chai');
-const { getAllSteps, getNextSteps } = require('../lib/flow');
+const { getNextSteps } = require('../lib/flow');
 const {
   returnedToApplicant,
   withNtco,
   ntcoEndorsed,
-  withLicensing,
   referredToInspector,
   inspectorRecommended,
   inspectorRejected
@@ -12,20 +11,9 @@ const {
 
 describe('Flows', () => {
 
-  it('can provide all the available steps', () => {
-    expect(getAllSteps()).to.have.members([
-      returnedToApplicant,
-      withNtco,
-      ntcoEndorsed,
-      withLicensing,
-      referredToInspector,
-      inspectorRecommended,
-      inspectorRejected
-    ]);
-  });
-
   it('can provide the next steps for a case', () => {
-    expect(getNextSteps(withNtco)).to.have.members([ntcoEndorsed, returnedToApplicant]);
+    expect(getNextSteps(withNtco.id)).to.have.members([ntcoEndorsed, returnedToApplicant]);
+    expect(getNextSteps(referredToInspector.id)).to.have.members([inspectorRecommended, inspectorRejected]);
   });
 
   it('returns an empty array of next steps if the step is not known', () => {
