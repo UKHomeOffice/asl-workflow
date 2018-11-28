@@ -26,6 +26,7 @@
     "@asl/service": "^6.1.5",
     "@ukhomeoffice/taskflow": "^0.8.0",
     "aws-sdk": "^2.270.1",
+    "express": "^4.16.4",
     "lodash": "^4.17.11",
     "uuid": "^3.3.2"
   },
