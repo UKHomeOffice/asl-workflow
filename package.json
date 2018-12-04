@@ -36,6 +36,7 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.0.1",
     "eslint-config-lennym": "^2.0.1",
+    "knex": "^0.15.2",
     "mocha": "^5.2.0",
     "nodemon": "^1.17.5",
     "supertest": "^3.3.0"
