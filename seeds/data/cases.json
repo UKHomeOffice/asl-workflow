@@ -60,5 +60,19 @@
       "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
       "establishmentId": 8201
     }
+  },
+  {
+    "status": "returned-to-applicant",
+    "data": {
+      "id": "bc2ff1bc-408d-43d4-b983-09ce3e8ddf56",
+      "data": {
+        "profileId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+        "establishmentId": 8201
+      },
+      "model": "pil",
+      "subject": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+      "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
+      "establishmentId": 8201
+    }
   }
 ]
