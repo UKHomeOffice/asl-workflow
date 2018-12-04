@@ -4,6 +4,13 @@ pipeline:
     image: node:10
     secrets:
       - npm_auth_token
+    environment:
+      - ASL_DATABASE_HOST=database_asl
+      - ASL_DATABASE_USERNAME=postgres
+      - ASL_DATABASE_NAME=asl-test
+      - DATABASE_HOST=database_taskflow
+      - DATABASE_USERNAME=postgres
+      - DATABASE_NAME=taskflow-test
     commands:
       - npm ci
       - npm test
@@ -67,7 +74,18 @@ pipeline:
       branch: master
       event: push
 
+services:
+  database_asl:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=asl-test
+  database_taskflow:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=taskflow-test
+
 matrix:
   NPM_AUTH_USERNAME:
     - asl
-
