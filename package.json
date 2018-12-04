@@ -6,10 +6,11 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:unit": "NODE_ENV=test npm run migrate && mocha ./test --recursive --exit",
+    "test:unit": "NODE_ENV=test npm run migrate:test && mocha ./test --recursive --exit",
     "dev": "nodemon -r dotenv/config index.js",
     "seed": "SNAKE_MAPPER=true knex seed:run",
-    "migrate": "node ./scripts/migrate.js"
+    "migrate": "node ./scripts/migrate.js",
+    "migrate:test": "node ./scripts/migrate-test.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-workflow#readme",
   "dependencies": {
-    "@asl/schema": "^7.0.0",
+    "@asl/schema": "^7.4.3",
     "@asl/service": "^6.1.5",
     "@ukhomeoffice/taskflow": "^0.9.0",
     "aws-sdk": "^2.270.1",
