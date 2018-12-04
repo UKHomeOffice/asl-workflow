@@ -19,4 +19,4 @@ COPY . /app
 
 RUN rm /app/.npmrc
 
-CMD node index.js
+CMD npm run migrate && node index.js

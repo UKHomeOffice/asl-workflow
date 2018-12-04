@@ -19,16 +19,14 @@ const settings = {
   }
 };
 
-console.log(settings);
-
 module.exports = {
   create: (options = {}) => {
     return Promise.resolve()
       .then(() => {
         const workflow = Workflow(Object.assign({
           ...settings,
-          auth: false
-          // log: { level: 'error' }
+          auth: false,
+          log: { level: 'error' }
         }, options));
 
         return WithUser(workflow, {});

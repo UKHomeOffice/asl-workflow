@@ -4,7 +4,7 @@ module.exports = {
     client: 'postgres',
     connection: {
       database: process.env.DATABASE_NAME || 'taskflow',
-      host: process.env.DATABASE_HOST,
+      host: process.env.DATABASE_HOST || 'localhost',
       password: process.env.DATABASE_PASSWORD,
       port: process.env.DATABASE_PORT,
       user: process.env.DATABASE_USERNAME || 'postgres'
@@ -12,6 +12,17 @@ module.exports = {
     pool: { min: 1, max: 1 },
     seeds: {
       directory: './seeds'
+    }
+  },
+
+  test: {
+    client: 'postgres',
+    connection: {
+      database: process.env.DATABASE_NAME || 'taskflow-test',
+      host: process.env.DATABASE_HOST || 'localhost',
+      password: process.env.DATABASE_PASSWORD,
+      port: process.env.DATABASE_PORT,
+      user: process.env.DATABASE_USERNAME || 'postgres'
     }
   }
 
