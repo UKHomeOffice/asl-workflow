@@ -30,7 +30,7 @@ module.exports = {
     test: {
       client: 'postgres',
       connection: {
-        database: process.env.ASL_DATABASE_NAME || 'workflow-asl-test',
+        database: process.env.ASL_DATABASE_NAME || 'asl-test',
         host: process.env.ASL_DATABASE_HOST || 'localhost',
         user: process.env.ASL_DATABASE_USERNAME || 'postgres'
       }

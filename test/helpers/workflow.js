@@ -9,7 +9,7 @@ const settings = {
   ...config,
   db: {
     host: process.env.ASL_DATABASE_HOST || 'localhost',
-    database: process.env.ASL_DATABASE_NAME || 'workflow-asl-test',
+    database: process.env.ASL_DATABASE_NAME || 'asl-test',
     user: process.env.ASL_DATABASE_USERNAME || 'postgres'
   },
   taskflowDB: {
