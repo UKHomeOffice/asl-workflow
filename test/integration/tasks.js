@@ -92,8 +92,10 @@ describe('GET / (task list)', () => {
           .set('Content-type', 'application/json')
           .send({
             status: 'returned-to-applicant',
-            comment: 'testing status change by ntco',
-            changedBy: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0'
+            meta: {
+              comment: 'testing status change by ntco',
+              changedBy: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0'
+            }
           })
           .expect(200);
       })
