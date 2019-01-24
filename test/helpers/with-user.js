@@ -1,32 +1,25 @@
 const express = require('express');
+const { user } = require('../data/profiles');
 
-const defaultProfile = {
-  id: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
-  establishments: [
-    { id: 8201 }
-  ],
-  roles: []
-};
-
-const makeDummyUser = user => (req, res, next) => {
+const makeDummyUser = profile => (req, res, next) => {
   req.user = Object.assign({
     id: '9c95da14-ed4a-444a-9640-814b950f4a33',
     access_token: '12345',
-    profile: defaultProfile,
-    get: key => user[key],
+    profile: user,
+    get: key => profile[key],
     can: () => Promise.resolve({ json: {} }),
     allowedActions: () => Promise.resolve({})
-  }, user);
+  }, profile);
   next();
 };
 
-const WithUser = (app, user) => {
+const WithUser = (app, profile) => {
   const wrapper = express();
-  wrapper.use(makeDummyUser(user));
+  wrapper.use(makeDummyUser(profile));
 
   const staticRouter = express.Router();
   wrapper.use(staticRouter);
-  wrapper.setUser = user => staticRouter.use(makeDummyUser(user));
+  wrapper.setUser = profile => staticRouter.use(makeDummyUser(profile));
 
   wrapper.use(app);
   wrapper.app = app;
