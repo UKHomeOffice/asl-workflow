@@ -1,6 +1,6 @@
 const Workflow = require('../../lib/api');
 const WithUser = require('./with-user');
-const resetTaskflowDb = require('./taskflow-db');
+const taskflowDb = require('./taskflow-db');
 const aslDb = require('./asl-db');
 const config = require('../../config');
 const fixtures = require('../data');
@@ -18,6 +18,8 @@ const settings = {
     user: process.env.DATABASE_USERNAME || 'postgres'
   }
 };
+
+const db = taskflowDb(settings.taskflowDB);
 
 module.exports = {
   create: (options = {}) => {
@@ -39,7 +41,12 @@ module.exports = {
 
   resetDBs: () => {
     return Promise.resolve()
-      .then(() => resetTaskflowDb(settings.taskflowDB))
+      .then(() => db.reset())
       .then(() => aslDb(settings.db).init(fixtures.default));
+  },
+
+  seedTaskList: () => {
+    return Promise.resolve()
+      .then(() => db.seed());
   }
 };
