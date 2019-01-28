@@ -36,10 +36,30 @@ describe('NTCO', () => {
 
   describe('in progress tasks', () => {
 
-    it('has no tasks', () => {
-      const expected = [];
+    it('sees pil applications that are not waiting for endorsement', () => {
+      const expected = [
+        'pil returned',
+        'pil with licensing'
+      ];
       return request(this.workflow)
         .get('/?progress=inProgress')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+  });
+
+  describe('completed tasks', () => {
+
+    it('sees completed pil applications', () => {
+      const expected = [
+        'granted pil',
+        'rejected pil'
+      ];
+      return request(this.workflow)
+        .get('/?progress=completed')
         .expect(200)
         .expect(response => {
           assertTasks(expected, response.body.data);
