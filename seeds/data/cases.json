@@ -70,6 +70,7 @@
         "establishmentId": 8201
       },
       "model": "pil",
+      "action": "grant",
       "subject": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
       "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
       "establishmentId": 8201
