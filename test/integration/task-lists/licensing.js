@@ -6,17 +6,22 @@ const workflowHelper = require('../../helpers/workflow');
 const { licensing } = require('../../data/profiles');
 
 describe('Licensing Officer', () => {
-  beforeEach(() => {
+
+  before(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
         this.workflow.setUser({ profile: licensing });
-      })
+      });
+  });
+
+  beforeEach(() => {
+    return Promise.resolve()
       .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
   });
 
-  afterEach(() => {
+  after(() => {
     return workflowHelper.destroy();
   });
 

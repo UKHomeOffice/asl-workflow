@@ -6,17 +6,21 @@ const workflowHelper = require('../../helpers/workflow');
 const { user } = require('../../data/profiles');
 
 describe('Applicant', () => {
-  beforeEach(() => {
+  before(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
         this.workflow.setUser({ profile: user });
-      })
+      });
+  });
+
+  beforeEach(() => {
+    return Promise.resolve()
       .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
   });
 
-  afterEach(() => {
+  after(() => {
     return workflowHelper.destroy();
   });
 
