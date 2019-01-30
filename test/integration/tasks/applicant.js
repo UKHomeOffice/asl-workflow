@@ -1,21 +1,20 @@
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { holc } = require('../../data/profiles');
+const { user } = require('../../data/profiles');
 const {
   returnedToApplicant,
   resubmitted,
   resolved,
-  withNtco,
-  ntcoEndorsed,
+  withLicensing,
   withdrawnByApplicant
 } = require('../../../lib/flow/status');
 
-describe('Establishment Admin', () => {
+describe('Applicant', () => {
   beforeEach(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
-        this.workflow.setUser({ profile: holc });
+        this.workflow.setUser({ profile: user });
       })
       .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
@@ -37,9 +36,7 @@ describe('Establishment Admin', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a pil'
-                }
+                comment: 'withdrawing a pil'
               }
             })
             .expect(200);
@@ -56,9 +53,7 @@ describe('Establishment Admin', () => {
             .send({
               status: resubmitted.id,
               meta: {
-                meta: {
-                  comment: 'resubmitting a pil'
-                }
+                comment: 'resubmitting a pil'
               }
             })
             .expect(200);
@@ -67,43 +62,22 @@ describe('Establishment Admin', () => {
 
   });
 
-  describe('in-progress tasks', () => {
+  describe('in progress tasks', () => {
 
     it('can withdraw a submitted pil application', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(response => response.body.data.find(task => task.status === withLicensing.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a pil'
-                }
+                comment: 'withdrawing a pil'
               }
             })
             .expect(200);
-        });
-    });
-
-    it('cannot endorse a submitted pil application', () => {
-      return request(this.workflow)
-        .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === withNtco.id))
-        .then(task => {
-          return request(this.workflow)
-            .put(`/${task.id}/status`)
-            .send({
-              status: ntcoEndorsed.id,
-              meta: {
-                meta: {
-                  comment: 'endorsing a submitted pil'
-                }
-              }
-            })
-            .expect(400);
         });
     });
 
@@ -121,9 +95,7 @@ describe('Establishment Admin', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a granted pil'
-                }
+                comment: 'withdrawing a granted pil'
               }
             })
             .expect(400);

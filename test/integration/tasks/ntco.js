@@ -1,21 +1,20 @@
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { holc } = require('../../data/profiles');
+const { ntco } = require('../../data/profiles');
 const {
   returnedToApplicant,
-  resubmitted,
   resolved,
   withNtco,
   ntcoEndorsed,
   withdrawnByApplicant
 } = require('../../../lib/flow/status');
 
-describe('Establishment Admin', () => {
+describe('NTCO', () => {
   beforeEach(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
-        this.workflow.setUser({ profile: holc });
+        this.workflow.setUser({ profile: ntco });
       })
       .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
@@ -27,18 +26,18 @@ describe('Establishment Admin', () => {
 
   describe('outstanding tasks', () => {
 
-    it('can withdraw a returned pil application', () => {
+    it('can endorse a submitted pil application', () => {
       return request(this.workflow)
         .get('/')
-        .then(response => response.body.data.find(task => task.status === returnedToApplicant.id))
+        .then(response => response.body.data.find(task => task.status === withNtco.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: withdrawnByApplicant.id,
+              status: ntcoEndorsed.id,
               meta: {
                 meta: {
-                  comment: 'withdrawing a pil'
+                  comment: 'endorsing a pil'
                 }
               }
             })
@@ -46,18 +45,18 @@ describe('Establishment Admin', () => {
         });
     });
 
-    it('can resubmit a returned pil application', () => {
+    it('can return a submitted pil application to the applicant', () => {
       return request(this.workflow)
         .get('/')
-        .then(response => response.body.data.find(task => task.status === returnedToApplicant.id))
+        .then(response => response.body.data.find(task => task.status === withNtco.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: resubmitted.id,
+              status: returnedToApplicant.id,
               meta: {
                 meta: {
-                  comment: 'resubmitting a pil'
+                  comment: 'returning a pil'
                 }
               }
             })
@@ -67,12 +66,12 @@ describe('Establishment Admin', () => {
 
   });
 
-  describe('in-progress tasks', () => {
+  describe('in progress tasks', () => {
 
-    it('can withdraw a submitted pil application', () => {
+    it('can withdraw an endorsed pil application', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(response => response.body.data.find(task => task.status === ntcoEndorsed.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
@@ -88,18 +87,18 @@ describe('Establishment Admin', () => {
         });
     });
 
-    it('cannot endorse a submitted pil application', () => {
+    it('cannot grant an endorsed pil application', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(response => response.body.data.find(task => task.status === ntcoEndorsed.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: ntcoEndorsed.id,
+              status: resolved.id,
               meta: {
                 meta: {
-                  comment: 'endorsing a submitted pil'
+                  comment: 'granting a pil'
                 }
               }
             })
