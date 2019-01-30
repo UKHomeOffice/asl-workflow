@@ -9,26 +9,12 @@ module.exports = query => query.insert([
         name: 'pil with ntco'
       },
       establishmentId: 100,
-      subject: uuid(),
+      subject: user.id,
       model: 'pil',
       action: 'grant',
       changedBy: holc.id
     },
     status: 'with-ntco'
-  },
-  {
-    id: uuid(),
-    data: {
-      data: {
-        name: 'pil with licensing'
-      },
-      establishmentId: 100,
-      subject: uuid(),
-      model: 'pil',
-      action: 'grant',
-      changedBy: ntco.id
-    },
-    status: 'ntco-endorsed'
   },
   {
     id: uuid(),
@@ -68,9 +54,9 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'pil',
       action: 'grant',
-      changedBy: holc.id
+      changedBy: ntco.id
     },
-    status: 'with-licensing'
+    status: 'ntco-endorsed'
   },
   {
     id: uuid(),
