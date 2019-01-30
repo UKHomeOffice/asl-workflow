@@ -5,7 +5,7 @@ const {
   returnedToApplicant,
   resubmitted,
   resolved,
-  withLicensing,
+  withNtco,
   withdrawnByApplicant
 } = require('../../../lib/flow/status');
 
@@ -67,7 +67,7 @@ describe('Applicant', () => {
     it('can withdraw a submitted pil application', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === withLicensing.id))
+        .then(response => response.body.data.find(task => task.status === withNtco.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)

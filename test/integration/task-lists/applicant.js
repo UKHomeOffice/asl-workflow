@@ -37,7 +37,7 @@ describe('Applicant', () => {
   describe('in progress tasks', () => {
 
     it('sees tasks for which they are the subject', () => {
-      const expected = [ 'pil with licensing' ];
+      const expected = [ 'pil with licensing', 'pil with ntco' ];
       return request(this.workflow)
         .get('/?progress=inProgress')
         .expect(200)
