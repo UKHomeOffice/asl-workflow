@@ -42,9 +42,7 @@ describe('Establishment Admin', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a pil'
-                }
+                comment: 'withdrawing a pil'
               }
             })
             .expect(200);
@@ -61,9 +59,7 @@ describe('Establishment Admin', () => {
             .send({
               status: resubmitted.id,
               meta: {
-                meta: {
-                  comment: 'resubmitting a pil'
-                }
+                comment: 'resubmitting a pil'
               }
             })
             .expect(200);
@@ -84,9 +80,7 @@ describe('Establishment Admin', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a pil'
-                }
+                comment: 'withdrawing a pil'
               }
             })
             .expect(400);
@@ -103,9 +97,7 @@ describe('Establishment Admin', () => {
             .send({
               status: ntcoEndorsed.id,
               meta: {
-                meta: {
-                  comment: 'endorsing a submitted pil'
-                }
+                comment: 'endorsing a submitted pil'
               }
             })
             .expect(400);
@@ -126,9 +118,7 @@ describe('Establishment Admin', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a granted pil'
-                }
+                comment: 'withdrawing a granted pil'
               }
             })
             .expect(400);

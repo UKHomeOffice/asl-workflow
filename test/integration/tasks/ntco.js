@@ -43,9 +43,7 @@ describe('NTCO', () => {
             .send({
               status: ntcoEndorsed.id,
               meta: {
-                meta: {
-                  comment: 'endorsing a pil'
-                }
+                comment: 'endorsing a pil'
               }
             })
             .expect(200);
@@ -83,9 +81,7 @@ describe('NTCO', () => {
             .send({
               status: returnedToApplicant.id,
               meta: {
-                meta: {
-                  comment: 'returning a pil'
-                }
+                comment: 'returning a pil'
               }
             })
             .expect(200);
@@ -106,9 +102,7 @@ describe('NTCO', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a pil'
-                }
+                comment: 'withdrawing a pil'
               }
             })
             .expect(400);
@@ -125,9 +119,7 @@ describe('NTCO', () => {
             .send({
               status: resolved.id,
               meta: {
-                meta: {
-                  comment: 'granting a pil'
-                }
+                comment: 'granting a pil'
               }
             })
             .expect(400);
@@ -148,9 +140,7 @@ describe('NTCO', () => {
             .send({
               status: withdrawnByApplicant.id,
               meta: {
-                meta: {
-                  comment: 'withdrawing a granted pil'
-                }
+                comment: 'withdrawing a granted pil'
               }
             })
             .expect(400);
