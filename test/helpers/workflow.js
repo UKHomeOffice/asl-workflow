@@ -4,6 +4,7 @@ const taskflowDb = require('./taskflow-db');
 const aslDb = require('./asl-db');
 const config = require('../../config');
 const fixtures = require('../data');
+const Database = require('@ukhomeoffice/taskflow/lib/db');
 
 const settings = {
   ...config,
@@ -19,10 +20,14 @@ const settings = {
   }
 };
 
-const db = taskflowDb(settings.taskflowDB);
+let knex = {};
+let tfdb = {};
 
 module.exports = {
   create: (options = {}) => {
+    knex = Database.connect(settings.taskflowDB);
+    tfdb = taskflowDb(knex);
+
     return Promise.resolve()
       .then(() => {
         const workflow = Workflow(Object.assign({
@@ -36,17 +41,17 @@ module.exports = {
   },
 
   destroy: () => {
-    // todo
+    return knex.destroy();
   },
 
   resetDBs: () => {
     return Promise.resolve()
-      .then(() => db.reset())
+      .then(() => tfdb.reset())
       .then(() => aslDb(settings.db).init(fixtures.default));
   },
 
   seedTaskList: () => {
     return Promise.resolve()
-      .then(() => db.seed());
+      .then(() => tfdb.seed());
   }
 };

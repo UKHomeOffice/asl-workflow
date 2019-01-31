@@ -6,17 +6,22 @@ const workflowHelper = require('../../helpers/workflow');
 const { holc } = require('../../data/profiles');
 
 describe('Establishment Admin', () => {
-  beforeEach(() => {
+
+  before(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
         this.workflow.setUser({ profile: holc });
-      })
+      });
+  });
+
+  beforeEach(() => {
+    return Promise.resolve()
       .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
   });
 
-  afterEach(() => {
+  after(() => {
     return workflowHelper.destroy();
   });
 

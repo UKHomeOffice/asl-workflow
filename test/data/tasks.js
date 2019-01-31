@@ -9,10 +9,10 @@ module.exports = query => query.insert([
         name: 'pil with ntco'
       },
       establishmentId: 100,
-      subject: uuid(),
+      subject: user.id,
       model: 'pil',
       action: 'grant',
-      changedBy: holc.id
+      changedBy: user.id
     },
     status: 'with-ntco'
   },
