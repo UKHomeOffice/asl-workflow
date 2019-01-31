@@ -1,3 +1,4 @@
+const assert = require('assert');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
 const { ntco } = require('../../data/profiles');
@@ -48,6 +49,27 @@ describe('NTCO', () => {
               }
             })
             .expect(200);
+        });
+    });
+
+    it('endorsing a pil application moves it to "with licensing"', () => {
+      return request(this.workflow)
+        .get('/')
+        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(task => {
+          return request(this.workflow)
+            .put(`/${task.id}/status`)
+            .send({
+              status: ntcoEndorsed.id,
+              meta: {
+                meta: {
+                  comment: 'endorsing a pil'
+                }
+              }
+            })
+            .expect(response => {
+              assert.equal(response.body.data.status, withLicensing.id);
+            });
         });
     });
 
