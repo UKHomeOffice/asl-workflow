@@ -9,6 +9,8 @@ const {
   withdrawnByApplicant
 } = require('../../../lib/flow/status');
 
+const ids = require('../../data/ids');
+
 describe('Applicant', () => {
   before(() => {
     return workflowHelper.create()
@@ -26,6 +28,46 @@ describe('Applicant', () => {
 
   after(() => {
     return workflowHelper.destroy();
+  });
+
+  describe('creating tasks', () => {
+
+    it('will not allow opening a task if there is an existing open task for the same id', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'place',
+          action: 'update',
+          id: ids.place.applied
+        })
+        .expect(400);
+    });
+
+    it('will allow opening a task if only closed tasks for the same id exist', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'place',
+          action: 'update',
+          id: ids.place.resolved
+        })
+        .expect(200);
+    });
+
+    it('will allow opening a task if only autoresolved tasks for the same id exist', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          data: {
+            firstName: 'Colin'
+          },
+          model: 'profile',
+          action: 'update',
+          id: user.id
+        })
+        .expect(200);
+    });
+
   });
 
   describe('outstanding tasks', () => {

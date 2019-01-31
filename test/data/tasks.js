@@ -1,5 +1,6 @@
 const uuid = require('uuid/v4');
 const { user, holc } = require('./profiles');
+const ids = require('./ids');
 
 module.exports = query => query.insert([
   {
@@ -12,6 +13,7 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'pil',
       action: 'grant',
+      id: ids.pil.applied,
       changedBy: user.id
     },
     status: 'with-ntco'
@@ -106,6 +108,7 @@ module.exports = query => query.insert([
       establishmentId: 100,
       model: 'place',
       action: 'update',
+      id: ids.place.applied,
       changedBy: holc.id
     },
     status: 'inspector-recommended'
@@ -146,6 +149,7 @@ module.exports = query => query.insert([
       establishmentId: 100,
       model: 'place',
       action: 'update',
+      id: ids.place.resolved,
       changedBy: holc.id
     },
     status: 'resolved'
@@ -173,6 +177,7 @@ module.exports = query => query.insert([
       subject: uuid(),
       model: 'pil',
       action: 'grant',
+      id: ids.pil.rejected,
       changedBy: holc.id
     },
     status: 'rejected'
@@ -186,6 +191,7 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'profile',
       action: 'update',
+      id: user.id,
       changedBy: user.id
     },
     status: 'autoresolved'

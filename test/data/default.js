@@ -1,3 +1,5 @@
+const ids = require('./ids');
+
 module.exports = models => {
 
   const { Establishment, Profile, PIL } = models;
@@ -82,14 +84,14 @@ module.exports = models => {
             email: 'test@example.com',
             places: [
               {
-                id: '1d6c5bb4-be60-40fd-97a8-b29ffaa2135f',
+                id: ids.place.applied,
                 site: 'Lunar House',
                 name: 'Room 101',
                 suitability: ['SA', 'LA'],
                 holding: ['LTH']
               },
               {
-                id: '2f404b2f-656f-4cc3-b432-5aadad052fc8',
+                id: ids.place.resolved,
                 site: 'Lunar House',
                 name: 'Room 102',
                 suitability: ['SA'],
