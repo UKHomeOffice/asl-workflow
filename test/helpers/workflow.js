@@ -32,6 +32,7 @@ module.exports = {
       .then(() => {
         const workflow = Workflow(Object.assign({
           ...settings,
+          noDownstream: true,
           auth: false,
           log: { level: 'error' }
         }, options));
