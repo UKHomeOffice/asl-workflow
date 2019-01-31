@@ -74,7 +74,7 @@ describe('Establishment Admin', () => {
 
   describe('in-progress tasks', () => {
 
-    it('can withdraw a submitted pil application', () => {
+    it('cannot withdraw a pil application they didn\'t create', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
         .then(response => response.body.data.find(task => task.status === withNtco.id))
@@ -89,7 +89,7 @@ describe('Establishment Admin', () => {
                 }
               }
             })
-            .expect(200);
+            .expect(400);
         });
     });
 

@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, holc, ntco } = require('./profiles');
+const { user, holc } = require('./profiles');
 
 module.exports = query => query.insert([
   {
@@ -12,7 +12,7 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'pil',
       action: 'grant',
-      changedBy: holc.id
+      changedBy: user.id
     },
     status: 'with-ntco'
   },
@@ -54,9 +54,9 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'pil',
       action: 'grant',
-      changedBy: ntco.id
+      changedBy: holc.id
     },
-    status: 'ntco-endorsed'
+    status: 'with-licensing'
   },
   {
     id: uuid(),

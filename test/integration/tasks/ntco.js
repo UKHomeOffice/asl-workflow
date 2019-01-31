@@ -5,6 +5,7 @@ const {
   returnedToApplicant,
   resolved,
   withNtco,
+  withLicensing,
   ntcoEndorsed,
   withdrawnByApplicant
 } = require('../../../lib/flow/status');
@@ -73,10 +74,10 @@ describe('NTCO', () => {
 
   describe('in progress tasks', () => {
 
-    it('can withdraw an endorsed pil application', () => {
+    it('cannot withdraw a pil application they didn\'t create', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === ntcoEndorsed.id))
+        .then(response => response.body.data.find(task => task.status === withLicensing.id && task.data.model === 'pil'))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
@@ -88,14 +89,14 @@ describe('NTCO', () => {
                 }
               }
             })
-            .expect(200);
+            .expect(400);
         });
     });
 
     it('cannot grant an endorsed pil application', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
-        .then(response => response.body.data.find(task => task.status === ntcoEndorsed.id))
+        .then(response => response.body.data.find(task => task.status === withLicensing.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
