@@ -1,6 +1,11 @@
 module.exports = {
-  user: {
+  user: { // Linford Christie
     id: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+    establishments: [ { id: 100 } ],
+    roles: []
+  },
+  userWithActivePil: { // Noddy Holder
+    id: 'b2b8315b-82c0-4b2d-bc13-eb13e605ee88',
     establishments: [ { id: 100 } ],
     roles: []
   },

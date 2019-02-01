@@ -13,6 +13,7 @@ module.exports = models => {
           title: 'Dr',
           firstName: 'Linford',
           lastName: 'Christie',
+          dob: '1960-04-02',
           address: '1 Some Road',
           postcode: 'A1 1AA',
           email: 'test1@example.com',
@@ -29,6 +30,7 @@ module.exports = models => {
           title: 'Dr',
           firstName: 'Noddy',
           lastName: 'Holder',
+          dob: '1946-06-15',
           address: '1 Some Road',
           postcode: 'A1 1AA',
           email: 'test2@example.com',
@@ -207,7 +209,8 @@ module.exports = models => {
               establishmentId: 100,
               licenceNumber: 'D-456',
               procedures: ['D'],
-              notesCatD: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+              notesCatD: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              status: 'active'
             },
             {
               id: 'ba3f4fdf-27e4-461e-a251-3188faa35df5',
