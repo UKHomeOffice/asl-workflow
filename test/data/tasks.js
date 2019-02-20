@@ -97,7 +97,7 @@ module.exports = query => query.insert([
       action: 'update',
       changedBy: holc.id
     },
-    status: 'referred-to-inspector'
+    status: 'with-inspectorate'
   },
   {
     id: uuid(),

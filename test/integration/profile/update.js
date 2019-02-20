@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
 const { user, userWithActivePil } = require('../../data/profiles');
-const { autoResolved, withLicensing } = require('../../../lib/flow/status');
+const { autoResolved, withInspectorate } = require('../../../lib/flow/status');
 
 describe('Profile update', () => {
   before(() => {
@@ -95,7 +95,7 @@ describe('Profile update', () => {
         });
     });
 
-    it('sends changes to name or DOB to licensing', () => {
+    it('sends changes to name or DOB to inspectorate', () => {
       return request(this.workflow)
         .post('/')
         .send({
@@ -112,7 +112,7 @@ describe('Profile update', () => {
         .expect(200)
         .then(response => response.body.data)
         .then(task => {
-          assert.equal(task.status, withLicensing.id);
+          assert.equal(task.status, withInspectorate.id);
         });
     });
   });
