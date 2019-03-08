@@ -30,6 +30,7 @@
     "aws-sdk": "^2.270.1",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
+    "r2": "^2.0.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

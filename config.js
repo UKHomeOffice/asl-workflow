@@ -27,5 +27,8 @@ module.exports = {
     client: process.env.KEYCLOAK_CLIENT,
     secret: process.env.KEYCLOAK_SECRET,
     permissions: process.env.PERMISSIONS_SERVICE
+  },
+  notifications: {
+    url: process.env.NOTIFICATIONS_URL
   }
 };
