@@ -20,11 +20,10 @@ pipeline:
         - pull_request
 
   audit:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
-      - npm install -g npm@6
       - npx @lennym/ciaudit
     when:
       event:
