@@ -26,7 +26,7 @@
   "dependencies": {
     "@asl/schema": "^7.9.2",
     "@asl/service": "^7.1.3",
-    "@ukhomeoffice/taskflow": "^0.14.0",
+    "@ukhomeoffice/taskflow": "^v0.14.1",
     "aws-sdk": "^2.270.1",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
