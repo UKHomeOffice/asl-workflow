@@ -25,6 +25,22 @@ describe('Licensing Officer', () => {
     return workflowHelper.destroy();
   });
 
+  describe('my tasks', () => {
+
+    it('sees tasks with correct statuses and establishments', () => {
+      const expected = [
+        'place update with licensing - other establishment'
+      ];
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+  });
+
   describe('outstanding tasks', () => {
 
     it('sees tasks with correct statuses', () => {

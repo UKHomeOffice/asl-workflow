@@ -25,6 +25,20 @@ describe('Inspector', () => {
     return workflowHelper.destroy();
   });
 
+  describe('my tasks', () => {
+
+    it('sees no tasks', () => {
+      const expected = [];
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+  });
+
   describe('outstanding tasks', () => {
 
     it('sees tasks with a status of referred to inspector', () => {
