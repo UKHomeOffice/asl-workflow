@@ -1,4 +1,5 @@
 const request = require('supertest');
+const assert = require('assert');
 
 const assertTasks = require('../../helpers/assert-tasks');
 const workflowHelper = require('../../helpers/workflow');
@@ -27,13 +28,13 @@ describe('Inspector', () => {
 
   describe('my tasks', () => {
 
-    it('sees no tasks', () => {
-      const expected = [];
+    it('sees the one task they submitted', () => {
       return request(this.workflow)
         .get('/?progress=myTasks')
         .expect(200)
         .expect(response => {
-          assertTasks(expected, response.body.data);
+          assert(response.body.data.length === 1);
+          assert(response.body.data[0].data.action === 'update-conditions');
         });
     });
 
@@ -43,7 +44,8 @@ describe('Inspector', () => {
 
     it('sees tasks with a status of referred to inspector', () => {
       const expected = [
-        'place update with inspector'
+        'place update with inspector',
+        'conditions update'
       ];
       return request(this.workflow)
         .get('/')

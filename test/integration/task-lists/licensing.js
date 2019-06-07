@@ -66,7 +66,8 @@ describe('Licensing Officer', () => {
     it('sees tasks that are with inspectors or returned to establishments', () => {
       const expected = [
         'pil returned',
-        'place update with inspector'
+        'place update with inspector',
+        'conditions update'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
