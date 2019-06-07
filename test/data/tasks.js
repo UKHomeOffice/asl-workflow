@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, holc } = require('./profiles');
+const { user, holc, inspector } = require('./profiles');
 const ids = require('./ids');
 
 module.exports = query => query.insert([
@@ -195,5 +195,18 @@ module.exports = query => query.insert([
       changedBy: user.id
     },
     status: 'autoresolved'
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        conditions: 'conditions update'
+      },
+      model: 'establishment',
+      action: 'update-conditions',
+      id: 100,
+      changedBy: inspector.id
+    },
+    status: 'returned-to-applicant'
   }
 ]);
