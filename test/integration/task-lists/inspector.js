@@ -45,7 +45,7 @@ describe('Inspector', () => {
     it('sees tasks with a status of referred to inspector', () => {
       const expected = [
         'place update with inspector',
-        { conditions: 'conditions update' }
+        'conditions update'
       ];
       return request(this.workflow)
         .get('/')

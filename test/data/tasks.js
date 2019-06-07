@@ -200,7 +200,7 @@ module.exports = query => query.insert([
     id: uuid(),
     data: {
       data: {
-        conditions: 'conditions update'
+        name: 'conditions update'
       },
       model: 'establishment',
       action: 'update-conditions',

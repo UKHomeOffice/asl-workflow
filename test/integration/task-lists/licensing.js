@@ -67,7 +67,7 @@ describe('Licensing Officer', () => {
       const expected = [
         'pil returned',
         'place update with inspector',
-        { conditions: 'conditions update' }
+        'conditions update'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
