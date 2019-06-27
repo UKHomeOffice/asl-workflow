@@ -4,7 +4,9 @@ module.exports = {
     region: process.env.SQS_REGION || 'eu-west-2',
     accessKey: process.env.SQS_ACCESS_KEY,
     secret: process.env.SQS_SECRET,
-    url: process.env.SQS_URL
+    url: process.env.SQS_URL,
+    pollInterval: 300,
+    pollTimeout: 30000
   },
   s3: {
     region: process.env.S3_REGION || 'eu-west-2',
