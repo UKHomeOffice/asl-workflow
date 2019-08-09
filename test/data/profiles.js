@@ -9,6 +9,11 @@ module.exports = {
     establishments: [ { id: 100 } ],
     roles: []
   },
+  userWithActivePilAndNoDOB: {
+    id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9',
+    establishments: [ { id: 100 } ],
+    roles: []
+  },
   holc: {
     id: '143e500a-d42d-4010-840e-35418660cdc2',
     establishments: [ { id: 100, role: 'admin' } ],

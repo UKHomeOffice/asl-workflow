@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { user, userWithActivePil } = require('../../data/profiles');
+const { user, userWithActivePil, userWithActivePilAndNoDOB } = require('../../data/profiles');
 const { autoResolved, withInspectorate } = require('../../../lib/flow/status');
 
 describe('Profile update', () => {
@@ -69,6 +69,46 @@ describe('Profile update', () => {
 
   });
 
+  describe('User with an active PIL and no DOB', () => {
+    beforeEach(() => {
+      this.workflow.setUser({ profile: userWithActivePilAndNoDOB });
+    });
+
+    it('auto-resolves the addition of a DOB', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'profile',
+          action: 'update',
+          data: {
+            dob: '1999-09-09'
+          }
+        })
+        .expect(200)
+        .then(respose => respose.body.data)
+        .then(task => {
+          assert.equal(task.status, autoResolved.id);
+        });
+    });
+
+    it('auto-resolves amending phone number', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'profile',
+          action: 'update',
+          data: {
+            phone: '01818118181'
+          }
+        })
+        .expect(200)
+        .then(respose => respose.body.data)
+        .then(task => {
+          assert.equal(task.status, autoResolved.id);
+        });
+    });
+  });
+
   describe('User with an active PIL', () => {
     beforeEach(() => {
       this.workflow.setUser({ profile: userWithActivePil });
@@ -106,6 +146,27 @@ describe('Profile update', () => {
             firstName: 'Barry', // firstName changed
             lastName: 'Holder',
             dob: '1946-06-15',
+            telephone: '01234567890'
+          }
+        })
+        .expect(200)
+        .then(response => response.body.data)
+        .then(task => {
+          assert.equal(task.status, withInspectorate.id);
+        });
+    });
+
+    it('sends changes to name or DOB to inspectorate', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'profile',
+          id: userWithActivePil.id,
+          action: 'update',
+          data: {
+            firstName: 'Noddy',
+            lastName: 'Holder',
+            dob: '1999-09-09',
             telephone: '01234567890'
           }
         })
