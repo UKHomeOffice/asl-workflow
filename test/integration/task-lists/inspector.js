@@ -85,7 +85,8 @@ describe('Inspector', () => {
         'granted pil',
         'granted place update',
         'granted place update - other establishment',
-        'rejected pil'
+        'rejected pil',
+        'discarded ppl'
       ];
       return request(this.workflow)
         .get('/?progress=completed')

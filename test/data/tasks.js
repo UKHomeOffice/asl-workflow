@@ -64,6 +64,34 @@ module.exports = query => query.insert([
     id: uuid(),
     data: {
       data: {
+        name: 'recalled ppl'
+      },
+      establishmentId: 100,
+      subject: user.id,
+      model: 'projects',
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'recalled-by-applicant'
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'discarded ppl'
+      },
+      establishmentId: 100,
+      subject: user.id,
+      model: 'projects',
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'discarded-by-applicant'
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
         name: 'place update with licensing'
       },
       establishmentId: 100,
