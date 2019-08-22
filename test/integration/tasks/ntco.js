@@ -8,7 +8,7 @@ const {
   withNtco,
   withLicensing,
   ntcoEndorsed,
-  withdrawnByApplicant
+  discardedByApplicant
 } = require('../../../lib/flow/status');
 
 describe('NTCO', () => {
@@ -92,7 +92,7 @@ describe('NTCO', () => {
 
   describe('in progress tasks', () => {
 
-    it('cannot withdraw a pil application they didn\'t create', () => {
+    it('cannot discard a pil application they didn\'t create', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
         .then(response => response.body.data.find(task => task.status === withLicensing.id && task.data.model === 'pil'))
@@ -100,9 +100,9 @@ describe('NTCO', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: withdrawnByApplicant.id,
+              status: discardedByApplicant.id,
               meta: {
-                comment: 'withdrawing a pil'
+                comment: 'discarding a pil'
               }
             })
             .expect(400);
@@ -130,7 +130,7 @@ describe('NTCO', () => {
 
   describe('completed tasks', () => {
 
-    it('cannot withdraw a granted pil application', () => {
+    it('cannot discard a granted pil application', () => {
       return request(this.workflow)
         .get('/?progress=completed')
         .then(response => response.body.data.find(task => task.status === resolved.id))
@@ -138,9 +138,9 @@ describe('NTCO', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: withdrawnByApplicant.id,
+              status: discardedByApplicant.id,
               meta: {
-                comment: 'withdrawing a granted pil'
+                comment: 'discarding a granted pil'
               }
             })
             .expect(400);

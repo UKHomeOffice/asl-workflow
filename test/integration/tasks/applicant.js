@@ -6,7 +6,8 @@ const {
   resubmitted,
   resolved,
   withNtco,
-  withdrawnByApplicant
+  discardedByApplicant,
+  recalledByApplicant
 } = require('../../../lib/flow/status');
 
 const ids = require('../../data/ids');
@@ -72,7 +73,7 @@ describe('Applicant', () => {
 
   describe('outstanding tasks', () => {
 
-    it('can withdraw a returned pil application', () => {
+    it('can discard a returned pil application', () => {
       return request(this.workflow)
         .get('/')
         .then(response => response.body.data.find(task => task.status === returnedToApplicant.id))
@@ -80,9 +81,9 @@ describe('Applicant', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: withdrawnByApplicant.id,
+              status: discardedByApplicant.id,
               meta: {
-                comment: 'withdrawing a pil'
+                comment: 'discarding a pil'
               }
             })
             .expect(200);
@@ -110,7 +111,7 @@ describe('Applicant', () => {
 
   describe('in progress tasks', () => {
 
-    it('can withdraw a submitted pil application', () => {
+    it('can discard a submitted pil application', () => {
       return request(this.workflow)
         .get('/?progress=inProgress')
         .then(response => response.body.data.find(task => task.status === withNtco.id))
@@ -118,9 +119,26 @@ describe('Applicant', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: withdrawnByApplicant.id,
+              status: discardedByApplicant.id,
               meta: {
-                comment: 'withdrawing a pil'
+                comment: 'discarding a pil'
+              }
+            })
+            .expect(200);
+        });
+    });
+
+    it('can recall a submitted pil application', () => {
+      return request(this.workflow)
+        .get('/?progress=inProgress')
+        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(task => {
+          return request(this.workflow)
+            .put(`/${task.id}/status`)
+            .send({
+              status: recalledByApplicant.id,
+              meta: {
+                comment: 'recalling a pil'
               }
             })
             .expect(200);
@@ -131,7 +149,7 @@ describe('Applicant', () => {
 
   describe('completed tasks', () => {
 
-    it('cannot withdraw a granted pil application', () => {
+    it('cannot discard a granted pil application', () => {
       return request(this.workflow)
         .get('/?progress=completed')
         .then(response => response.body.data.find(task => task.status === resolved.id))
@@ -139,9 +157,9 @@ describe('Applicant', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: withdrawnByApplicant.id,
+              status: discardedByApplicant.id,
               meta: {
-                comment: 'withdrawing a granted pil'
+                comment: 'discarding a granted pil'
               }
             })
             .expect(400);

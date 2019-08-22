@@ -27,7 +27,7 @@ describe('Applicant', () => {
   describe('outstanding tasks', () => {
 
     it('sees tasks for which they are the subject', () => {
-      const expected = [ 'pil returned', 'Submitted by HOLC' ];
+      const expected = [ 'pil returned', 'Submitted by HOLC', 'recalled ppl' ];
       return request(this.workflow)
         .get('/')
         .expect(200)
@@ -55,7 +55,7 @@ describe('Applicant', () => {
   describe('completed tasks', () => {
 
     it('sees tasks for which they are the subject', () => {
-      const expected = [ 'granted pil' ];
+      const expected = [ 'granted pil', 'discarded ppl' ];
       return request(this.workflow)
         .get('/?progress=completed')
         .expect(200)
