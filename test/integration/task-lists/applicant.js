@@ -27,7 +27,7 @@ describe('Applicant', () => {
   describe('outstanding tasks', () => {
 
     it('sees tasks for which they are the subject', () => {
-      const expected = [ 'pil returned' ];
+      const expected = [ 'pil returned', 'Submitted by HOLC' ];
       return request(this.workflow)
         .get('/')
         .expect(200)

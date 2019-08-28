@@ -208,5 +208,22 @@ module.exports = query => query.insert([
       changedBy: inspector.id
     },
     status: 'returned-to-applicant'
+  },
+  // test for the case where the applicant is not
+  // `changedBy` or `subject`
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'Submitted by HOLC'
+      },
+      changedBy: holc.id,
+      // this _should_ be the user.id, but in some cases is not.
+      subject: holc.id,
+      modelData: {
+        licenceHolderId: user.id
+      }
+    },
+    status: 'returned-to-applicant'
   }
 ]);

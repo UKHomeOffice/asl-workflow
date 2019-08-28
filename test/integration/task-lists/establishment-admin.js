@@ -28,7 +28,7 @@ describe('Establishment Admin', () => {
   describe('outstanding tasks', () => {
 
     it('sees tasks for their establishment that require action', () => {
-      const expected = [ 'pil returned' ];
+      const expected = [ 'pil returned', 'Submitted by HOLC' ];
       return request(this.workflow)
         .get('/')
         .expect(200)

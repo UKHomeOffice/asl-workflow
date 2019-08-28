@@ -66,7 +66,8 @@ describe('Inspector', () => {
         'place update with licensing',
         'place update with licensing - other establishment',
         'place update recommended',
-        'place update recommend rejected'
+        'place update recommend rejected',
+        'Submitted by HOLC'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
