@@ -218,7 +218,7 @@ module.exports = query => query.insert([
         name: 'Submitted by HOLC'
       },
       changedBy: holc.id,
-      // this _should_ be the user.id, but in some cases is not.
+      // subject _should_ be the licenceHolderId, but in some cases is not.
       subject: holc.id,
       modelData: {
         licenceHolderId: user.id
