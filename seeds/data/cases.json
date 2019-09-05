@@ -1,78 +1,44 @@
 [
   {
-    "status": "autoresolved",
+    "id": "7a2065e2-36e7-426a-b55d-0ac30e401fbd",
+    "status": "with-inspectorate",
     "data": {
+      "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
       "data": {
-        "modules": [{"module": "E1", "species": ["Apes (Hominoidea)"]}],
-        "passDate": "2008-01-01",
-        "profileId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-        "accreditingBody": "Royal Society of Biology",
-        "certificateNumber": "1234"
+        "version": "b603d058-267a-4f7b-8356-389271076c06",
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
-      "model": "certificate",
-      "action": "create",
-      "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147"
-    }
-  },
-  {
-    "status": "autoresolved",
-    "data": {
-      "data": {
-        "profileId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-        "establishmentId": 8201
+      "meta": {
+        "awerb": "Yes",
+        "version": "b603d058-267a-4f7b-8356-389271076c06",
+        "comments": "Testing title amend",
+        "authority": "Yes",
+        "awerb-review-date": "Now",
+        "awerb-no-review-reason": "",
+        "authority-pelholder-name": "Bruce Banner",
+        "authority-endorsement-date": "Now"
       },
-      "model": "pil",
-      "action": "create",
-      "subject": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "establishmentId": 8201
-    }
-  },
-  {
-    "status": "autoresolved",
-    "data": {
-      "id": "bc2ff1bc-408d-43d4-b983-09ce3e8ddf56",
-      "data": {
-        "notesCatD": "",
-        "notesCatF": "",
-        "profileId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-        "procedures": ["A", "B", "C"],
-        "establishmentId": 8201
-      },
-      "model": "pil",
-      "action": "update",
-      "subject": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "establishmentId": 8201
-    }
-  },
-  {
-    "status": "with-ntco",
-    "data": {
-      "id": "bc2ff1bc-408d-43d4-b983-09ce3e8ddf56",
-      "data": {
-        "profileId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-        "establishmentId": 8201
-      },
-      "model": "pil",
+      "model": "project",
       "action": "grant",
-      "subject": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "establishmentId": 8201
-    }
-  },
-  {
-    "status": "returned-to-applicant",
-    "data": {
-      "id": "bc2ff1bc-408d-43d4-b983-09ce3e8ddf56",
-      "data": {
-        "profileId": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-        "establishmentId": 8201
+      "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "modelData": {
+        "id": "6b9b7471-396e-47fe-a98f-da0c76e0a26a",
+        "title": "Amend in prog project",
+        "status": "active",
+        "deleted": null,
+        "createdAt": "2019-09-04T13:32:45.886Z",
+        "issueDate": "2019-04-23T00:00:00.000Z",
+        "updatedAt": "2019-09-04T13:32:45.886Z",
+        "expiryDate": "2024-04-23T00:00:00.000Z",
+        "migratedId": null,
+        "licenceNumber": "PR-X00002",
+        "schemaVersion": 1,
+        "revocationDate": null,
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
-      "model": "pil",
-      "action": "grant",
-      "subject": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
-      "changedBy": "304235c0-1a83-49f0-87ca-b11b1ad1e147",
       "establishmentId": 8201
     }
   }
