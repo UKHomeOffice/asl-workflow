@@ -12,13 +12,13 @@ const {
 describe('Flows', () => {
 
   it('can provide the next steps for a case', () => {
-    expect(getNextSteps(withNtco.id)).to.have.members([ntcoEndorsed, returnedToApplicant]);
-    expect(getNextSteps(withInspectorate.id)).to.have.members([inspectorRecommended, inspectorRejected, returnedToApplicant]);
+    expect(getNextSteps({ status: withNtco.id })).to.have.members([ntcoEndorsed, returnedToApplicant]);
+    expect(getNextSteps({ status: withInspectorate.id })).to.have.members([inspectorRecommended, inspectorRejected, returnedToApplicant]);
   });
 
   it('returns an empty array of next steps if the step is not known', () => {
     /* eslint-disable no-unused-expressions */
-    expect(getNextSteps('not-a-step')).to.be.an('array').that.is.empty;
+    expect(getNextSteps({ status: 'not-a-step' })).to.be.an('array').that.is.empty;
     /* eslint-enable no-unused-expressions */
   });
 });
