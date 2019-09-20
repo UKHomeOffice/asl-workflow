@@ -1,6 +1,15 @@
 const uuid = require('uuid/v4');
 const { user, holc, inspector } = require('./profiles');
 const ids = require('./ids');
+const moment = require('moment');
+
+const generateDates = daysAgo => {
+  const date = moment().subtract(daysAgo, 'days').toISOString();
+  return {
+    createdAt: date,
+    updatedAt: date
+  };
+};
 
 module.exports = query => query.insert([
   {
@@ -16,7 +25,8 @@ module.exports = query => query.insert([
       id: ids.pil.applied,
       changedBy: user.id
     },
-    status: 'with-ntco'
+    status: 'with-ntco',
+    ...generateDates(0)
   },
   {
     id: uuid(),
@@ -30,7 +40,8 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: uuid()
     },
-    status: 'with-ntco'
+    status: 'with-ntco',
+    ...generateDates(1)
   },
   {
     id: uuid(),
@@ -44,7 +55,8 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: holc.id
     },
-    status: 'returned-to-applicant'
+    status: 'returned-to-applicant',
+    ...generateDates(2)
   },
   {
     id: uuid(),
@@ -58,7 +70,8 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: holc.id
     },
-    status: 'with-licensing'
+    status: 'with-licensing',
+    ...generateDates(3)
   },
   {
     id: uuid(),
@@ -72,7 +85,8 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: user.id
     },
-    status: 'recalled-by-applicant'
+    status: 'recalled-by-applicant',
+    ...generateDates(4)
   },
   {
     id: uuid(),
@@ -86,7 +100,8 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: user.id
     },
-    status: 'discarded-by-applicant'
+    status: 'discarded-by-applicant',
+    ...generateDates(5)
   },
   {
     id: uuid(),
@@ -99,7 +114,8 @@ module.exports = query => query.insert([
       action: 'update',
       changedBy: holc.id
     },
-    status: 'with-licensing'
+    status: 'with-licensing',
+    ...generateDates(6)
   },
   {
     id: uuid(),
@@ -112,7 +128,8 @@ module.exports = query => query.insert([
       action: 'update',
       changedBy: uuid()
     },
-    status: 'with-licensing'
+    status: 'with-licensing',
+    ...generateDates(7)
   },
   {
     id: uuid(),
@@ -125,7 +142,8 @@ module.exports = query => query.insert([
       action: 'update',
       changedBy: holc.id
     },
-    status: 'with-inspectorate'
+    status: 'with-inspectorate',
+    ...generateDates(8)
   },
   {
     id: uuid(),
@@ -139,7 +157,8 @@ module.exports = query => query.insert([
       id: ids.place.applied,
       changedBy: holc.id
     },
-    status: 'inspector-recommended'
+    status: 'inspector-recommended',
+    ...generateDates(9)
   },
   {
     id: uuid(),
@@ -152,7 +171,8 @@ module.exports = query => query.insert([
       action: 'update',
       changedBy: holc.id
     },
-    status: 'inspector-rejected'
+    status: 'inspector-rejected',
+    ...generateDates(10)
   },
   {
     id: uuid(),
@@ -166,7 +186,8 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: holc.id
     },
-    status: 'resolved'
+    status: 'resolved',
+    ...generateDates(11)
   },
   {
     id: uuid(),
@@ -180,7 +201,8 @@ module.exports = query => query.insert([
       id: ids.place.resolved,
       changedBy: holc.id
     },
-    status: 'resolved'
+    status: 'resolved',
+    ...generateDates(12)
   },
   {
     id: uuid(),
@@ -193,7 +215,8 @@ module.exports = query => query.insert([
       action: 'update',
       changedBy: uuid()
     },
-    status: 'resolved'
+    status: 'resolved',
+    ...generateDates(13)
   },
   {
     id: uuid(),
@@ -208,7 +231,8 @@ module.exports = query => query.insert([
       id: ids.pil.rejected,
       changedBy: holc.id
     },
-    status: 'rejected'
+    status: 'rejected',
+    ...generateDates(14)
   },
   {
     id: uuid(),
@@ -222,7 +246,8 @@ module.exports = query => query.insert([
       id: user.id,
       changedBy: user.id
     },
-    status: 'autoresolved'
+    status: 'autoresolved',
+    ...generateDates(15)
   },
   {
     id: uuid(),
@@ -235,7 +260,8 @@ module.exports = query => query.insert([
       id: 100,
       changedBy: inspector.id
     },
-    status: 'returned-to-applicant'
+    status: 'returned-to-applicant',
+    ...generateDates(16)
   },
   // test for the case where the applicant is not
   // `changedBy` or `subject`
@@ -252,6 +278,7 @@ module.exports = query => query.insert([
         licenceHolderId: user.id
       }
     },
-    status: 'returned-to-applicant'
+    status: 'returned-to-applicant',
+    ...generateDates(17)
   }
 ]);
