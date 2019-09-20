@@ -280,5 +280,49 @@ module.exports = query => query.insert([
     },
     status: 'returned-to-applicant',
     ...generateDates(17)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'another with-inspectorate to test ordering'
+      },
+      establishmentId: 101,
+      model: 'place',
+      action: 'update',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(18)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'another with-licensing to test ordering'
+      },
+      establishmentId: 101,
+      model: 'place',
+      action: 'update',
+      changedBy: uuid()
+    },
+    status: 'with-licensing',
+    ...generateDates(19)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'another with-ntco to test ordering'
+      },
+      establishmentId: 100,
+      subject: user.id,
+      model: 'pil',
+      action: 'grant',
+      id: ids.pil.applied,
+      changedBy: user.id
+    },
+    status: 'with-ntco',
+    ...generateDates(20)
   }
 ]);
