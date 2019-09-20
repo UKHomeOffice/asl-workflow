@@ -1,7 +1,7 @@
 const request = require('supertest');
-const assert = require('assert');
 
 const assertTasks = require('../../helpers/assert-tasks');
+const assertTaskOrder = require('../../helpers/assert-task-order');
 const workflowHelper = require('../../helpers/workflow');
 
 const { inspector } = require('../../data/profiles');
@@ -28,13 +28,26 @@ describe('Inspector', () => {
 
   describe('my tasks', () => {
 
-    it('sees the one task they submitted', () => {
+    it('sees tasks they are responsible for actioning', () => {
+      const expected = [
+        'conditions update',
+        'another with-inspectorate to test ordering'
+      ];
+
       return request(this.workflow)
         .get('/?progress=myTasks')
         .expect(200)
         .expect(response => {
-          assert(response.body.data.length === 1);
-          assert(response.body.data[0].data.action === 'update-conditions');
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('sorts the tasks by oldest first', () => {
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTaskOrder(response.body.data, 'ascending');
         });
     });
 
@@ -45,13 +58,23 @@ describe('Inspector', () => {
     it('sees tasks with a status of referred to inspector', () => {
       const expected = [
         'place update with inspector',
-        'conditions update'
+        'conditions update',
+        'another with-inspectorate to test ordering'
       ];
       return request(this.workflow)
         .get('/')
         .expect(200)
         .expect(response => {
           assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('sorts the tasks by oldest first', () => {
+      return request(this.workflow)
+        .get('/')
+        .expect(200)
+        .expect(response => {
+          assertTaskOrder(response.body.data, 'ascending');
         });
     });
 
@@ -67,13 +90,23 @@ describe('Inspector', () => {
         'place update with licensing - other establishment',
         'place update recommended',
         'place update recommend rejected',
-        'Submitted by HOLC'
+        'Submitted by HOLC',
+        'another with-licensing to test ordering'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
         .expect(200)
         .expect(response => {
           assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('sorts the tasks by newest first', () => {
+      return request(this.workflow)
+        .get('/?progress=inProgress')
+        .expect(200)
+        .expect(response => {
+          assertTaskOrder(response.body.data, 'descending');
         });
     });
 
@@ -94,6 +127,15 @@ describe('Inspector', () => {
         .expect(200)
         .expect(response => {
           assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('sorts the tasks by newest first', () => {
+      return request(this.workflow)
+        .get('/?progress=completed')
+        .expect(200)
+        .expect(response => {
+          assertTaskOrder(response.body.data, 'descending');
         });
     });
 

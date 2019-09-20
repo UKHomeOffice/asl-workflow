@@ -26,7 +26,10 @@ describe('Tasks for a model', () => {
   describe('outstanding tasks', () => {
 
     it('sees tasks for a specific model id', () => {
-      const expected = ['pil with ntco'];
+      const expected = [
+        'pil with ntco',
+        'another with-ntco to test ordering'
+      ];
 
       return request(this.workflow)
         .get(`/model-tasks/${ids.pil.applied}`)
