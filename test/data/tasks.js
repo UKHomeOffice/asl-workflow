@@ -271,6 +271,7 @@ module.exports = query => query.insert([
       data: {
         name: 'Submitted by HOLC'
       },
+      establishmentId: 100,
       changedBy: holc.id,
       // subject _should_ be the licenceHolderId, but in some cases is not.
       subject: holc.id,
@@ -324,5 +325,35 @@ module.exports = query => query.insert([
     },
     status: 'with-ntco',
     ...generateDates(20)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'users cannot access tasks outside their associated establishments'
+      },
+      establishmentId: 101,
+      subject: holc.id,
+      model: 'pil',
+      action: 'grant',
+      id: uuid(),
+      changedBy: holc.id // changed by holc, but holc is not associated with est id 101
+    },
+    status: 'with-ntco',
+    ...generateDates(21)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'holc with multiple establishments'
+      },
+      establishmentId: 102,
+      model: 'place',
+      action: 'update',
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(21)
   }
 ]);

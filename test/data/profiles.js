@@ -16,7 +16,7 @@ module.exports = {
   },
   holc: {
     id: '143e500a-d42d-4010-840e-35418660cdc2',
-    establishments: [ { id: 100, role: 'admin' } ],
+    establishments: [ { id: 100, role: 'admin' }, { id: 102, role: 'admin' } ],
     roles: []
   },
   ntco: {
