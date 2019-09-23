@@ -58,7 +58,6 @@ describe('Applicant', () => {
       const expected = [
         'pil with licensing',
         'pil with ntco',
-        'another with-inspectorate to test ordering',
         'another with-ntco to test ordering'
       ];
       return request(this.workflow)

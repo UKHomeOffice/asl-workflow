@@ -271,6 +271,7 @@ module.exports = query => query.insert([
       data: {
         name: 'Submitted by HOLC'
       },
+      establishmentId: 100,
       changedBy: holc.id,
       // subject _should_ be the licenceHolderId, but in some cases is not.
       subject: holc.id,
@@ -329,7 +330,7 @@ module.exports = query => query.insert([
     id: uuid(),
     data: {
       data: {
-        name: 'check that users can\'t access tasks outside their associated establishments'
+        name: 'users cannot access tasks outside their associated establishments'
       },
       establishmentId: 101,
       subject: holc.id,
