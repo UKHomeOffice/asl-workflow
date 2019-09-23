@@ -324,5 +324,21 @@ module.exports = query => query.insert([
     },
     status: 'with-ntco',
     ...generateDates(20)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'check that users can\'t access tasks outside their associated establishments'
+      },
+      establishmentId: 101,
+      subject: holc.id,
+      model: 'pil',
+      action: 'grant',
+      id: uuid(),
+      changedBy: holc.id // changed by holc, but holc is not associated with est id 101
+    },
+    status: 'with-ntco',
+    ...generateDates(21)
   }
 ]);
