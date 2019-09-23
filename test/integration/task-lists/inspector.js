@@ -59,7 +59,8 @@ describe('Inspector', () => {
       const expected = [
         'place update with inspector',
         'conditions update',
-        'another with-inspectorate to test ordering'
+        'another with-inspectorate to test ordering',
+        'holc with multiple establishments'
       ];
       return request(this.workflow)
         .get('/')

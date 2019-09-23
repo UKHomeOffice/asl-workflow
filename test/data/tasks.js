@@ -341,5 +341,19 @@ module.exports = query => query.insert([
     },
     status: 'with-ntco',
     ...generateDates(21)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'holc with multiple establishments'
+      },
+      establishmentId: 102,
+      model: 'place',
+      action: 'update',
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(21)
   }
 ]);
