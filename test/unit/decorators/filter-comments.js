@@ -43,6 +43,7 @@ const History = () => {
 };
 
 const users = {
+  anon: { },
   asru: { profile: { asruUser: true } },
   external: { profile: { asruUser: false } }
 };
@@ -199,6 +200,17 @@ describe('Comment filtering', () => {
 
     it('all comments are now visible to asru users except those made post return', () => {
       assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+    });
+
+  });
+
+  describe('when a task is an autoresolved profile creation - bugfix', () => {
+
+    it('doesn\'t throw as a result of status changes with no user profile', () => {
+      const task = History();
+      task.status('autoresolved', users.anon);
+
+      assertComments(task, users.anon, []);
     });
 
   });
