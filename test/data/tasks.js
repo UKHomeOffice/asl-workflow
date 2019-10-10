@@ -355,5 +355,21 @@ module.exports = query => query.insert([
     },
     status: 'with-inspectorate',
     ...generateDates(21)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'project with admin'
+      },
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant',
+      id: uuid(),
+      changedBy: user.id
+    },
+    status: 'with-admin',
+    ...generateDates(22)
   }
 ]);
