@@ -3,7 +3,7 @@ const { getNextSteps } = require('../lib/flow');
 const {
   returnedToApplicant,
   withNtco,
-  ntcoEndorsed,
+  endorsed,
   withInspectorate,
   inspectorRecommended,
   inspectorRejected
@@ -12,7 +12,7 @@ const {
 describe('Flows', () => {
 
   it('can provide the next steps for a case', () => {
-    expect(getNextSteps({ status: withNtco.id })).to.have.members([ntcoEndorsed, returnedToApplicant]);
+    expect(getNextSteps({ status: withNtco.id })).to.have.members([endorsed, returnedToApplicant]);
     expect(getNextSteps({ status: withInspectorate.id })).to.have.members([inspectorRecommended, inspectorRejected, returnedToApplicant]);
   });
 

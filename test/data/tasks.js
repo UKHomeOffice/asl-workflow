@@ -360,7 +360,7 @@ module.exports = query => query.insert([
     id: uuid(),
     data: {
       data: {
-        name: 'project with admin'
+        name: 'project awaiting endorsement'
       },
       establishmentId: 100,
       subject: user.id,
@@ -369,7 +369,7 @@ module.exports = query => query.insert([
       id: uuid(),
       changedBy: user.id
     },
-    status: 'with-admin',
+    status: 'awaiting-endorsement',
     ...generateDates(22)
   }
 ]);
