@@ -6,7 +6,7 @@ const {
   resubmitted,
   resolved,
   withNtco,
-  ntcoEndorsed,
+  endorsed,
   discardedByApplicant,
   recalledByApplicant
 } = require('../../../lib/flow/status');
@@ -79,7 +79,7 @@ describe('Establishment Admin', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: ntcoEndorsed.id,
+              status: endorsed.id,
               meta: {
                 comment: 'endorsing a submitted pil'
               }

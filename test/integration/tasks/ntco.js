@@ -7,7 +7,7 @@ const {
   resolved,
   withNtco,
   withLicensing,
-  ntcoEndorsed,
+  endorsed,
   discardedByApplicant
 } = require('../../../lib/flow/status');
 
@@ -41,7 +41,7 @@ describe('NTCO', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: ntcoEndorsed.id,
+              status: endorsed.id,
               meta: {
                 comment: 'endorsing a pil'
               }
@@ -58,7 +58,7 @@ describe('NTCO', () => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
             .send({
-              status: ntcoEndorsed.id,
+              status: endorsed.id,
               meta: {
                 meta: {
                   comment: 'endorsing a pil'

@@ -58,7 +58,8 @@ describe('Applicant', () => {
       const expected = [
         'pil with licensing',
         'pil with ntco',
-        'another with-ntco to test ordering'
+        'another with-ntco to test ordering',
+        'project awaiting endorsement'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
