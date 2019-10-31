@@ -81,7 +81,7 @@ module.exports = query => query.insert([
       },
       establishmentId: 100,
       subject: user.id,
-      model: 'projects',
+      model: 'project',
       action: 'grant',
       changedBy: user.id
     },
@@ -96,7 +96,7 @@ module.exports = query => query.insert([
       },
       establishmentId: 100,
       subject: user.id,
-      model: 'projects',
+      model: 'project',
       action: 'grant',
       changedBy: user.id
     },

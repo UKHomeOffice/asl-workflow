@@ -80,6 +80,23 @@ describe('Licensing Officer', () => {
         });
     });
 
+    it('can filter by licence type of pel', () => {
+      const pelTasks = [
+        'place update with licensing',
+        'place update with licensing - other establishment',
+        'place update recommended',
+        'place update recommend rejected',
+        'another with-licensing to test ordering'
+      ];
+
+      return request(this.workflow)
+        .get('/?filters%5Blicence%5D%5B0%5D=pel')
+        .expect(200)
+        .expect(response => {
+          assertTasks(pelTasks, response.body.data);
+        });
+    });
+
   });
 
   describe('in-progress tasks', () => {

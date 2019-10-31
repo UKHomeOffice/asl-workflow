@@ -78,6 +78,21 @@ describe('Applicant', () => {
         });
     });
 
+    it('can filter by licence type of pil', () => {
+      const pilTasks = [
+        'pil with licensing',
+        'pil with ntco',
+        'another with-ntco to test ordering'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pil')
+        .expect(200)
+        .expect(response => {
+          assertTasks(pilTasks, response.body.data);
+        });
+    });
+
   });
 
   describe('completed tasks', () => {
@@ -98,6 +113,17 @@ describe('Applicant', () => {
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'descending');
+        });
+    });
+
+    it('can filter by licence type of ppl', () => {
+      const projectTasks = ['discarded ppl'];
+
+      return request(this.workflow)
+        .get('/?progress=completed&filters%5Blicence%5D%5B0%5D=ppl')
+        .expect(200)
+        .expect(response => {
+          assertTasks(projectTasks, response.body.data);
         });
     });
 
