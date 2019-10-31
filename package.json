@@ -40,7 +40,7 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.0.1",
     "eslint-config-lennym": "^2.0.1",
-    "knex": "^0.15.2",
+    "knex": "^0.19.5",
     "mocha": "^5.2.0",
     "nodemon": "^1.17.5",
     "sinon": "^7.3.2",
