@@ -176,6 +176,24 @@ describe('Profile update', () => {
           assert.equal(task.status, withInspectorate.id);
         });
     });
+
+    it('auto-resolves email only changes', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'profile',
+          id: userWithActivePil.id,
+          action: 'update',
+          data: {
+            email: 'newemail@example.com'
+          }
+        })
+        .expect(200)
+        .then(response => response.body.data)
+        .then(task => {
+          assert.equal(task.status, autoResolved.id);
+        });
+    });
   });
 
 });
