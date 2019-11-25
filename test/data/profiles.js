@@ -14,6 +14,11 @@ module.exports = {
     establishments: [ { id: 100 } ],
     roles: []
   },
+  userAtMultipleEstablishments: { // Colin Jackson
+    id: 'ae28fb31-d867-4371-9b4f-79019e71232f',
+    establishments: [ { id: 100 }, { id: 101 } ],
+    roles: []
+  },
   holc: {
     id: '143e500a-d42d-4010-840e-35418660cdc2',
     establishments: [ { id: 100, role: 'admin' }, { id: 102, role: 'admin' } ],
