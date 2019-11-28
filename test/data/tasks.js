@@ -44,7 +44,7 @@ module.exports = query => query.insert([
     ...generateDates(1)
   },
   {
-    id: uuid(),
+    id: ids.pil.grant,
     data: {
       data: {
         name: 'pil returned'
@@ -74,10 +74,14 @@ module.exports = query => query.insert([
     ...generateDates(3)
   },
   {
-    id: uuid(),
+    id: ids.project.grant,
     data: {
       data: {
-        name: 'recalled ppl'
+        name: 'recalled ppl',
+        version: uuid()
+      },
+      meta: {
+        authority: 'yes'
       },
       establishmentId: 100,
       subject: user.id,
