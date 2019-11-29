@@ -1,10 +1,8 @@
 const assert = require('assert');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { user } = require('../../data/profiles');
-const {
-  resubmitted
-} = require('../../../lib/flow/status');
+const { user, userAtMultipleEstablishments, holc101 } = require('../../data/profiles');
+const { resubmitted, updated } = require('../../../lib/flow/status');
 
 const ids = require('../../data/ids');
 
@@ -42,6 +40,29 @@ describe('Next steps', () => {
       .expect(200)
       .expect(response => {
         assert.ok(!response.body.data.nextSteps.find(s => s.id === resubmitted.id), 'Next steps should not include resubmitted');
+      });
+  });
+
+  it('updated appears as an option on a recalled pil.transfer task if the user is the applicant', () => {
+    this.workflow.setUser({ profile: userAtMultipleEstablishments });
+
+    return request(this.workflow)
+      .get(`/${ids.pil.transfer}`)
+      .expect(200)
+      .expect(response => {
+        assert.ok(response.body.data.nextSteps.find(s => s.id === updated.id), 'Next steps should include updated (edit and resubmit)');
+      });
+  });
+
+  it('updated does not appear as an option on a recalled pil.transfer task if the user is not the applicant', () => {
+    this.workflow.setUser({ profile: holc101 });
+
+    return request(this.workflow)
+      .get(`/${ids.pil.transfer}`)
+      .expect(200)
+      .expect(response => {
+        assert.ok(response.body.data.nextSteps.length > 0, 'Admin user at receiving establishment can action task');
+        assert.ok(!response.body.data.nextSteps.find(s => s.id === updated.id), 'Next steps should not include updated (edit and resubmit)');
       });
   });
 

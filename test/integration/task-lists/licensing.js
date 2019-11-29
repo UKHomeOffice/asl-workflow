@@ -104,6 +104,7 @@ describe('Licensing Officer', () => {
     it('sees tasks that are with inspectors or returned to establishments', () => {
       const expected = [
         'pil returned',
+        'pil transfer recalled',
         'place update with inspector',
         'conditions update',
         'Submitted by HOLC',

@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, holc, inspector } = require('./profiles');
+const { user, userAtMultipleEstablishments, holc, inspector } = require('./profiles');
 const ids = require('./ids');
 const moment = require('moment');
 
@@ -54,6 +54,21 @@ module.exports = query => query.insert([
       model: 'pil',
       action: 'grant',
       changedBy: holc.id
+    },
+    status: 'returned-to-applicant',
+    ...generateDates(2)
+  },
+  {
+    id: ids.pil.transfer,
+    data: {
+      data: {
+        name: 'pil transfer recalled'
+      },
+      establishmentId: 101,
+      subject: userAtMultipleEstablishments.id,
+      model: 'pil',
+      action: 'transfer',
+      changedBy: userAtMultipleEstablishments.id
     },
     status: 'returned-to-applicant',
     ...generateDates(2)

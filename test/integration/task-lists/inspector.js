@@ -87,6 +87,7 @@ describe('Inspector', () => {
       const expected = [
         'pil returned',
         'pil with licensing',
+        'pil transfer recalled',
         'place update with licensing',
         'place update with licensing - other establishment',
         'place update recommended',
