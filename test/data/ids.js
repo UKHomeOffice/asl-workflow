@@ -4,7 +4,8 @@ module.exports = {
   pil: {
     grant: uuid(),
     applied: uuid(),
-    rejected: uuid()
+    rejected: uuid(),
+    transfer: uuid()
   },
   place: {
     applied: uuid(),
