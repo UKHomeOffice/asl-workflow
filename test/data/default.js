@@ -153,6 +153,11 @@ module.exports = models => {
                 licenceNumber: 'abc789'
               }
             ]
+          },
+          {
+            id: 102,
+            name: 'Research 102',
+            status: 'inactive'
           }]);
         })
         .then(() => {
