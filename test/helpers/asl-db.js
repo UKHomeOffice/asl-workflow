@@ -3,7 +3,7 @@ const Schema = require('@asl/schema');
 module.exports = settings => {
 
   return {
-    init: (populate) => {
+    init: (populate, keepAlive) => {
       const schema = Schema(settings);
       const tables = [
         'ProjectVersion',
@@ -23,12 +23,14 @@ module.exports = settings => {
         return p.then(() => schema[table].queryWithDeleted().hardDelete());
       }, Promise.resolve())
         .then(() => populate && populate(schema))
-        .then(() => schema.destroy())
+        .then(() => !keepAlive && schema.destroy())
+        .then(() => schema)
         .catch(err => {
           schema.destroy();
           throw err;
         });
     }
+
   };
 
 };
