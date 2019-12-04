@@ -15,6 +15,8 @@ const {
 
 const ids = require('../../data/ids');
 
+const PELH_ID = 'ae28fb31-d867-4371-9b4f-79019e71232f';
+
 describe('Applicant', () => {
   before(() => {
     return workflowHelper.create()
@@ -53,7 +55,8 @@ describe('Applicant', () => {
         .send({
           model: 'place',
           action: 'update',
-          id: ids.place.resolved
+          id: ids.place.resolved,
+          changedBy: PELH_ID
         })
         .expect(200);
     });
