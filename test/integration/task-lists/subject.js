@@ -30,7 +30,6 @@ describe('Subject', () => {
       'pil returned',
       'pil with ntco',
       'pil with licensing',
-      'profile update',
       'another with-ntco to test ordering',
       'project awaiting endorsement'
     ];
