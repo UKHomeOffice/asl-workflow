@@ -42,7 +42,7 @@ describe('Project update issue date', () => {
       .expect(403)
       .then(response => response.body)
       .then(error => {
-        assert.equal(error.message, 'Only ASRU licensing officers can change the granted date');
+        assert.equal(error.message, 'Only ASRU can change the granted date');
       });
   });
 
