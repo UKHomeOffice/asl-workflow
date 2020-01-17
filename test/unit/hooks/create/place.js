@@ -11,8 +11,8 @@ const settings = {
   user: process.env.ASL_DATABASE_USERNAME || 'postgres'
 };
 
-const INSPECTOR_ID = 'a942ffc7-e7ca-4d76-a001-0b5048a057d2';
-const LICENSING_ID = 'a942ffc7-e7ca-4d76-a001-0b5048a057d1';
+const INSPECTOR_ID = 'a942ffc7-e7ca-4d76-a001-0b5048a057d1';
+const LICENSING_ID = 'a942ffc7-e7ca-4d76-a001-0b5048a057d2';
 const PELH_ID = 'ae28fb31-d867-4371-9b4f-79019e71232f';
 
 describe('Place create hook', () => {

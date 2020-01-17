@@ -78,19 +78,19 @@ module.exports = models => {
         },
         {
           id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
-          firstName: 'Li Sen',
-          lastName: 'Xing',
-          email: 'lisenxing@example.com',
-          asruUser: true,
-          asruLicensing: true
-        },
-        {
-          id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
           firstName: 'Inspector',
           lastName: 'Morse',
           email: 'inspector-morse@example.com',
           asruUser: true,
           asruInspector: true
+        },
+        {
+          id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
+          firstName: 'Li Sen',
+          lastName: 'Xing',
+          email: 'lisenxing@example.com',
+          asruUser: true,
+          asruLicensing: true
         }
       ])
         .then(() => {
@@ -136,6 +136,22 @@ module.exports = models => {
                 licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
                 expiryDate: '2010-01-01T12:00:00Z',
                 licenceNumber: 'abc456'
+              },
+              {
+                title: 'Test project 4',
+                licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: 'xyz123',
+                version: [
+                  {
+                    id: '6cd77ff4-8de7-4b10-8d5c-e9bdbf65ccfb',
+                    status: 'granted',
+                    data: {
+                      duration: { years: 5, months: 0 }
+                    }
+                  }
+                ]
               }
             ]
           },
