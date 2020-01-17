@@ -78,19 +78,19 @@ module.exports = models => {
         },
         {
           id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
-          firstName: 'Li Sen',
-          lastName: 'Xing',
-          email: 'lisenxing@example.com',
-          asruUser: true,
-          asruLicensing: true
-        },
-        {
-          id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
           firstName: 'Inspector',
           lastName: 'Morse',
           email: 'inspector-morse@example.com',
           asruUser: true,
           asruInspector: true
+        },
+        {
+          id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
+          firstName: 'Li Sen',
+          lastName: 'Xing',
+          email: 'lisenxing@example.com',
+          asruUser: true,
+          asruLicensing: true
         }
       ])
         .then(() => {
