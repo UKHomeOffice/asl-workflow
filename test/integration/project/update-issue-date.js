@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { licensing, inspector, user } = require('../../data/profiles');
+const { licensing, user } = require('../../data/profiles');
 const { autoResolved } = require('../../../lib/flow/status');
 
 const projectId = 'fa73305f-125e-4e20-bc41-a9bf8cfb3558'; // Test project 4
