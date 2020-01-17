@@ -46,28 +46,6 @@ describe('Project update issue date', () => {
       });
   });
 
-  it('prevents issue date being updated by an inspector', () => {
-    this.workflow.setUser({ profile: inspector });
-    const newIssueDate = new Date('2017-01-01').toISOString();
-
-    return request(this.workflow)
-      .post('/')
-      .send({
-        model: 'project',
-        action: 'update-issue-date',
-        id: projectId,
-        changedBy: inspector.id,
-        data: {
-          issueDate: newIssueDate
-        }
-      })
-      .expect(403)
-      .then(response => response.body)
-      .then(error => {
-        assert.equal(error.message, 'Only ASRU licensing officers can change the granted date');
-      });
-  });
-
   it('autoresolves issue date updates by a licensing officer', () => {
     this.workflow.setUser({ profile: licensing });
     const newIssueDate = new Date('2017-01-01').toISOString();
