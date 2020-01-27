@@ -112,12 +112,12 @@ describe('Next steps', () => {
   it('does not include discard task option for asru admins for closed tasks', () => {
     this.workflow.setUser({ profile: asruAdmin });
 
-    const openTasks = [
+    const closedTasks = [
       'pil.rejected',
       'place.resolved'
     ];
 
-    return Promise.all(openTasks.map(taskName => {
+    return Promise.all(closedTasks.map(taskName => {
       const taskUrl = `/${get(ids.task, taskName)}`;
       return request(this.workflow)
         .get(taskUrl)
