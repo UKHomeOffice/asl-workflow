@@ -1,8 +1,9 @@
 const assert = require('assert');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { user, userAtMultipleEstablishments, holc101 } = require('../../data/profiles');
-const { resubmitted, updated } = require('../../../lib/flow/status');
+const { user, userAtMultipleEstablishments, holc101, asruAdmin, licensing } = require('../../data/profiles');
+const { resubmitted, updated, discardedByAsru } = require('../../../lib/flow/status');
+const { get } = require('lodash');
 
 const ids = require('../../data/ids');
 
@@ -27,7 +28,7 @@ describe('Next steps', () => {
 
   it('resubmitted appears as an option on a pil.grant task', () => {
     return request(this.workflow)
-      .get(`/${ids.pil.grant}`)
+      .get(`/${ids.task.pil.grant}`)
       .expect(200)
       .expect(response => {
         assert.ok(response.body.data.nextSteps.find(s => s.id === resubmitted.id), 'Next steps should include resubmitted');
@@ -36,7 +37,7 @@ describe('Next steps', () => {
 
   it('resubmitted does not appear as an option on a project.grant task', () => {
     return request(this.workflow)
-      .get(`/${ids.project.grant}`)
+      .get(`/${ids.task.project.grant}`)
       .expect(200)
       .expect(response => {
         assert.ok(!response.body.data.nextSteps.find(s => s.id === resubmitted.id), 'Next steps should not include resubmitted');
@@ -47,7 +48,7 @@ describe('Next steps', () => {
     this.workflow.setUser({ profile: userAtMultipleEstablishments });
 
     return request(this.workflow)
-      .get(`/${ids.pil.transfer}`)
+      .get(`/${ids.task.pil.transfer}`)
       .expect(200)
       .expect(response => {
         assert.ok(response.body.data.nextSteps.find(s => s.id === updated.id), 'Next steps should include updated (edit and resubmit)');
@@ -58,12 +59,73 @@ describe('Next steps', () => {
     this.workflow.setUser({ profile: holc101 });
 
     return request(this.workflow)
-      .get(`/${ids.pil.transfer}`)
+      .get(`/${ids.task.pil.transfer}`)
       .expect(200)
       .expect(response => {
         assert.ok(response.body.data.nextSteps.length > 0, 'Admin user at receiving establishment can action task');
         assert.ok(!response.body.data.nextSteps.find(s => s.id === updated.id), 'Next steps should not include updated (edit and resubmit)');
       });
+  });
+
+  it('does not include discard task option for asru non-admins', () => {
+    this.workflow.setUser({ profile: licensing });
+
+    const openTasks = [
+      'pil.grant',
+      'pil.transfer',
+      'place.applied',
+      'project.grant'
+    ];
+
+    return Promise.all(openTasks.map(taskName => {
+      const taskUrl = `/${get(ids.task, taskName)}`;
+      return request(this.workflow)
+        .get(taskUrl)
+        .expect(200)
+        .expect(response => {
+          assert.ok(!response.body.data.nextSteps.find(s => s.id === discardedByAsru.id), 'ASRU LO should not have a discard task option');
+        });
+    }));
+  });
+
+  it('includes discard task option for asru admins for open tasks', () => {
+    this.workflow.setUser({ profile: asruAdmin });
+
+    const openTasks = [
+      'pil.grant',
+      'pil.transfer',
+      'place.applied',
+      'project.grant'
+    ];
+
+    return Promise.all(openTasks.map(taskName => {
+      const taskUrl = `/${get(ids.task, taskName)}`;
+      return request(this.workflow)
+        .get(taskUrl)
+        .expect(200)
+        .expect(response => {
+          assert.ok(response.body.data.nextSteps.find(s => s.id === discardedByAsru.id), 'ASRU Admin should have a discard task option');
+        });
+    }));
+  });
+
+  it('does not include discard task option for asru admins for closed tasks', () => {
+    this.workflow.setUser({ profile: asruAdmin });
+
+    const openTasks = [
+      'pil.rejected',
+      'place.resolved'
+    ];
+
+    return Promise.all(openTasks.map(taskName => {
+      const taskUrl = `/${get(ids.task, taskName)}`;
+      return request(this.workflow)
+        .get(taskUrl)
+        .expect(200)
+        .expect(response => {
+          assert.ok(!response.body.data.nextSteps.find(s => s.id === discardedByAsru.id), 'ASRU Admin should not have a discard task option');
+        });
+    }));
   });
 
 });

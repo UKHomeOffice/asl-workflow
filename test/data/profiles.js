@@ -49,5 +49,14 @@ module.exports = {
     asru: [{ id: 101 }],
     asruUser: true,
     asruLicensing: true
+  },
+  asruAdmin: {
+    id: 'a8e6f04b-f3a6-4378-91fa-f612d4ed1102',
+    establishments: [],
+    roles: [],
+    asruUser: true,
+    asruAdmin: true,
+    asruLicensing: true,
+    asruInspector: true
   }
 };
