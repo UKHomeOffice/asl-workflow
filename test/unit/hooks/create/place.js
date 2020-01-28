@@ -28,9 +28,11 @@ describe('Place create hook', () => {
     this.model = {
       data: {
         action: 'create',
-        data: {}
+        data: {},
+        meta: {}
       },
-      setStatus: sinon.stub()
+      setStatus: sinon.stub(),
+      update: sinon.stub()
     };
   });
 
@@ -48,6 +50,15 @@ describe('Place create hook', () => {
       });
   });
 
+  it('doesn\'t update restictions if submitted by an establishment user', () => {
+    this.model.data.changedBy = PELH_ID;
+    return Promise.resolve()
+      .then(() => this.hook(this.model))
+      .then(() => {
+        assert.ok(!this.model.update.called);
+      });
+  });
+
   it('autoresolves if submitted by a licensing officer', () => {
     this.model.data.changedBy = LICENSING_ID;
     return Promise.resolve()
@@ -58,6 +69,18 @@ describe('Place create hook', () => {
       });
   });
 
+  it('updates restrictions if submitted by a licensing officer', () => {
+    const expected = 'New restrictions';
+    this.model.data.changedBy = LICENSING_ID;
+    this.model.data.meta.changesToRestrictions = expected;
+    return Promise.resolve()
+      .then(() => this.hook(this.model))
+      .then(() => {
+        assert.ok(this.model.update.calledOnce);
+        assert.deepEqual(this.model.update.lastCall.args[0].data, { restrictions: expected });
+      });
+  });
+
   it('is sent to licensing if submitted by an inspector', () => {
     this.model.data.changedBy = INSPECTOR_ID;
     return Promise.resolve()
@@ -65,6 +88,18 @@ describe('Place create hook', () => {
       .then(() => {
         assert.ok(this.model.setStatus.calledOnce);
         assert.equal(this.model.setStatus.lastCall.args[0], withLicensing.id);
+      });
+  });
+
+  it('updates restrictions if submitted by an inspector', () => {
+    const expected = 'New restrictions';
+    this.model.data.changedBy = INSPECTOR_ID;
+    this.model.data.meta.changesToRestrictions = expected;
+    return Promise.resolve()
+      .then(() => this.hook(this.model))
+      .then(() => {
+        assert.ok(this.model.update.calledOnce);
+        assert.deepEqual(this.model.update.lastCall.args[0].data, { restrictions: expected });
       });
   });
 });
