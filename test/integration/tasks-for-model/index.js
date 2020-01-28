@@ -32,7 +32,7 @@ describe('Tasks for a model', () => {
       ];
 
       return request(this.workflow)
-        .get(`/model-tasks/${ids.pil.applied}`)
+        .get(`/model-tasks/${ids.model.pil.applied}`)
         .expect(200)
         .expect(response => {
           assertTasks(expected, response.body.data);

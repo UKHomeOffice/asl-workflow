@@ -91,6 +91,16 @@ module.exports = models => {
           email: 'lisenxing@example.com',
           asruUser: true,
           asruLicensing: true
+        },
+        {
+          id: 'a8e6f04b-f3a6-4378-91fa-f612d4ed1102',
+          firstName: 'Asru',
+          lastName: 'Admin',
+          email: 'asruadmin@example.com',
+          asruUser: true,
+          asruAdmin: true,
+          asruLicensing: true,
+          asruInspector: true
         }
       ])
         .then(() => {
@@ -102,14 +112,14 @@ module.exports = models => {
             email: 'test@example.com',
             places: [
               {
-                id: ids.place.applied,
+                id: ids.model.place.applied,
                 site: 'Lunar House',
                 name: 'Room 101',
                 suitability: ['SA', 'LA'],
                 holding: ['LTH']
               },
               {
-                id: ids.place.resolved,
+                id: ids.model.place.resolved,
                 site: 'Lunar House',
                 name: 'Room 102',
                 suitability: ['SA'],

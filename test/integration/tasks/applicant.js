@@ -44,7 +44,7 @@ describe('Applicant', () => {
         .send({
           model: 'place',
           action: 'update',
-          id: ids.place.applied
+          id: ids.model.place.applied
         })
         .expect(400);
     });
@@ -55,7 +55,7 @@ describe('Applicant', () => {
         .send({
           model: 'place',
           action: 'update',
-          id: ids.place.resolved,
+          id: ids.model.place.resolved,
           changedBy: PELH_ID
         })
         .expect(200);
@@ -116,7 +116,7 @@ describe('Applicant', () => {
     it('can resubmit a recalled ppl application', () => {
       const version = uuid();
       return request(this.workflow)
-        .put(`/${ids.project.grant}/status`)
+        .put(`/${ids.task.project.grant}/status`)
         .send({
           status: resubmitted.id,
           meta: {

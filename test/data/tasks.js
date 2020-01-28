@@ -22,7 +22,7 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'pil',
       action: 'grant',
-      id: ids.pil.applied,
+      id: ids.model.pil.applied,
       changedBy: user.id
     },
     status: 'with-ntco',
@@ -44,7 +44,7 @@ module.exports = query => query.insert([
     ...generateDates(1)
   },
   {
-    id: ids.pil.grant,
+    id: ids.task.pil.grant,
     data: {
       data: {
         name: 'pil returned'
@@ -59,7 +59,7 @@ module.exports = query => query.insert([
     ...generateDates(2)
   },
   {
-    id: ids.pil.transfer,
+    id: ids.task.pil.transfer,
     data: {
       data: {
         name: 'pil transfer recalled'
@@ -89,7 +89,7 @@ module.exports = query => query.insert([
     ...generateDates(3)
   },
   {
-    id: ids.project.grant,
+    id: ids.task.project.grant,
     data: {
       data: {
         name: 'recalled ppl',
@@ -165,7 +165,7 @@ module.exports = query => query.insert([
     ...generateDates(8)
   },
   {
-    id: uuid(),
+    id: ids.task.place.applied,
     data: {
       data: {
         name: 'place update recommended'
@@ -173,7 +173,7 @@ module.exports = query => query.insert([
       establishmentId: 100,
       model: 'place',
       action: 'update',
-      id: ids.place.applied,
+      id: ids.model.place.applied,
       changedBy: holc.id
     },
     status: 'inspector-recommended',
@@ -209,7 +209,7 @@ module.exports = query => query.insert([
     ...generateDates(11)
   },
   {
-    id: uuid(),
+    id: ids.task.place.resolved,
     data: {
       data: {
         name: 'granted place update'
@@ -217,7 +217,7 @@ module.exports = query => query.insert([
       establishmentId: 100,
       model: 'place',
       action: 'update',
-      id: ids.place.resolved,
+      id: ids.model.place.resolved,
       changedBy: holc.id
     },
     status: 'resolved',
@@ -238,7 +238,7 @@ module.exports = query => query.insert([
     ...generateDates(13)
   },
   {
-    id: uuid(),
+    id: ids.task.pil.rejected,
     data: {
       data: {
         name: 'rejected pil'
@@ -247,7 +247,7 @@ module.exports = query => query.insert([
       subject: uuid(),
       model: 'pil',
       action: 'grant',
-      id: ids.pil.rejected,
+      id: ids.model.pil.rejected,
       changedBy: holc.id
     },
     status: 'rejected',
@@ -339,7 +339,7 @@ module.exports = query => query.insert([
       subject: user.id,
       model: 'pil',
       action: 'grant',
-      id: ids.pil.applied,
+      id: ids.model.pil.applied,
       changedBy: user.id
     },
     status: 'with-ntco',

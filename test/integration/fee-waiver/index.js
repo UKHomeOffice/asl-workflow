@@ -27,7 +27,7 @@ describe('Fee waiver', () => {
       .send({
         model: 'feeWaiver',
         action: 'create',
-        id: ids.pil.applied,
+        id: ids.model.pil.applied,
         data: {
           establishmentId: 100,
           year: 2019
