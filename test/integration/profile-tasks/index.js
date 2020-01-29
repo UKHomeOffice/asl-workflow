@@ -24,13 +24,14 @@ describe('Subject', () => {
     return workflowHelper.destroy();
   });
 
-  it('returns open tasks for the subject', () => {
+  it('returns open tasks where user is the subject or opened the task', () => {
     const expected = [
       'recalled ppl',
       'pil returned',
       'pil with ntco',
       'pil with licensing',
       'another with-ntco to test ordering',
+      'another with-inspectorate to test ordering',
       'project awaiting endorsement'
     ];
     return request(this.workflow)
