@@ -42,6 +42,26 @@ describe('Subject', () => {
       });
   });
 
+  it('includes non-open but not autoresolved tasks if passed an "all" flag', () => {
+    const expected = [
+      'recalled ppl',
+      'pil returned',
+      'pil with ntco',
+      'pil with licensing',
+      'another with-ntco to test ordering',
+      'another with-inspectorate to test ordering',
+      'project awaiting endorsement',
+      'discarded ppl',
+      'granted pil'
+    ];
+    return request(this.workflow)
+      .get(`/profile-tasks/${user.id}?all=true`)
+      .expect(200)
+      .expect(response => {
+        assertTasks(expected, response.body.data);
+      });
+  });
+
   it('returns open tasks for the subject at a particular establishment', () => {
     const expected = [
       'pil transfer recalled'
