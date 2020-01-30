@@ -41,5 +41,26 @@
       },
       "establishmentId": 8201
     }
+  },
+  {
+    "id": "2b6425cd-6c04-4de1-9a34-acedc6d190e3",
+    "status": "inspector-recommended",
+    "data": {
+      "id": "133519f2-6b9d-4e44-b9df-3e3e6ae3196f",
+      "data": {
+        "type": "nio",
+        "profileId": "d76f441b-928e-4d20-a100-04b8781363e5",
+        "rcvsNumber": "",
+        "establishmentId": 8201
+      },
+      "meta": {
+        "comment": "Maire would make a great NIO."
+      },
+      "model": "role",
+      "action": "create",
+      "subject": "d76f441b-928e-4d20-a100-04b8781363e5",
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "establishmentId": 8201
+    }
   }
 ]
