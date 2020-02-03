@@ -37,7 +37,8 @@ describe('Profile update', () => {
             lastName: 'Christie',
             dob: '1960-04-02',
             telephone: '98 765 4321' // telephone changed
-          }
+          },
+          changedBy: user.id
         })
         .expect(200)
         .then(response => response.body.data)
@@ -58,7 +59,8 @@ describe('Profile update', () => {
             lastName: 'Christie',
             dob: '1989-01-01', // dob changed
             telephone: '01234567890'
-          }
+          },
+          changedBy: user.id
         })
         .expect(200)
         .then(response => response.body.data)
@@ -82,7 +84,8 @@ describe('Profile update', () => {
           action: 'update',
           data: {
             dob: '1999-09-09'
-          }
+          },
+          changedBy: user.id
         })
         .expect(200)
         .then(respose => respose.body.data)
@@ -99,7 +102,8 @@ describe('Profile update', () => {
           action: 'update',
           data: {
             phone: '01818118181'
-          }
+          },
+          changedBy: user.id
         })
         .expect(200)
         .then(respose => respose.body.data)
@@ -126,7 +130,8 @@ describe('Profile update', () => {
             lastName: 'Holder',
             dob: '1946-06-15',
             telephone: '9876 54321' // telephone changed
-          }
+          },
+          changedBy: userWithActivePil.id
         })
         .expect(200)
         .then(response => response.body.data)
@@ -147,7 +152,8 @@ describe('Profile update', () => {
             lastName: 'Holder',
             dob: '1946-06-15',
             telephone: '01234567890'
-          }
+          },
+          changedBy: userWithActivePil.id
         })
         .expect(200)
         .then(response => response.body.data)
@@ -168,7 +174,8 @@ describe('Profile update', () => {
             lastName: 'Holder',
             dob: '1999-09-09',
             telephone: '01234567890'
-          }
+          },
+          changedBy: userWithActivePil.id
         })
         .expect(200)
         .then(response => response.body.data)
@@ -186,7 +193,8 @@ describe('Profile update', () => {
           action: 'update',
           data: {
             email: 'newemail@example.com'
-          }
+          },
+          changedBy: userWithActivePil.id
         })
         .expect(200)
         .then(response => response.body.data)

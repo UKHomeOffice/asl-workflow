@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { userAtMultipleEstablishments } = require('../../data/profiles');
+const { userAtMultipleEstablishments, user } = require('../../data/profiles');
 const { awaitingEndorsement } = require('../../../lib/flow/status');
 
 const pilId = 'ba3f4fdf-27e4-461e-a251-3188faa35df5';
@@ -26,15 +26,13 @@ describe('PIL transfer', () => {
   });
 
   it('prevents transfer by anyone other than the owner of the PIL', () => {
-    const notTheOwnerId = 'c0f0b528-5caa-4dee-bf44-170827e35755';
-
     return request(this.workflow)
       .post('/')
       .send({
         model: 'pil',
         action: 'transfer',
         id: pilId,
-        changedBy: notTheOwnerId,
+        changedBy: user.id,
         data: {
           procedures: ['C'],
           species: ['Mice', 'Rats'],
