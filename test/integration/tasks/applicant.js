@@ -2,7 +2,7 @@ const assert = require('assert');
 const uuid = require('uuid/v4');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { user } = require('../../data/profiles');
+const { user, licensing } = require('../../data/profiles');
 const {
   returnedToApplicant,
   resubmitted,
@@ -70,9 +70,46 @@ describe('Applicant', () => {
           },
           model: 'profile',
           action: 'update',
-          id: user.id
+          id: user.id,
+          changedBy: user.id
         })
         .expect(200);
+    });
+
+    it('will update the task with asruInitiated: true if created by an ASRU user', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          data: {
+            firstName: 'Colin'
+          },
+          model: 'profile',
+          action: 'update',
+          id: user.id,
+          changedBy: licensing.id
+        })
+        .expect(200)
+        .expect(response => {
+          assert.equal(response.body.data.data.initiatedByAsru, true);
+        });
+    });
+
+    it('will update the task with asruInitiated: false if created by an establishment user', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          data: {
+            firstName: 'Colin'
+          },
+          model: 'profile',
+          action: 'update',
+          id: user.id,
+          changedBy: user.id
+        })
+        .expect(200)
+        .expect(response => {
+          assert.equal(response.body.data.data.initiatedByAsru, false);
+        });
     });
 
   });

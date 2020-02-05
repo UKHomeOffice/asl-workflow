@@ -1,6 +1,6 @@
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-
+const profiles = require('../../data/profiles');
 const ids = require('../../data/ids');
 
 describe('Fee waiver', () => {
@@ -31,7 +31,8 @@ describe('Fee waiver', () => {
         data: {
           establishmentId: 100,
           year: 2019
-        }
+        },
+        changedBy: profiles.asruAdmin.id
       })
       .expect(200);
   });
