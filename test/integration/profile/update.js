@@ -23,6 +23,28 @@ describe('Profile update', () => {
     return workflowHelper.destroy();
   });
 
+  describe('create profile', () => {
+    it('autoresolves profile creation tasks', () => {
+      return request(this.workflow)
+        .post('/')
+        .send({
+          model: 'profile',
+          id: user.id,
+          action: 'create',
+          data: {
+            firstName: 'Linford',
+            lastName: 'Christie',
+            email: 'test@example.com'
+          }
+        })
+        .expect(200)
+        .then(response => response.body.data)
+        .then(task => {
+          assert.equal(task.status, autoResolved.id);
+        });
+    });
+  });
+
   describe('User with no licences or named roles', () => {
 
     it('auto-resolves changes that don\'t include the name or DOB', () => {
