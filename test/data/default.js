@@ -77,6 +77,16 @@ module.exports = models => {
           telephone: '01234567890'
         },
         {
+          id: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa',
+          title: 'Mr',
+          firstName: 'Hol',
+          lastName: 'Key',
+          address: '1 Some Road',
+          postcode: 'A1 1AA',
+          email: 'holkey@example.com',
+          telephone: '01234567890'
+        },
+        {
           id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
           firstName: 'Inspector',
           lastName: 'Morse',
@@ -200,6 +210,11 @@ module.exports = models => {
             id: 102,
             name: 'Research 102',
             status: 'inactive'
+          },
+          {
+            id: 103,
+            name: 'Tiny Pharma',
+            status: 'active'
           }]);
         })
         .then(() => {
@@ -237,6 +252,18 @@ module.exports = models => {
               {
                 type: 'pelh',
                 profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f'
+              }
+            ]
+          },
+          {
+            id: 103,
+            profiles: [
+              { id: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa' }
+            ],
+            roles: [
+              {
+                type: 'pelh',
+                profileId: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa'
               }
             ]
           }], { relate: true });

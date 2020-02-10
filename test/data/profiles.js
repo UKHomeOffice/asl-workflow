@@ -29,6 +29,11 @@ module.exports = {
     establishments: [ { id: 101, role: 'admin' } ],
     roles: []
   },
+  holc103: {
+    id: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa',
+    establishments: [ { id: 103, role: 'admin' } ],
+    roles: []
+  },
   ntco: {
     id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0',
     establishments: [ { id: 100 } ],
