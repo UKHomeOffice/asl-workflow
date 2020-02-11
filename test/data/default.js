@@ -87,6 +87,16 @@ module.exports = models => {
           telephone: '01234567890'
         },
         {
+          id: '143e500a-d42d-4010-840e-35418660cdc2',
+          title: 'Mr',
+          firstName: 'Holc',
+          lastName: '101',
+          address: '1 Some Road',
+          postcode: 'A1 1AA',
+          email: 'holc101@example.com',
+          telephone: '01234567890'
+        },
+        {
           id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
           firstName: 'Inspector',
           lastName: 'Morse',
@@ -246,12 +256,17 @@ module.exports = models => {
             id: 101,
             profiles: [
               { id: 'ae28fb31-d867-4371-9b4f-79019e71232f' },
-              { id: 'ae28fb31-d867-4371-9b4f-79019e71232e' }
+              { id: 'ae28fb31-d867-4371-9b4f-79019e71232e' },
+              { id: '143e500a-d42d-4010-840e-35418660cdc2' }
             ],
             roles: [
               {
                 type: 'pelh',
                 profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f'
+              },
+              {
+                type: 'holc',
+                profileId: '143e500a-d42d-4010-840e-35418660cdc2'
               }
             ]
           },

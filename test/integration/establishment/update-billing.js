@@ -21,15 +21,32 @@ describe('Update billing', () => {
   });
 
   it('can be created even if an open task for the establishment exists', () => {
-    return request(this.workflow)
-      .post('/')
-      .send({
-        model: 'establishment',
-        action: 'update-billing',
-        id: 100,
-        changedBy: profiles.asruAdmin.id
+    return Promise.resolve()
+      .then(() => {
+        return request(this.workflow)
+          .post('/')
+          .send({
+            model: 'establishment',
+            action: 'update',
+            id: 101,
+            data: {
+              address: '123 nowhere street'
+            },
+            changedBy: profiles.holc101.id
+          })
+          .expect(200);
       })
-      .expect(200);
+      .then(() => {
+        return request(this.workflow)
+          .post('/')
+          .send({
+            model: 'establishment',
+            action: 'update-billing',
+            id: 101,
+            changedBy: profiles.holc101.id
+          })
+          .expect(200);
+      });
   });
 
 });
