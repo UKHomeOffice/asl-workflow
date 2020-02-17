@@ -32,7 +32,8 @@ module.exports = {
       connection: {
         database: process.env.ASL_DATABASE_NAME || 'asl-test',
         host: process.env.ASL_DATABASE_HOST || 'localhost',
-        user: process.env.ASL_DATABASE_USERNAME || 'postgres'
+        user: process.env.ASL_DATABASE_USERNAME || 'postgres',
+        password: process.env.ASL_DATABASE_PASSWORD
       }
     }
   }

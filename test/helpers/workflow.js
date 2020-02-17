@@ -2,23 +2,9 @@ const Workflow = require('../../lib/api');
 const WithUser = require('./with-user');
 const taskflowDb = require('./taskflow-db');
 const aslDb = require('./asl-db');
-const config = require('../../config');
 const fixtures = require('../data');
 const Database = require('@ukhomeoffice/taskflow/lib/db');
-
-const settings = {
-  ...config,
-  db: {
-    host: process.env.ASL_DATABASE_HOST || 'localhost',
-    database: process.env.ASL_DATABASE_NAME || 'asl-test',
-    user: process.env.ASL_DATABASE_USERNAME || 'postgres'
-  },
-  taskflowDB: {
-    host: process.env.DATABASE_HOST || 'localhost',
-    database: process.env.DATABASE_NAME || 'taskflow-test',
-    user: process.env.DATABASE_USERNAME || 'postgres'
-  }
-};
+const settings = require('./database-settings');
 
 let knex = {};
 let tfdb = {};
