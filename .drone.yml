@@ -8,9 +8,11 @@ pipeline:
       - ASL_DATABASE_HOST=database_asl
       - ASL_DATABASE_USERNAME=postgres
       - ASL_DATABASE_NAME=asl-test
+      - ASL_DATABASE_PASSWORD=test-password
       - DATABASE_HOST=database_taskflow
       - DATABASE_USERNAME=postgres
       - DATABASE_NAME=taskflow-test
+      - DATABASE_PASSWORD=test-password
     commands:
       - npm ci
       - npm test
@@ -79,11 +81,13 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=asl-test
+      - POSTGRES_PASSWORD=test-password
   database_taskflow:
     image: postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=taskflow-test
+      - POSTGRES_PASSWORD=test-password
 
 matrix:
   NPM_AUTH_USERNAME:

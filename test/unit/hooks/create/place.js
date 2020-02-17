@@ -5,11 +5,7 @@ const hook = require('../../../../lib/hooks/create/place');
 const Database = require('../../../helpers/asl-db');
 const fixtures = require('../../../data');
 
-const settings = {
-  host: process.env.ASL_DATABASE_HOST || 'localhost',
-  database: process.env.ASL_DATABASE_NAME || 'asl-test',
-  user: process.env.ASL_DATABASE_USERNAME || 'postgres'
-};
+const settings = require('../../../helpers/database-settings');
 
 const INSPECTOR_ID = 'a942ffc7-e7ca-4d76-a001-0b5048a057d1';
 const LICENSING_ID = 'a942ffc7-e7ca-4d76-a001-0b5048a057d2';
@@ -17,7 +13,7 @@ const PELH_ID = 'ae28fb31-d867-4371-9b4f-79019e71232f';
 
 describe('Place create hook', () => {
   before(() => {
-    return Database(settings).init(fixtures.default, true)
+    return Database(settings.db).init(fixtures.default, true)
       .then(models => {
         this.models = models;
         this.hook = hook({ models });
