@@ -3,8 +3,7 @@ const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
 const { licensing, user } = require('../../data/profiles');
 const { autoResolved } = require('../../../lib/flow/status');
-
-const projectId = 'fa73305f-125e-4e20-bc41-a9bf8cfb3558'; // Test project 4
+const ids = require('../../data/ids');
 
 describe('Project update issue date', () => {
   before(() => {
@@ -33,7 +32,7 @@ describe('Project update issue date', () => {
       .send({
         model: 'project',
         action: 'update-issue-date',
-        id: projectId,
+        id: ids.model.project.updateIssueDate,
         changedBy: user.id,
         data: {
           issueDate: newIssueDate
@@ -55,7 +54,7 @@ describe('Project update issue date', () => {
       .send({
         model: 'project',
         action: 'update-issue-date',
-        id: projectId,
+        id: ids.model.project.updateIssueDate,
         changedBy: licensing.id,
         data: {
           issueDate: newIssueDate
