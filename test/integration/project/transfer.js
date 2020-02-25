@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const { userAtMultipleEstablishments, holc, holc101, inspector } = require('../../data/profiles');
 const workflowHelper = require('../../helpers/workflow');
-const { endorsed, withInspectorate, returnedToApplicant, resubmitted } = require('../../../lib/flow/status');
+const { endorsed, withInspectorate, returnedToApplicant, resubmitted, awaitingEndorsement } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
 let payload;
@@ -43,7 +43,7 @@ describe('Project transfer', () => {
     return workflowHelper.destroy();
   });
 
-  it('updates the establishmentId of the task once endorsed and changes status to with-inspectorate', () => {
+  it('updates the establishmentId of the task once endorsed and changes status to awaiting-endorsement', () => {
     return request(this.workflow)
       .post('/')
       .send(payload)
@@ -62,7 +62,7 @@ describe('Project transfer', () => {
       })
       .then(response => {
         assert.equal(response.body.data.data.establishmentId, 101);
-        assert.equal(response.body.data.status, withInspectorate.id);
+        assert.equal(response.body.data.status, awaitingEndorsement.id);
       });
   });
 
@@ -101,7 +101,20 @@ describe('Project transfer', () => {
           .send({
             status: endorsed.id,
             meta: {
-              comment: 'endorsing a transfer'
+              comment: 'endorsed from sending est'
+            }
+          })
+          .expect(200);
+      })
+      .then(response => {
+        const task = response.body.data;
+        this.workflow.setUser({ profile: holc101 });
+        return request(this.workflow)
+          .put(`/${task.id}/status`)
+          .send({
+            status: endorsed.id,
+            meta: {
+              comment: 'endorsed from receiving est'
             }
           })
           .expect(200);
