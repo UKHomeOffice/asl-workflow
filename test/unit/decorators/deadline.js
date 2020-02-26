@@ -173,4 +173,89 @@ describe('Deadline', () => {
     });
   });
 
+  it('sets a deadline based on the most recent submission', () => {
+    const task = {
+      status: 'with-inspectorate',
+      createdAt: '2019-09-20T10:00:00.000Z',
+      data: {
+        model: 'project',
+        action: 'grant',
+        modelData: {
+          status: 'inactive'
+        },
+        meta: {
+          authority: 'yes',
+          awerb: 'yes',
+          ready: 'yes'
+        }
+      },
+      activityLog: [
+        {
+          eventName: 'create',
+          createdAt: '2019-09-20T10:00:00.000Z'
+        },
+        {
+          eventName: 'status:new:with-inspectorate',
+          createdAt: '2019-09-20T10:00:00.100Z'
+        },
+        {
+          eventName: 'status:with-inspectorate:returned-to-applicant',
+          createdAt: '2019-09-21T10:00:00.100Z'
+        },
+        {
+          eventName: 'status:returned-to-applicant:with-inspectorate',
+          createdAt: '2019-09-24T10:00:00.100Z'
+        }
+      ]
+    };
+    return decorator()(task).then(result => {
+      assert.ok(result.deadline);
+      assert.equal(result.deadline.format('YYYY-MM-DD'), '2019-11-19');
+    });
+  });
+
+  it('sets an extended deadline if the task deadline has been extended', () => {
+    const task = {
+      status: 'with-inspectorate',
+      createdAt: '2019-09-20T10:00:00.000Z',
+      isOpen: true,
+      data: {
+        model: 'project',
+        action: 'grant',
+        extended: true,
+        modelData: {
+          status: 'inactive'
+        },
+        meta: {
+          authority: 'yes',
+          awerb: 'yes',
+          ready: 'yes'
+        }
+      },
+      activityLog: [
+        {
+          eventName: 'create',
+          createdAt: '2019-09-20T10:00:00.000Z'
+        },
+        {
+          eventName: 'status:new:with-inspectorate',
+          createdAt: '2019-09-20T10:00:00.100Z'
+        },
+        {
+          eventName: 'status:with-inspectorate:returned-to-applicant',
+          createdAt: '2019-09-21T10:00:00.100Z'
+        },
+        {
+          eventName: 'status:returned-to-applicant:with-inspectorate',
+          createdAt: '2019-09-24T10:00:00.100Z'
+        }
+      ]
+    };
+    return decorator()(task).then(result => {
+      assert.ok(result.deadline);
+      assert.equal(result.deadline.format('YYYY-MM-DD'), '2019-12-10');
+      assert.equal(result.isExtendable, false);
+    });
+  });
+
 });
