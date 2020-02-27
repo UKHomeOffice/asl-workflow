@@ -24,14 +24,7 @@ describe('Project transfer', () => {
       changedBy: userAtMultipleEstablishments.id,
       establishmentId: 100,
       data: {
-        establishment: {
-          from: {
-            id: 100
-          },
-          to: {
-            id: 101
-          }
-        }
+        establishmentId: 101
       }
     };
     return Promise.resolve()

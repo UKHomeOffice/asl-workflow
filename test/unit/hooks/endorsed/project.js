@@ -12,14 +12,7 @@ describe('Endorse project', () => {
           model: 'project',
           action: 'transfer',
           data: {
-            establishment: {
-              from: {
-                id: 8201
-              },
-              to: {
-                id: 8202
-              }
-            }
+            establishmentId: 8202
           },
           establishmentId: 8201,
           meta: {}
