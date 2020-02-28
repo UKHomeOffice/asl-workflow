@@ -21,7 +21,7 @@ describe('Project create legacy stub', () => {
     return workflowHelper.destroy();
   });
 
-  it('prevents project stubs being created by anyone other than licensing officers', () => {
+  it('prevents project stubs being created by external users', () => {
     this.workflow.setUser({ profile: user });
 
     return request(this.workflow)
@@ -46,40 +46,31 @@ describe('Project create legacy stub', () => {
       });
   });
 
-  // it('autoresolves creation of project stubs by a licensing officer', () => {
-  //   this.workflow.setUser({ profile: licensing });
+  it('autoresolves creation of project stubs by a licensing officer', () => {
+    this.workflow.setUser({ profile: licensing });
 
-  //   const opts = {
-  //     model: 'project',
-  //     action: 'create',
-  //     changedBy: licensing,
-  //     data: {
-  //       title: 'Digitised Paper Licence Stub',
-  //       establishmentId: 8201,
-  //       licenceHolderId: user.id,
-  //       licenceNumber: 'XXX-123-XXX',
-  //       issueDate: new Date('2018-08-15').toISOString(),
-  //       isLegacyStub: true,
-  //       version: {
-  //         data: {
-  //           title: 'Digitised Paper Licence Stub',
-  //           duration: {
-  //             years: 5,
-  //             months: 0
-  //           }
-  //         }
-  //       }
-  //     }
-  //   };
+    const opts = {
+      model: 'project',
+      action: 'create',
+      changedBy: licensing.id,
+      data: {
+        title: 'Digitised Paper Licence Stub',
+        establishmentId: 8201,
+        licenceHolderId: user.id,
+        licenceNumber: 'XXX-123-XXX',
+        issueDate: new Date('2018-08-15').toISOString(),
+        isLegacyStub: true
+      }
+    };
 
-  //   return request(this.workflow)
-  //     .post('/')
-  //     .send(opts)
-  //     .expect(200)
-  //     .then(response => response.body.data)
-  //     .then(task => {
-  //       assert.equal(task.status, autoResolved.id);
-  //     });
-  // });
+    return request(this.workflow)
+      .post('/')
+      .send(opts)
+      .expect(200)
+      .then(response => response.body.data)
+      .then(task => {
+        assert.equal(task.status, autoResolved.id);
+      });
+  });
 
 });
