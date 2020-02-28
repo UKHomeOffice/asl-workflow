@@ -1,4 +1,7 @@
 const assert = require('assert');
+const sinon = require('sinon');
+
+const Case = require('@ukhomeoffice/taskflow/lib/models/case');
 
 const decorator = require('../../../lib/decorators/deadline');
 
@@ -296,6 +299,44 @@ describe('Deadline', () => {
       assert.ok(result.deadline);
       assert.equal(result.deadline.format('YYYY-MM-DD'), '2019-12-10');
       assert.equal(result.isExtendable, false);
+    });
+  });
+
+  it('looks up activity log if none is provided', () => {
+    const task = {
+      status: 'with-inspectorate',
+      createdAt: '2019-09-20T10:00:00.000Z',
+      isOpen: true,
+      data: {
+        model: 'project',
+        action: 'grant',
+        modelData: {
+          status: 'inactive'
+        },
+        meta: {
+          authority: 'yes',
+          awerb: 'yes',
+          ready: 'yes'
+        }
+      }
+    };
+    const activityLog = [
+      {
+        eventName: 'create',
+        createdAt: '2019-09-20T10:00:00.000Z'
+      },
+      {
+        eventName: 'status:new:with-inspectorate',
+        createdAt: '2019-09-20T10:00:00.100Z'
+      }
+    ];
+    sinon.stub(Case, 'find').resolves({
+      toJSON: () => ({ ...task, activityLog })
+    });
+    return decorator()(task).then(result => {
+      assert.ok(result.deadline);
+      assert.equal(result.deadline.format('YYYY-MM-DD'), '2019-11-15');
+      Case.find.restore();
     });
   });
 
