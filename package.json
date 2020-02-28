@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:unit": "NODE_ENV=test npm run migrate:test && mocha ./test/integration/project/create-legacy-stub.js --recursive --exit",
+    "test:unit": "NODE_ENV=test npm run migrate:test && mocha ./test --recursive --exit",
     "dev": "nodemon -r dotenv/config index.js",
     "seed": "SNAKE_MAPPER=true knex seed:run",
     "migrate": "node ./scripts/migrate.js",
