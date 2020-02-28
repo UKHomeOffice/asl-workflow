@@ -1,4 +1,6 @@
 const ids = require('./ids');
+const uuid = require('uuid/v4');
+const { userAtMultipleEstablishments } = require('./profiles');
 
 module.exports = models => {
 
@@ -156,18 +158,21 @@ module.exports = models => {
             ],
             projects: [
               {
+                id: uuid(),
                 title: 'Test project 1',
                 licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
                 expiryDate: '2040-01-01T12:00:00Z',
                 licenceNumber: 'abc123'
               },
               {
+                id: uuid(),
                 title: 'Test project 3',
                 licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
                 expiryDate: '2010-01-01T12:00:00Z',
                 licenceNumber: 'abc456'
               },
               {
+                id: ids.model.project.updateIssueDate,
                 title: 'Test project 4',
                 licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
                 issueDate: '2020-01-01T12:00:00Z',
@@ -176,6 +181,23 @@ module.exports = models => {
                 version: [
                   {
                     id: '6cd77ff4-8de7-4b10-8d5c-e9bdbf65ccfb',
+                    status: 'granted',
+                    data: {
+                      duration: { years: 5, months: 0 }
+                    }
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.transfer,
+                title: 'Test project 5',
+                licenceHolderId: userAtMultipleEstablishments.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: 'xyz123',
+                version: [
+                  {
+                    id: uuid(),
                     status: 'granted',
                     data: {
                       duration: { years: 5, months: 0 }
@@ -209,6 +231,7 @@ module.exports = models => {
             ],
             projects: [
               {
+                id: uuid(),
                 title: 'Test project 2',
                 licenceHolderId: 'ae28fb31-d867-4371-9b4f-79019e71232e',
                 expiryDate: '2040-01-01T12:00:00Z',

@@ -23,6 +23,10 @@ module.exports = {
     place: {
       applied: uuid(),
       resolved: uuid()
+    },
+    project: {
+      transfer: uuid(),
+      updateIssueDate: uuid()
     }
   }
 };
