@@ -8,7 +8,7 @@ const changedBy = uuid();
 
 const runHook = hook({ StubMessager: messagerStub });
 
-describe.only('Recall hook', () => {
+describe('Recall hook', () => {
   beforeEach(() => {
     messagerStub.reset();
     this.model = {
