@@ -1,7 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-const Case = require('@ukhomeoffice/taskflow/lib/models/case');
+const { Task } = require('@ukhomeoffice/taskflow');
 
 const decorator = require('../../../lib/decorators/deadline');
 
@@ -330,13 +330,13 @@ describe('Deadline', () => {
         createdAt: '2019-09-20T10:00:00.100Z'
       }
     ];
-    sinon.stub(Case, 'find').resolves({
+    sinon.stub(Task, 'find').resolves({
       toJSON: () => ({ ...task, activityLog })
     });
     return decorator()(task).then(result => {
       assert.ok(result.deadline);
       assert.equal(result.deadline.format('YYYY-MM-DD'), '2019-11-15');
-      Case.find.restore();
+      Task.find.restore();
     });
   });
 
