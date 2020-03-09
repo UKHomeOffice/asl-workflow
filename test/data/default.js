@@ -198,9 +198,9 @@ module.exports = models => {
                 version: [
                   {
                     id: uuid(),
-                    status: 'granted',
+                    status: 'draft',
                     data: {
-                      duration: { years: 5, months: 0 }
+                      transferToEstablishment: 101
                     }
                   }
                 ]

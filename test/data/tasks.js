@@ -91,6 +91,7 @@ module.exports = query => query.insert([
   {
     id: ids.task.project.grant,
     data: {
+      id: ids.model.project.grant,
       data: {
         name: 'recalled ppl',
         version: uuid()

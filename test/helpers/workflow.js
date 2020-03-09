@@ -31,10 +31,10 @@ module.exports = {
     return knex.destroy();
   },
 
-  resetDBs: () => {
+  resetDBs: ({ keepalive = false } = {}) => {
     return Promise.resolve()
       .then(() => tfdb.reset())
-      .then(() => aslDb(settings.db).init(fixtures.default));
+      .then(() => aslDb(settings.db).init(fixtures.default, keepalive));
   },
 
   seedTaskList: () => {
