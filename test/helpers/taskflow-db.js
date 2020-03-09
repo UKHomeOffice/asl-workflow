@@ -1,4 +1,4 @@
-const Case = require('@ukhomeoffice/taskflow/lib/db/case');
+const Task = require('@ukhomeoffice/taskflow/lib/db/task');
 const ActivityLog = require('@ukhomeoffice/taskflow/lib/db/activity-log');
 const seeds = require('../data/tasks');
 
@@ -8,11 +8,11 @@ module.exports = knex => {
       .then(() => {
         return Promise.resolve()
           .then(() => ActivityLog.query(knex).delete())
-          .then(() => Case.query(knex).delete());
+          .then(() => Task.query(knex).delete());
       }),
     seed: () => Promise.resolve()
       .then(() => {
-        return seeds(Case.query(knex));
+        return seeds(Task.query(knex));
       })
   };
 };
