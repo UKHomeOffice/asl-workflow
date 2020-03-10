@@ -19,21 +19,81 @@ describe('Project transfer', () => {
     this.workflow.setUser({ profile: userAtMultipleEstablishments });
     payload = {
       model: 'project',
-      action: 'transfer',
+      action: 'grant',
       id: ids.model.project.transfer,
       changedBy: userAtMultipleEstablishments.id,
-      establishmentId: 100,
-      data: {
-        establishmentId: 101
-      }
+      establishmentId: 100
     };
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
+      .then(() => workflowHelper.resetDBs({ keepalive: true }))
+      .then(models => {
+        this.models = models;
+      })
       .then(() => workflowHelper.seedTaskList());
+  });
+
+  afterEach(() => {
+    return this.models.destroy();
   });
 
   after(() => {
     return workflowHelper.destroy();
+  });
+
+  it('updates the action to `transfer` and adds the transferToEstablishment to data', () => {
+    return request(this.workflow)
+      .post('/')
+      .send(payload)
+      .expect(200)
+      .then(response => {
+        const task = response.body.data;
+        assert.equal(task.data.action, 'transfer');
+        assert.equal(task.data.data.establishmentId, 101);
+      });
+  });
+
+  it('doesn\'t update the action if transferToEstablishment is not included in version', () => {
+    const { ProjectVersion } = this.models;
+    return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: null } })
+      .then(() => request(this.workflow)
+        .post('/')
+        .send(payload)
+        .expect(200)
+        .then(response => {
+          const task = response.body.data;
+          assert.equal(task.data.action, 'grant');
+          assert.equal(task.data.data, undefined);
+        })
+      );
+  });
+
+  it('doesn\'t update the action if transferToEstablishment is the same as current establishment', () => {
+    const { ProjectVersion } = this.models;
+    return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: 100 } })
+      .then(() => request(this.workflow)
+        .post('/')
+        .send(payload)
+        .expect(200)
+        .then(response => {
+          const task = response.body.data;
+          assert.equal(task.data.action, 'grant');
+          assert.equal(task.data.data, undefined);
+        })
+      );
+  });
+
+  it('throws an error if licenceHolder is not associated with transferToEstablishment', () => {
+    const { ProjectVersion } = this.models;
+    return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: 102 } })
+      .then(() => request(this.workflow)
+        .post('/')
+        .send(payload)
+        .expect(400)
+        .then(response => response.body)
+        .then(error => {
+          assert.equal(error.message, 'User is not associated with Research 102');
+        })
+      );
   });
 
   it('updates the establishmentId of the task once endorsed and changes status to awaiting-endorsement', () => {
