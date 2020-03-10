@@ -42,7 +42,7 @@
     "chai": "^4.2.0",
     "dotenv": "^6.0.0",
     "eslint": "^5.0.1",
-    "eslint-config-lennym": "^2.0.1",
+    "eslint-config-lennym": "^2.1.1",
     "mocha": "^7.1.0",
     "nodemon": "^1.17.5",
     "sinon": "^7.3.2",
