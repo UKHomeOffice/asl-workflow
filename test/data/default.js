@@ -204,6 +204,23 @@ module.exports = models => {
                     }
                   }
                 ]
+              },
+              {
+                id: ids.model.project.updateLicenceNumber,
+                title: 'Test project 6',
+                licenceHolderId: userAtMultipleEstablishments.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: 'xyz123',
+                version: [
+                  {
+                    id: uuid(),
+                    status: 'granted',
+                    data: {
+                      duration: { years: 5, months: 0 }
+                    }
+                  }
+                ]
               }
             ]
           },
