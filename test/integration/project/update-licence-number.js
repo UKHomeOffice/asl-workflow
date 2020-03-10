@@ -5,7 +5,7 @@ const { licensing, user } = require('../../data/profiles');
 const { autoResolved } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
-describe('Project update issue date', () => {
+describe('Project stub update licence number', () => {
   before(() => {
     return workflowHelper.create()
       .then(workflow => {
@@ -23,19 +23,17 @@ describe('Project update issue date', () => {
     return workflowHelper.destroy();
   });
 
-  it('prevents issue date being updated by the licence holder', () => {
+  it('prevents licence number being updated by the licence holder', () => {
     this.workflow.setUser({ profile: user });
-    const newIssueDate = new Date('2017-01-01').toISOString();
-
     return request(this.workflow)
       .post('/')
       .send({
         model: 'project',
-        action: 'update-issue-date',
-        id: ids.model.project.updateIssueDate,
+        action: 'update-licence-number',
+        id: ids.model.project.updateLicenceNumber,
         changedBy: user.id,
         data: {
-          issueDate: newIssueDate
+          licenceNumber: '9876-XYZ'
         }
       })
       .expect(403)
@@ -45,19 +43,19 @@ describe('Project update issue date', () => {
       });
   });
 
-  it('autoresolves issue date updates by a licensing officer', () => {
+  it('autoresolves licence number updates to stubs by a licensing officer', () => {
     this.workflow.setUser({ profile: licensing });
-    const newIssueDate = new Date('2017-01-01').toISOString();
+    const newLicenceNumber = '9876-XYZ';
 
     return request(this.workflow)
       .post('/')
       .send({
         model: 'project',
-        action: 'update-issue-date',
+        action: 'update-licence-number',
         id: ids.model.project.updateIssueDate,
         changedBy: licensing.id,
         data: {
-          issueDate: newIssueDate
+          licenceNumber: newLicenceNumber
         }
       })
       .expect(200)

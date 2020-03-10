@@ -26,7 +26,8 @@ module.exports = {
     },
     project: {
       transfer: uuid(),
-      updateIssueDate: uuid()
+      updateIssueDate: uuid(),
+      updateLicenceNumber: uuid()
     }
   }
 };
