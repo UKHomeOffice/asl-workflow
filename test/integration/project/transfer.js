@@ -32,6 +32,10 @@ describe('Project transfer', () => {
       .then(() => workflowHelper.seedTaskList());
   });
 
+  afterEach(() => {
+    return this.models.destroy();
+  });
+
   after(() => {
     return workflowHelper.destroy();
   });
