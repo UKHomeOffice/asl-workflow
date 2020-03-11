@@ -181,6 +181,21 @@ module.exports = query => query.insert([
     ...generateDates(9)
   },
   {
+    id: ids.task.place.returned,
+    data: {
+      data: {
+        name: 'place update returned'
+      },
+      establishmentId: 100,
+      model: 'place',
+      action: 'update',
+      id: ids.model.place.returned,
+      changedBy: holc.id
+    },
+    status: 'returned-to-applicant',
+    ...generateDates(9)
+  },
+  {
     id: uuid(),
     data: {
       data: {

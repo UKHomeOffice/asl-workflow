@@ -9,7 +9,9 @@ module.exports = {
     },
     place: {
       applied: uuid(),
-      resolved: uuid()
+      resolved: uuid(),
+      returned: uuid(),
+      inspector: uuid()
     },
     project: {
       grant: uuid()
@@ -22,7 +24,8 @@ module.exports = {
     },
     place: {
       applied: uuid(),
-      resolved: uuid()
+      resolved: uuid(),
+      returned: uuid()
     },
     project: {
       grant: uuid(),

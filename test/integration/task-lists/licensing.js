@@ -106,6 +106,7 @@ describe('Licensing Officer', () => {
         'pil returned',
         'pil transfer recalled',
         'place update with inspector',
+        'place update returned',
         'conditions update',
         'Submitted by HOLC',
         'another with-inspectorate to test ordering',
