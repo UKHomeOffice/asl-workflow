@@ -89,6 +89,7 @@ describe('Inspector', () => {
         'pil with licensing',
         'pil transfer recalled',
         'place update with licensing',
+        'place update returned',
         'place update with licensing - other establishment',
         'place update recommended',
         'place update recommend rejected',

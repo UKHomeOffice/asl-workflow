@@ -31,6 +31,7 @@ describe('Establishment Admin', () => {
     it('sees tasks for their establishment that require action', () => {
       const expected = [
         'pil returned',
+        'place update returned',
         'Submitted by HOLC',
         'recalled ppl',
         'conditions update',

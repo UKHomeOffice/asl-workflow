@@ -1,0 +1,92 @@
+const request = require('supertest');
+const assert = require('assert');
+const workflowHelper = require('../../helpers/workflow');
+const profiles = require('../../data/profiles');
+const ids = require('../../data/ids');
+
+describe('unique hook', () => {
+  before(() => {
+    return workflowHelper.create()
+      .then(workflow => {
+        this.workflow = workflow;
+        this.workflow.setUser({ profile: profiles.holc });
+      });
+  });
+
+  beforeEach(() => {
+    return Promise.resolve()
+      .then(() => workflowHelper.resetDBs())
+      .then(() => workflowHelper.seedTaskList());
+  });
+
+  after(() => {
+    return workflowHelper.destroy();
+  });
+
+  it('rejects if creating a task where one already exists and is noto with the user', () => {
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'place',
+        action: 'update',
+        id: ids.model.place.applied,
+        data: {
+          name: 'failed'
+        },
+        changedBy: profiles.holc.id
+      })
+      .expect(400);
+  });
+
+  it('rejects if creating a task where one already exists and is not the same type', () => {
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'place',
+        action: 'delete',
+        id: ids.model.place.returned,
+        data: {
+          name: 'failed'
+        },
+        changedBy: profiles.holc.id
+      })
+      .expect(400);
+  });
+
+  it('redirects to existing task is of same model/action type and is with the user', () => {
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'place',
+        action: 'update',
+        id: ids.model.place.returned,
+        data: {
+          name: 'updated'
+        },
+        changedBy: profiles.holc.id
+      })
+      .expect(200)
+      .expect(response => {
+        assert.equal(response.body.data.id, ids.task.place.returned);
+      });
+  });
+
+  it('updates task data if redirected to an existing task', () => {
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'place',
+        action: 'update',
+        id: ids.model.place.returned,
+        data: {
+          name: 'updated'
+        },
+        changedBy: profiles.holc.id
+      })
+      .expect(200)
+      .expect(response => {
+        assert.equal(response.body.data.data.data.name, 'updated');
+      });
+  });
+
+});

@@ -20,7 +20,7 @@ module.exports = {
           ...settings,
           noDownstream: true,
           auth: false,
-          log: { level: 'error' }
+          log: { level: 'silent' }
         }, options));
 
         return WithUser(workflow, {});
