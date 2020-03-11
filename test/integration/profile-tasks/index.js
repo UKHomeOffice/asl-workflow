@@ -32,7 +32,8 @@ describe('Subject', () => {
       'pil with licensing',
       'another with-ntco to test ordering',
       'another with-inspectorate to test ordering',
-      'project awaiting endorsement'
+      'project awaiting endorsement',
+      'pil conditions recalled'
     ];
     return request(this.workflow)
       .get(`/profile-tasks/${user.id}`)
@@ -52,7 +53,8 @@ describe('Subject', () => {
       'another with-inspectorate to test ordering',
       'project awaiting endorsement',
       'discarded ppl',
-      'granted pil'
+      'granted pil',
+      'pil conditions recalled'
     ];
     return request(this.workflow)
       .get(`/profile-tasks/${user.id}?all=true`)
