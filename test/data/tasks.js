@@ -197,7 +197,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update returned'
       },
-      initiatedByAsru: false,
+      // initiatedByAsru: false, remove to test backwards compat
       establishmentId: 100,
       model: 'place',
       action: 'update',
