@@ -14,7 +14,8 @@ module.exports = {
       inspector: uuid()
     },
     project: {
-      grant: uuid()
+      grant: uuid(),
+      recalledTransfer: uuid()
     }
   },
   model: {
@@ -30,6 +31,7 @@ module.exports = {
     project: {
       grant: uuid(),
       transfer: uuid(),
+      recalledTransfer: uuid(),
       updateIssueDate: uuid(),
       updateLicenceNumber: uuid()
     }

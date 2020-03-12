@@ -109,6 +109,27 @@ module.exports = query => query.insert([
     ...generateDates(4)
   },
   {
+    id: ids.task.project.recalledTransfer,
+    data: {
+      id: ids.model.project.recalledTransfer,
+      data: {
+        name: 'recalled project transfer',
+        version: uuid(),
+        establishmentId: 101
+      },
+      meta: {
+        authority: 'yes'
+      },
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'transfer',
+      changedBy: user.id
+    },
+    status: 'recalled-by-applicant',
+    ...generateDates(4)
+  },
+  {
     id: uuid(),
     data: {
       data: {

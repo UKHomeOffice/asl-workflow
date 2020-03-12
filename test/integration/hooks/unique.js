@@ -71,6 +71,24 @@ describe('unique hook', () => {
       });
   });
 
+  it('redirects to existing task if type is grant and there is an existing transfer task', () => {
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'project',
+        action: 'grant',
+        id: ids.model.project.recalledTransfer,
+        data: {
+          establishmentId: 100
+        },
+        changedBy: profiles.holc.id
+      })
+      .expect(200)
+      .expect(response => {
+        assert.equal(response.body.data.id, ids.task.project.recalledTransfer);
+      });
+  });
+
   it('updates task data if redirected to an existing task', () => {
     return request(this.workflow)
       .post('/')
