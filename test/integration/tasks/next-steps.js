@@ -1,7 +1,7 @@
 const assert = require('assert');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { user, userAtMultipleEstablishments, holc101, asruAdmin, licensing } = require('../../data/profiles');
+const { user, holc, userAtMultipleEstablishments, holc101, asruAdmin, licensing } = require('../../data/profiles');
 const { resubmitted, updated, discardedByAsru } = require('../../../lib/flow/status');
 const { get } = require('lodash');
 
@@ -126,6 +126,17 @@ describe('Next steps', () => {
           assert.ok(!response.body.data.nextSteps.find(s => s.id === discardedByAsru.id), 'ASRU Admin should not have a discard task option');
         });
     }));
+  });
+
+  it('does not return any steps for non-ASRU users viewing ASRU initiated tasks', () => {
+    this.workflow.setUser({ profile: holc });
+
+    return request(this.workflow)
+      .get(`/${ids.task.pil.asruinitiated}`)
+      .expect(200)
+      .expect(response => {
+        assert.deepEqual(response.body.data.nextSteps, [], 'HOLC has no options to update the task');
+      });
   });
 
 });

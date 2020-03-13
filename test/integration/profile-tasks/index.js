@@ -33,6 +33,7 @@ describe('Subject', () => {
       'another with-ntco to test ordering',
       'another with-inspectorate to test ordering',
       'project awaiting endorsement',
+      'pil conditions recalled',
       'recalled project transfer'
     ];
     return request(this.workflow)
@@ -54,6 +55,7 @@ describe('Subject', () => {
       'project awaiting endorsement',
       'discarded ppl',
       'granted pil',
+      'pil conditions recalled',
       'recalled project transfer'
     ];
     return request(this.workflow)

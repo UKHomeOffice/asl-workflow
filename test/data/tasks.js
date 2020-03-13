@@ -18,6 +18,7 @@ module.exports = query => query.insert([
       data: {
         name: 'pil with ntco'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'pil',
@@ -34,6 +35,7 @@ module.exports = query => query.insert([
       data: {
         name: 'pil with ntco - other establishment'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       subject: uuid(),
       model: 'pil',
@@ -49,6 +51,7 @@ module.exports = query => query.insert([
       data: {
         name: 'pil returned'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'pil',
@@ -64,6 +67,7 @@ module.exports = query => query.insert([
       data: {
         name: 'pil transfer recalled'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       subject: userAtMultipleEstablishments.id,
       model: 'pil',
@@ -79,6 +83,7 @@ module.exports = query => query.insert([
       data: {
         name: 'pil with licensing'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'pil',
@@ -99,6 +104,7 @@ module.exports = query => query.insert([
       meta: {
         authority: 'yes'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'project',
@@ -135,6 +141,7 @@ module.exports = query => query.insert([
       data: {
         name: 'discarded ppl'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'project',
@@ -150,6 +157,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update with licensing'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       model: 'place',
       action: 'update',
@@ -164,6 +172,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update with licensing - other establishment'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       model: 'place',
       action: 'update',
@@ -178,6 +187,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update with inspector'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       model: 'place',
       action: 'update',
@@ -192,6 +202,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update recommended'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       model: 'place',
       action: 'update',
@@ -207,6 +218,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update returned'
       },
+      // initiatedByAsru: false, remove to test backwards compat
       establishmentId: 100,
       model: 'place',
       action: 'update',
@@ -222,6 +234,7 @@ module.exports = query => query.insert([
       data: {
         name: 'place update recommend rejected'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       model: 'place',
       action: 'update',
@@ -236,6 +249,7 @@ module.exports = query => query.insert([
       data: {
         name: 'granted pil'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'pil',
@@ -251,6 +265,7 @@ module.exports = query => query.insert([
       data: {
         name: 'granted place update'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       model: 'place',
       action: 'update',
@@ -266,6 +281,7 @@ module.exports = query => query.insert([
       data: {
         name: 'granted place update - other establishment'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       model: 'place',
       action: 'update',
@@ -280,6 +296,7 @@ module.exports = query => query.insert([
       data: {
         name: 'rejected pil'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: uuid(),
       model: 'pil',
@@ -296,6 +313,7 @@ module.exports = query => query.insert([
       data: {
         name: 'profile update'
       },
+      initiatedByAsru: false,
       subject: user.id,
       model: 'profile',
       action: 'update',
@@ -311,6 +329,7 @@ module.exports = query => query.insert([
       data: {
         name: 'conditions update'
       },
+      initiatedByAsru: false,
       model: 'establishment',
       action: 'update-conditions',
       id: 100,
@@ -327,6 +346,7 @@ module.exports = query => query.insert([
       data: {
         name: 'Submitted by HOLC'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       changedBy: holc.id,
       // subject _should_ be the licenceHolderId, but in some cases is not.
@@ -344,6 +364,7 @@ module.exports = query => query.insert([
       data: {
         name: 'another with-inspectorate to test ordering'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       model: 'place',
       action: 'update',
@@ -358,6 +379,7 @@ module.exports = query => query.insert([
       data: {
         name: 'another with-licensing to test ordering'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       model: 'place',
       action: 'update',
@@ -372,6 +394,7 @@ module.exports = query => query.insert([
       data: {
         name: 'another with-ntco to test ordering'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'pil',
@@ -388,6 +411,7 @@ module.exports = query => query.insert([
       data: {
         name: 'users cannot access tasks outside their associated establishments'
       },
+      initiatedByAsru: false,
       establishmentId: 101,
       subject: holc.id,
       model: 'pil',
@@ -404,6 +428,7 @@ module.exports = query => query.insert([
       data: {
         name: 'holc with multiple establishments'
       },
+      initiatedByAsru: false,
       establishmentId: 102,
       model: 'place',
       action: 'update',
@@ -418,6 +443,7 @@ module.exports = query => query.insert([
       data: {
         name: 'project awaiting endorsement'
       },
+      initiatedByAsru: false,
       establishmentId: 100,
       subject: user.id,
       model: 'project',
@@ -427,5 +453,22 @@ module.exports = query => query.insert([
     },
     status: 'awaiting-endorsement',
     ...generateDates(22)
+  },
+  {
+    id: ids.task.pil.asruinitiated,
+    data: {
+      data: {
+        name: 'pil conditions recalled'
+      },
+      initiatedByAsru: true,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'pil',
+      action: 'update-conditions',
+      id: uuid(),
+      changedBy: inspector.id
+    },
+    status: 'recalled-by-applicant',
+    ...generateDates(23)
   }
 ]);
