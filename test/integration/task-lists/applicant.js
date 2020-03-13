@@ -31,7 +31,8 @@ describe('Applicant', () => {
       const expected = [
         'pil returned',
         'Submitted by HOLC',
-        'recalled ppl'
+        'recalled ppl',
+        'recalled project transfer'
       ];
       return request(this.workflow)
         .get('/')
