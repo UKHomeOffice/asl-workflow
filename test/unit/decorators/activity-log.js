@@ -53,8 +53,8 @@ describe('Activity log', () => {
       .then(() => runDecorator(task.model))
       .then(({ activityLog }) => {
         assert.equal(activityLog.length, 2);
-        assert.equal(activityLog[1].action, 'endorsed');
-        assert.equal(activityLog[1].status, 'awaiting-endorsement');
+        assert.equal(activityLog[0].action, 'endorsed');
+        assert.equal(activityLog[0].status, 'awaiting-endorsement');
       });
   });
 
@@ -67,8 +67,8 @@ describe('Activity log', () => {
       .then(() => runDecorator(task.model))
       .then(({ activityLog }) => {
         assert.equal(activityLog.length, 2);
-        assert.equal(activityLog[1].action, 'endorsed');
-        assert.equal(activityLog[1].status, 'awaiting-endorsement');
+        assert.equal(activityLog[0].action, 'endorsed');
+        assert.equal(activityLog[0].status, 'awaiting-endorsement');
       });
   });
 
@@ -82,8 +82,8 @@ describe('Activity log', () => {
       .then(() => runDecorator(task.model))
       .then(({ activityLog }) => {
         assert.equal(activityLog.length, 3);
-        assert.equal(activityLog[2].action, 'resubmitted');
-        assert.equal(activityLog[2].status, 'with-inspectorate');
+        assert.equal(activityLog[0].action, 'resubmitted');
+        assert.equal(activityLog[0].status, 'with-inspectorate');
       });
   });
 });
