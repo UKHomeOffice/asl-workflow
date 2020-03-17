@@ -17,10 +17,23 @@ const History = () => {
   };
 
   return {
+    setReqId: req => {
+      model.req = req;
+    },
     status: (status, user, payloadStatus) => {
       model.activityLog.unshift({
         eventName: `status:${model.status}:${status}`,
-        event: { status, meta: { user, payload: { status: payloadStatus } } },
+        event: {
+          req: model.req,
+          status,
+          meta: {
+            previous: model.status,
+            user,
+            payload: {
+              status: payloadStatus
+            }
+          }
+        },
         createdAt: timestamp()
       });
       model.status = status;
