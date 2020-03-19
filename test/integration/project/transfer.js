@@ -40,7 +40,17 @@ describe('Project transfer', () => {
     return workflowHelper.destroy();
   });
 
-  it('updates the action to `transfer` and adds the transferToEstablishment to data', () => {
+  it('updates the action to `transfer` and adds the transferToEstablishment to data, and to and from establishments to meta', () => {
+    const expected = {
+      from: {
+        id: 100,
+        name: 'University of Croydon'
+      },
+      to: {
+        id: 101,
+        name: 'Marvell Pharmaceuticals'
+      }
+    };
     return request(this.workflow)
       .post('/')
       .send(payload)
@@ -49,6 +59,7 @@ describe('Project transfer', () => {
         const task = response.body.data;
         assert.equal(task.data.action, 'transfer');
         assert.equal(task.data.data.establishmentId, 101);
+        assert.deepEqual(task.data.meta.establishment, expected);
       });
   });
 
