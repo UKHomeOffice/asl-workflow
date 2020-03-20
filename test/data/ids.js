@@ -34,7 +34,8 @@ module.exports = {
       transfer: uuid(),
       recalledTransfer: uuid(),
       updateIssueDate: uuid(),
-      updateLicenceNumber: uuid()
+      updateLicenceNumber: uuid(),
+      updateStubLicenceHolder: uuid()
     }
   }
 };
