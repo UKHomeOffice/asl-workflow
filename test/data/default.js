@@ -360,6 +360,15 @@ module.exports = models => {
               status: 'active'
             },
             {
+              id: ids.model.pil.active,
+              profileId: 'b2b8315b-82c0-4b2d-bc13-eb13e605ee88',
+              establishmentId: 100,
+              licenceNumber: 'D-457',
+              procedures: ['D'],
+              notesCatD: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              status: 'active'
+            },
+            {
               id: 'ba3f4fdf-27e4-461e-a251-3188faa35df5',
               profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9',
               establishmentId: 100,
