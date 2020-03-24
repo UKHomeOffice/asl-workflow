@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
 const { ntco, user } = require('../../data/profiles');
-const { autoResolved, awaitingEndorsement, resolved, endorsed } = require('../../../lib/flow/status');
+const { awaitingEndorsement, resolved, endorsed } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
 describe('PIL Review', () => {
@@ -23,7 +23,7 @@ describe('PIL Review', () => {
     return workflowHelper.destroy();
   });
 
-  it('autoresolves if submitted by an NTCO', () => {
+  it('resolves if submitted by an NTCO', () => {
     this.workflow.setUser({ profile: ntco });
     return request(this.workflow)
       .post('/')
@@ -37,7 +37,7 @@ describe('PIL Review', () => {
       .expect(200)
       .then(response => response.body.data)
       .then(task => {
-        assert.equal(task.status, autoResolved.id);
+        assert.equal(task.status, resolved.id);
       });
   });
 
