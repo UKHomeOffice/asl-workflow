@@ -31,6 +31,7 @@ describe('Inspector', () => {
     it('sees tasks they are responsible for actioning', () => {
       const expected = [
         'conditions update',
+        'pil conditions recalled',
         'another with-inspectorate to test ordering'
       ];
 
@@ -57,6 +58,7 @@ describe('Inspector', () => {
 
     it('sees tasks with a status of referred to inspector', () => {
       const expected = [
+        'pil conditions recalled',
         'place update with inspector',
         'conditions update',
         'another with-inspectorate to test ordering',

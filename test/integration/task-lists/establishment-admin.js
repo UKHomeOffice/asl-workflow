@@ -34,7 +34,6 @@ describe('Establishment Admin', () => {
         'place update returned',
         'Submitted by HOLC',
         'recalled ppl',
-        'conditions update',
         'project awaiting endorsement',
         'recalled project transfer'
       ];

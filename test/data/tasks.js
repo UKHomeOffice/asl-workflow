@@ -329,7 +329,7 @@ module.exports = query => query.insert([
       data: {
         name: 'conditions update'
       },
-      initiatedByAsru: false,
+      initiatedByAsru: true,
       model: 'establishment',
       action: 'update-conditions',
       id: 100,
