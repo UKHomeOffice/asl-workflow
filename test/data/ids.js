@@ -23,7 +23,8 @@ module.exports = {
     pil: {
       active: uuid(),
       applied: uuid(),
-      rejected: uuid()
+      rejected: uuid(),
+      transfer: uuid()
     },
     place: {
       applied: uuid(),
