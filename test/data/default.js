@@ -1,6 +1,6 @@
 const ids = require('./ids');
 const uuid = require('uuid/v4');
-const { userAtMultipleEstablishments } = require('./profiles');
+const { userAtMultipleEstablishments, ntco101 } = require('./profiles');
 
 module.exports = models => {
 
@@ -56,6 +56,16 @@ module.exports = models => {
           address: '1 Some Road',
           postcode: 'A1 1AA',
           email: 'test4@example.com',
+          telephone: '01234567890'
+        },
+        {
+          id: ntco101.id,
+          title: 'Dr',
+          firstName: 'Noddy',
+          lastName: 'Ntco101',
+          address: '1 Some Road',
+          postcode: 'A1 1AA',
+          email: 'test4@example123.com',
           telephone: '01234567890'
         },
         {
@@ -314,6 +324,7 @@ module.exports = models => {
             id: 101,
             profiles: [
               { id: 'ae28fb31-d867-4371-9b4f-79019e71232f' },
+              { id: ntco101.id },
               { id: 'ae28fb31-d867-4371-9b4f-79019e71232e' },
               { id: '143e500a-d42d-4010-840e-35418660cdc2' }
             ],
@@ -325,6 +336,10 @@ module.exports = models => {
               {
                 type: 'holc',
                 profileId: '143e500a-d42d-4010-840e-35418660cdc2'
+              },
+              {
+                type: 'ntco',
+                profileId: ntco101.id
               }
             ]
           },
@@ -369,8 +384,8 @@ module.exports = models => {
               status: 'active'
             },
             {
-              id: 'ba3f4fdf-27e4-461e-a251-3188faa35df5',
-              profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9',
+              id: ids.model.pil.transfer,
+              profileId: userAtMultipleEstablishments.id,
               establishmentId: 100,
               licenceNumber: 'F-789',
               procedures: ['F'],

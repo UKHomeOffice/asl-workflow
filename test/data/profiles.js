@@ -1,3 +1,5 @@
+const uuid = require('uuid/v4');
+
 module.exports = {
   user: { // Linford Christie
     id: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
@@ -38,6 +40,11 @@ module.exports = {
     id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0',
     establishments: [ { id: 100 } ],
     roles: [ { type: 'ntco', establishmentId: 100 } ]
+  },
+  ntco101: {
+    id: uuid(),
+    establishments: [ { id: 101 } ],
+    roles: [ { type: 'ntco', establishmentId: 101 } ]
   },
   inspector: {
     id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
