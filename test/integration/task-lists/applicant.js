@@ -11,11 +11,12 @@ describe('Applicant', () => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
-        this.workflow.setUser({ profile: user });
       });
   });
 
   beforeEach(() => {
+    this.workflow.setUser({ profile: user });
+
     return Promise.resolve()
       .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
@@ -48,6 +49,26 @@ describe('Applicant', () => {
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'descending');
+        });
+    });
+
+    it('does not see any tasks at blocked establishments', () => {
+      const blockedUser = {
+        ...user,
+        establishments: [
+          { id: 100, role: 'blocked' }
+        ]
+      };
+
+      this.workflow.setUser({ profile: blockedUser });
+
+      const expected = [];
+
+      return request(this.workflow)
+        .get('/')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
         });
     });
 
