@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { ntco, user } = require('../../data/profiles');
+const { ntco, user, licensing } = require('../../data/profiles');
 const { awaitingEndorsement, resolved, endorsed } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
@@ -32,6 +32,24 @@ describe('PIL Review', () => {
         action: 'review',
         id: ids.model.pil.active,
         changedBy: ntco.id,
+        establishmentId: 100
+      })
+      .expect(200)
+      .then(response => response.body.data)
+      .then(task => {
+        assert.equal(task.status, resolved.id);
+      });
+  });
+
+  it('resolves if submitted by an asru user', () => {
+    this.workflow.setUser({ profile: licensing });
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'pil',
+        action: 'review',
+        id: ids.model.pil.active,
+        changedBy: licensing.id,
         establishmentId: 100
       })
       .expect(200)
