@@ -4,7 +4,7 @@ const { userAtMultipleEstablishments, ntco101 } = require('./profiles');
 
 module.exports = models => {
 
-  const { Establishment, Profile, PIL } = models;
+  const { Establishment, Profile, PIL, Permission, Role } = models;
 
   return Promise.resolve()
     .then(() => {
@@ -296,65 +296,61 @@ module.exports = models => {
           }]);
         })
         .then(() => {
-          return Establishment.query().upsertGraph([{
-            id: 100,
-            profiles: [
-              { id: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9' },
-              { id: 'b2b8315b-82c0-4b2d-bc13-eb13e605ee88' },
-              { id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9' },
-              { id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0' },
-              { id: 'ae28fb31-d867-4371-9b4f-79019e71232f' }
-            ],
-            roles: [
-              {
-                type: 'pelh',
-                profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f'
-              },
-              {
-                type: 'nacwo',
-                profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9'
-              },
-              {
-                type: 'ntco',
-                profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0'
-              }
-            ]
-          },
-          {
-            id: 101,
-            profiles: [
-              { id: 'ae28fb31-d867-4371-9b4f-79019e71232f' },
-              { id: ntco101.id },
-              { id: 'ae28fb31-d867-4371-9b4f-79019e71232e' },
-              { id: '143e500a-d42d-4010-840e-35418660cdc2' }
-            ],
-            roles: [
-              {
-                type: 'pelh',
-                profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f'
-              },
-              {
-                type: 'holc',
-                profileId: '143e500a-d42d-4010-840e-35418660cdc2'
-              },
-              {
-                type: 'ntco',
-                profileId: ntco101.id
-              }
-            ]
-          },
-          {
-            id: 103,
-            profiles: [
-              { id: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa' }
-            ],
-            roles: [
-              {
-                type: 'pelh',
-                profileId: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa'
-              }
-            ]
-          }], { relate: true });
+          return Permission.query().insert([
+            { profileId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9', establishmentId: 100, role: 'basic' },
+            { profileId: 'b2b8315b-82c0-4b2d-bc13-eb13e605ee88', establishmentId: 100, role: 'basic' },
+            { profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9', establishmentId: 100, role: 'basic' },
+            { profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0', establishmentId: 100, role: 'basic' },
+            { profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f', establishmentId: 100, role: 'basic' },
+
+            { profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f', establishmentId: 101, role: 'basic' },
+            { profileId: ntco101.id, establishmentId: 101, role: 'basic' },
+            { profileId: 'ae28fb31-d867-4371-9b4f-79019e71232e', establishmentId: 101, role: 'basic' },
+            { profileId: '143e500a-d42d-4010-840e-35418660cdc2', establishmentId: 101, role: 'basic' },
+
+            { profileId: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa', establishmentId: 103, role: 'basic' }
+          ]).returning('*'); // permissions table has no id field so we need this otherwise it tries to return id
+        })
+        .then(() => {
+          return Role.query().insert([
+            {
+              type: 'pelh',
+              profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f',
+              establishmentId: 100
+            },
+            {
+              type: 'nacwo',
+              profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9',
+              establishmentId: 100
+            },
+            {
+              type: 'ntco',
+              profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0',
+              establishmentId: 100
+            },
+
+            {
+              type: 'pelh',
+              profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f',
+              establishmentId: 101
+            },
+            {
+              type: 'holc',
+              profileId: '143e500a-d42d-4010-840e-35418660cdc2',
+              establishmentId: 101
+            },
+            {
+              type: 'ntco',
+              profileId: ntco101.id,
+              establishmentId: 101
+            },
+
+            {
+              type: 'pelh',
+              profileId: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa',
+              establishmentId: 103
+            }
+          ]);
         })
         .then(() => {
           return PIL.query().insertGraph([

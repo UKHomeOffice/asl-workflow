@@ -3,7 +3,7 @@ const uuid = require('uuid/v4');
 module.exports = {
   user: { // Linford Christie
     id: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
-    establishments: [ { id: 100 } ],
+    establishments: [ { id: 100, role: 'basic' } ],
     roles: []
   },
   userWithActivePil: { // Noddy Holder
