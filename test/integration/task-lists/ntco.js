@@ -27,7 +27,7 @@ describe('NTCO', () => {
 
   describe('outstanding tasks', () => {
 
-    it('sees tasks with status "with-ntco" for their own establishment', () => {
+    it('sees tasks with status "with-ntco" or "awaiting-endorsement" for their own establishment', () => {
       const expected = [
         'pil with ntco',
         'another with-ntco to test ordering'
@@ -53,10 +53,11 @@ describe('NTCO', () => {
 
   describe('in progress tasks', () => {
 
-    it('sees pil applications that are not waiting for endorsement', () => {
+    it('sees pil applications that are not waiting for endorsement, or own pil awaiting endorsement', () => {
       const expected = [
         'pil returned',
-        'pil with licensing'
+        'pil with licensing',
+        'ntco pil with ntco'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
