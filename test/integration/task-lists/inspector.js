@@ -62,7 +62,8 @@ describe('Inspector', () => {
         'place update with inspector',
         'conditions update',
         'another with-inspectorate to test ordering',
-        'holc with multiple establishments'
+        'holc with multiple establishments',
+        'ppl submitted by HOLC for user'
       ];
       return request(this.workflow)
         .get('/')

@@ -206,6 +206,30 @@ describe('Applicant', () => {
         });
     });
 
+    it('can recall a ppl application submitted by someone else on their behalf', () => {
+      return request(this.workflow)
+        .put(`/${ids.task.project.submittedByHolc}/status`)
+        .send({
+          status: recalledByApplicant.id,
+          meta: {
+            comment: 'applicant recalling a PPL submitted by HOLC'
+          }
+        })
+        .expect(200);
+    });
+
+    it('can discard a ppl application submitted by someone else on their behalf', () => {
+      return request(this.workflow)
+        .put(`/${ids.task.project.submittedByHolc}/status`)
+        .send({
+          status: discardedByApplicant.id,
+          meta: {
+            comment: 'applicant discarding a PPL submitted by HOLC'
+          }
+        })
+        .expect(200);
+    });
+
   });
 
   describe('completed tasks', () => {

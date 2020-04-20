@@ -34,7 +34,8 @@ describe('Subject', () => {
       'another with-inspectorate to test ordering',
       'project awaiting endorsement',
       'pil conditions recalled',
-      'recalled project transfer'
+      'recalled project transfer',
+      'ppl submitted by HOLC for user'
     ];
     return request(this.workflow)
       .get(`/profile-tasks/${user.id}`)
@@ -56,7 +57,8 @@ describe('Subject', () => {
       'discarded ppl',
       'granted pil',
       'pil conditions recalled',
-      'recalled project transfer'
+      'recalled project transfer',
+      'ppl submitted by HOLC for user'
     ];
     return request(this.workflow)
       .get(`/profile-tasks/${user.id}?all=true`)
