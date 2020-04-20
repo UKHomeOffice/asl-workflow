@@ -69,7 +69,8 @@ describe('Establishment Admin', () => {
         'place update recommend rejected',
         'another with-ntco to test ordering',
         'holc with multiple establishments',
-        'project awaiting endorsement'
+        'project awaiting endorsement',
+        'ppl submitted by HOLC for user'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

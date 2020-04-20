@@ -487,5 +487,26 @@ module.exports = query => query.insert([
     },
     status: 'awaiting-endorsement',
     ...generateDates(24)
+  },
+  {
+    id: ids.task.project.submittedByHolc,
+    data: {
+      id: ids.model.project.grant,
+      data: {
+        name: 'ppl submitted by HOLC for user',
+        version: uuid()
+      },
+      meta: {
+        authority: 'yes'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(25)
   }
 ]);

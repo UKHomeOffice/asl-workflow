@@ -81,7 +81,8 @@ describe('Applicant', () => {
         'pil with licensing',
         'pil with ntco',
         'another with-ntco to test ordering',
-        'project awaiting endorsement'
+        'project awaiting endorsement',
+        'ppl submitted by HOLC for user'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
