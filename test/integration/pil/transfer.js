@@ -34,6 +34,7 @@ describe('PIL transfer', () => {
         data: {
           // TODO: this is set to the receiving establishment by API - it should be in a create hook.
           establishmentId: 101,
+          profileId: userAtMultipleEstablishments.id,
           procedures: ['C'],
           species: ['Mice', 'Rats'],
           establishment: {
@@ -66,6 +67,7 @@ describe('PIL transfer', () => {
         data: {
           // TODO: this is set to the receiving establishment by API - it should be in a create hook.
           establishmentId: 101,
+          profileId: userAtMultipleEstablishments.id,
           procedures: ['C'],
           species: ['Mice', 'Rats'],
           establishment: {
@@ -98,6 +100,7 @@ describe('PIL transfer', () => {
         data: {
           // TODO: this is set to the receiving establishment by API - it should be in a create hook.
           establishmentId: 101,
+          profileId: userAtMultipleEstablishments.id,
           procedures: ['C'],
           species: ['Mice', 'Rats'],
           establishment: {
