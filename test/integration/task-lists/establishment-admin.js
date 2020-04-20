@@ -61,6 +61,7 @@ describe('Establishment Admin', () => {
     it('sees tasks for their establishment', () => {
       const expected = [
         'pil with ntco',
+        'ntco pil with ntco',
         'pil with licensing',
         'place update with licensing',
         'place update with inspector',

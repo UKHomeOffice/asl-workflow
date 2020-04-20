@@ -4,6 +4,8 @@ module.exports = {
   task: {
     pil: {
       grant: uuid(),
+      withNtco: uuid(),
+      withNtcoOwnPil: uuid(),
       rejected: uuid(),
       transfer: uuid(),
       asruinitiated: uuid()

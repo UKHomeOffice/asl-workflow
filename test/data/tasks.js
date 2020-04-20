@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, userAtMultipleEstablishments, holc, inspector } = require('./profiles');
+const { user, userAtMultipleEstablishments, holc, inspector, ntco } = require('./profiles');
 const ids = require('./ids');
 const moment = require('moment');
 
@@ -13,7 +13,7 @@ const generateDates = daysAgo => {
 
 module.exports = query => query.insert([
   {
-    id: uuid(),
+    id: ids.task.pil.withNtco,
     data: {
       data: {
         name: 'pil with ntco'
@@ -26,7 +26,7 @@ module.exports = query => query.insert([
       id: ids.model.pil.applied,
       changedBy: user.id
     },
-    status: 'with-ntco',
+    status: 'awaiting-endorsement',
     ...generateDates(0)
   },
   {
@@ -42,7 +42,7 @@ module.exports = query => query.insert([
       action: 'grant',
       changedBy: uuid()
     },
-    status: 'with-ntco',
+    status: 'with-ntco', // legacy status
     ...generateDates(1)
   },
   {
@@ -470,5 +470,22 @@ module.exports = query => query.insert([
     },
     status: 'recalled-by-applicant',
     ...generateDates(23)
+  },
+  {
+    id: ids.task.pil.withNtcoOwnPil,
+    data: {
+      data: {
+        name: 'ntco pil with ntco'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: ntco.id,
+      model: 'pil',
+      action: 'grant',
+      id: ids.model.pil.applied,
+      changedBy: ntco.id
+    },
+    status: 'awaiting-endorsement',
+    ...generateDates(24)
   }
 ]);

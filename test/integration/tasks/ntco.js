@@ -6,10 +6,13 @@ const {
   returnedToApplicant,
   resolved,
   withNtco,
+  awaitingEndorsement,
   withLicensing,
   endorsed,
   discardedByApplicant
 } = require('../../../lib/flow/status');
+
+const ids = require('../../data/ids');
 
 describe('NTCO', () => {
 
@@ -36,7 +39,7 @@ describe('NTCO', () => {
     it('can endorse a submitted pil application', () => {
       return request(this.workflow)
         .get('/')
-        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(response => response.body.data.find(task => task.status === withNtco.id)) // legacy status
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
@@ -53,7 +56,7 @@ describe('NTCO', () => {
     it('endorsing a pil application moves it to "with licensing"', () => {
       return request(this.workflow)
         .get('/')
-        .then(response => response.body.data.find(task => task.status === withNtco.id))
+        .then(response => response.body.data.find(task => task.status === awaitingEndorsement.id))
         .then(task => {
           return request(this.workflow)
             .put(`/${task.id}/status`)
@@ -85,6 +88,22 @@ describe('NTCO', () => {
               }
             })
             .expect(200);
+        });
+    });
+
+    it('an ntco cannot endorse their own pil', () => {
+      return request(this.workflow)
+        .put(`/${ids.task.pil.withNtcoOwnPil}/status`)
+        .send({
+          status: endorsed.id,
+          meta: {
+            comment: 'ntco endorsing own pil'
+          }
+        })
+        .expect(400)
+        .then(response => response.body)
+        .then(error => {
+          assert(error.message.includes('Invalid status change'));
         });
     });
 

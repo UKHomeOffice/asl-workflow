@@ -28,6 +28,7 @@ describe('Tasks for a model', () => {
     it('sees tasks for a specific model id', () => {
       const expected = [
         'pil with ntco',
+        'ntco pil with ntco',
         'another with-ntco to test ordering'
       ];
 
