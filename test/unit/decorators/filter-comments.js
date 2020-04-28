@@ -25,7 +25,7 @@ const assertComments = async (task, user, expected) => {
   const result = await decorator(settings)(task.model, user);
   const comments = result.comments;
   assert.equal(comments.length, expected.length);
-  assert.deepEqual(comments.map(c => c.comment), expected);
+  assert.deepEqual(comments.map(c => c.comment).sort(), expected.sort());
 };
 
 describe('Comment filtering', () => {
@@ -88,11 +88,11 @@ describe('Comment filtering', () => {
     });
 
     it('only comment made post-recall is visible to external users', () => {
-      assertComments(task, users.external, ['three']);
+      return assertComments(task, users.external, ['three']);
     });
 
     it('only comments made pre-recall are visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two']);
+      return assertComments(task, users.asru, ['one', 'two']);
     });
   });
 
@@ -113,11 +113,11 @@ describe('Comment filtering', () => {
     });
 
     it('only comment made post-recall is visible to external users', () => {
-      assertComments(task, users.external, ['three']);
+      return assertComments(task, users.external, ['three']);
     });
 
     it('all comments are now visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+      return assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
     });
 
   });
@@ -140,11 +140,11 @@ describe('Comment filtering', () => {
     });
 
     it('only comment made post-recall is visible to external users', () => {
-      assertComments(task, users.external, ['three']);
+      return assertComments(task, users.external, ['three']);
     });
 
     it('all comments are now visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+      return assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
     });
 
   });
@@ -168,11 +168,11 @@ describe('Comment filtering', () => {
     });
 
     it('all comments are now visible to external users', () => {
-      assertComments(task, users.external, ['one', 'two', 'three', 'four', 'five']);
+      return assertComments(task, users.external, ['one', 'two', 'three', 'four', 'five']);
     });
 
     it('all comments are now visible to asru users except those made post return', () => {
-      assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+      return assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
     });
 
   });
@@ -183,7 +183,7 @@ describe('Comment filtering', () => {
       const task = History();
       task.status('autoresolved', users.anon);
 
-      assertComments(task, users.anon, []);
+      return assertComments(task, users.anon, []);
     });
 
   });

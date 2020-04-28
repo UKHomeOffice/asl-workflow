@@ -35,7 +35,8 @@ describe('Establishment Admin', () => {
         'Submitted by HOLC',
         'recalled ppl',
         'project awaiting endorsement',
-        'recalled project transfer'
+        'recalled project transfer',
+        'ppl with continuation'
       ];
       return request(this.workflow)
         .get('/')

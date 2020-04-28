@@ -8,7 +8,7 @@ module.exports = {
   },
   userWithActivePil: { // Noddy Holder
     id: 'b2b8315b-82c0-4b2d-bc13-eb13e605ee88',
-    establishments: [ { id: 100 } ],
+    establishments: [ { id: 100, role: 'basic' } ],
     roles: []
   },
   userWithActivePilAndNoDOB: {
