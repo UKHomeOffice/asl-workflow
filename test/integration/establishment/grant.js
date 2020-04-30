@@ -42,4 +42,71 @@ describe('Establishment grant', () => {
       });
   });
 
+  it('can create a `grant` task with an open `update` task', () => {
+    const existing = [
+      {
+        data: {
+          id: establishmentId,
+          model: 'establishment',
+          action: 'update',
+          data: {
+            name: 'Updated Name'
+          }
+        },
+        status: withInspectorate.id
+      }
+    ];
+    return workflowHelper.seedTaskList(existing)
+      .then(() => {
+        return request(this.workflow)
+          .post('/')
+          .send({
+            model: 'establishment',
+            action: 'grant',
+            id: establishmentId,
+            changedBy: user.id,
+            data: {}
+          })
+          .expect(200);
+      });
+  });
+
+  it('cannot create a `grant` task with an open `update` and `grant` task', () => {
+    const existing = [
+      {
+        data: {
+          id: establishmentId,
+          model: 'establishment',
+          action: 'update',
+          data: {
+            name: 'Updated Name'
+          }
+        },
+        status: withInspectorate.id
+      },
+      {
+        data: {
+          id: establishmentId,
+          model: 'establishment',
+          action: 'grant',
+          data: {}
+        },
+        status: withInspectorate.id
+      }
+    ];
+    return workflowHelper.seedTaskList(existing)
+      .then(() => {
+        return request(this.workflow)
+          .post('/')
+          .send({
+            id: establishmentId,
+            model: 'establishment',
+            action: 'grant',
+            changedBy: user.id,
+            data: {}
+          })
+          .expect(400);
+      });
+  });
+
 });
