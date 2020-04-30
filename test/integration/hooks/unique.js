@@ -79,7 +79,7 @@ describe('unique hook', () => {
         action: 'grant',
         id: ids.model.project.recalledTransfer,
         data: {
-          versionId: ids.model.projectVersion.recalledTransfer,
+          version: ids.model.projectVersion.recalledTransfer,
           establishmentId: 100
         },
         changedBy: profiles.holc.id
