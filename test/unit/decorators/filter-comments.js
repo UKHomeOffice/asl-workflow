@@ -25,7 +25,7 @@ const assertComments = async (task, user, expected) => {
   const result = await decorator(settings)(task.model, user);
   const comments = result.comments;
   assert.equal(comments.length, expected.length);
-  assert.deepEqual(comments.map(c => c.comment).sort(), expected.sort());
+  assert.deepEqual(comments.map(c => c.comment), expected);
 };
 
 describe('Comment filtering', () => {
