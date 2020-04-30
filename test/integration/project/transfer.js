@@ -5,8 +5,6 @@ const workflowHelper = require('../../helpers/workflow');
 const { endorsed, withInspectorate, returnedToApplicant, resubmitted, awaitingEndorsement } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
-let payload;
-
 describe('Project transfer', () => {
   before(() => {
     return workflowHelper.create()
@@ -17,12 +15,15 @@ describe('Project transfer', () => {
 
   beforeEach(() => {
     this.workflow.setUser({ profile: userAtMultipleEstablishments });
-    payload = {
+    this.payload = {
       model: 'project',
       action: 'grant',
       id: ids.model.project.transfer,
       changedBy: userAtMultipleEstablishments.id,
-      establishmentId: 100
+      establishmentId: 100,
+      data: {
+        versionId: ids.model.projectVersion.transfer
+      }
     };
     return Promise.resolve()
       .then(() => workflowHelper.resetDBs({ keepalive: true }))
@@ -53,7 +54,7 @@ describe('Project transfer', () => {
     };
     return request(this.workflow)
       .post('/')
-      .send(payload)
+      .send(this.payload)
       .expect(200)
       .then(response => {
         const task = response.body.data;
@@ -68,12 +69,12 @@ describe('Project transfer', () => {
     return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: null } })
       .then(() => request(this.workflow)
         .post('/')
-        .send(payload)
+        .send(this.payload)
         .expect(200)
         .then(response => {
           const task = response.body.data;
           assert.equal(task.data.action, 'grant');
-          assert.equal(task.data.data, undefined);
+          assert.equal(task.data.data.establishmentId, undefined);
         })
       );
   });
@@ -83,12 +84,12 @@ describe('Project transfer', () => {
     return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: 100 } })
       .then(() => request(this.workflow)
         .post('/')
-        .send(payload)
+        .send(this.payload)
         .expect(200)
         .then(response => {
           const task = response.body.data;
           assert.equal(task.data.action, 'grant');
-          assert.equal(task.data.data, undefined);
+          assert.equal(task.data.data.establishmentId, undefined);
         })
       );
   });
@@ -98,7 +99,7 @@ describe('Project transfer', () => {
     return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: 102 } })
       .then(() => request(this.workflow)
         .post('/')
-        .send(payload)
+        .send(this.payload)
         .expect(400)
         .then(response => response.body)
         .then(error => {
@@ -110,7 +111,7 @@ describe('Project transfer', () => {
   it('updates the establishmentId of the task once endorsed and changes status to awaiting-endorsement', () => {
     return request(this.workflow)
       .post('/')
-      .send(payload)
+      .send(this.payload)
       .then(response => {
         const task = response.body.data;
         this.workflow.setUser({ profile: holc });
@@ -133,7 +134,7 @@ describe('Project transfer', () => {
   it('cannot be endorsed by an admin at the receiving establishment', () => {
     return request(this.workflow)
       .post('/')
-      .send(payload)
+      .send(this.payload)
       .then(response => {
         const task = response.body.data;
         this.workflow.setUser({ profile: holc101 });
@@ -156,7 +157,7 @@ describe('Project transfer', () => {
   it('doesn\'t need re-endorsing if endorsed then returned', () => {
     return request(this.workflow)
       .post('/')
-      .send(payload)
+      .send(this.payload)
       .then(response => {
         const task = response.body.data;
         this.workflow.setUser({ profile: holc });

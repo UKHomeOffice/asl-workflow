@@ -207,7 +207,7 @@ module.exports = models => {
                 licenceNumber: 'xyz123',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.transfer,
                     status: 'draft',
                     data: {
                       transferToEstablishment: 101
@@ -259,7 +259,7 @@ module.exports = models => {
                 licenceNumber: '70/1234',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.recalledTransfer,
                     status: 'draft'
                   }
                 ]
@@ -273,7 +273,7 @@ module.exports = models => {
                 licenceNumber: '70/1235',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.grant,
                     status: 'draft'
                   }
                 ]
@@ -287,7 +287,7 @@ module.exports = models => {
                 licenceNumber: '70/1235',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.continution,
                     status: 'draft',
                     data: {
                       'transfer-expiring': true,
@@ -310,7 +310,7 @@ module.exports = models => {
                 licenceNumber: '70/1235',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.continuation2,
                     status: 'draft',
                     data: {
                       'transfer-expiring': true,
@@ -333,7 +333,7 @@ module.exports = models => {
                 licenceNumber: '70/1236',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.notAContinuation,
                     status: 'draft',
                     data: {
                       'project-continuation': [

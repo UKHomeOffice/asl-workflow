@@ -99,7 +99,7 @@ module.exports = query => query.insert([
       id: ids.model.project.grant,
       data: {
         name: 'recalled ppl',
-        version: uuid()
+        versionId: ids.model.projectVersion.grant
       },
       meta: {
         authority: 'yes'
@@ -494,7 +494,7 @@ module.exports = query => query.insert([
       id: ids.model.project.grant,
       data: {
         name: 'ppl submitted by HOLC for user',
-        version: uuid()
+        versionId: uuid()
       },
       meta: {
         authority: 'yes'
@@ -514,6 +514,7 @@ module.exports = query => query.insert([
     data: {
       id: ids.model.project.continuation2,
       data: {
+        versionId: ids.model.projectVersion.continuation2,
         name: 'ppl with continuation'
       },
       meta: {

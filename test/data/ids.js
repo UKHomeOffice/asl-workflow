@@ -45,6 +45,14 @@ module.exports = {
       continuation: uuid(),
       continuation2: uuid(),
       notAContinuation: uuid()
+    },
+    projectVersion: {
+      recalledTransfer: uuid(),
+      continution: uuid(),
+      continuation2: uuid(),
+      notAContinuation: uuid(),
+      transfer: uuid(),
+      grant: uuid()
     }
   }
 };
