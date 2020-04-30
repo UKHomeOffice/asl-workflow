@@ -46,7 +46,7 @@ describe('Comment filtering', () => {
     });
 
     it('all comments are visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two']);
+      assertComments(task, users.asru, ['two', 'one']);
     });
 
   });
@@ -65,11 +65,11 @@ describe('Comment filtering', () => {
     });
 
     it('all comments are visible to external users', () => {
-      assertComments(task, users.external, ['one', 'two', 'three']);
+      assertComments(task, users.external, ['three', 'two', 'one']);
     });
 
     it('comments made post-return are not visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two']);
+      assertComments(task, users.asru, ['two', 'one']);
     });
 
   });
@@ -88,11 +88,11 @@ describe('Comment filtering', () => {
     });
 
     it('only comment made post-recall is visible to external users', () => {
-      assertComments(task, users.external, ['three']);
+      return assertComments(task, users.external, ['three']);
     });
 
     it('only comments made pre-recall are visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two']);
+      return assertComments(task, users.asru, ['two', 'one']);
     });
   });
 
@@ -113,11 +113,11 @@ describe('Comment filtering', () => {
     });
 
     it('only comment made post-recall is visible to external users', () => {
-      assertComments(task, users.external, ['three']);
+      return assertComments(task, users.external, ['three']);
     });
 
     it('all comments are now visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+      return assertComments(task, users.asru, ['four', 'three', 'two', 'one']);
     });
 
   });
@@ -140,11 +140,11 @@ describe('Comment filtering', () => {
     });
 
     it('only comment made post-recall is visible to external users', () => {
-      assertComments(task, users.external, ['three']);
+      return assertComments(task, users.external, ['three']);
     });
 
     it('all comments are now visible to asru users', () => {
-      assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+      return assertComments(task, users.asru, ['four', 'three', 'two', 'one']);
     });
 
   });
@@ -168,11 +168,11 @@ describe('Comment filtering', () => {
     });
 
     it('all comments are now visible to external users', () => {
-      assertComments(task, users.external, ['one', 'two', 'three', 'four', 'five']);
+      return assertComments(task, users.external, ['five', 'four', 'three', 'two', 'one']);
     });
 
     it('all comments are now visible to asru users except those made post return', () => {
-      assertComments(task, users.asru, ['one', 'two', 'three', 'four']);
+      return assertComments(task, users.asru, ['four', 'three', 'two', 'one']);
     });
 
   });
@@ -183,7 +183,7 @@ describe('Comment filtering', () => {
       const task = History();
       task.status('autoresolved', users.anon);
 
-      assertComments(task, users.anon, []);
+      return assertComments(task, users.anon, []);
     });
 
   });

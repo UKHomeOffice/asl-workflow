@@ -19,7 +19,8 @@ module.exports = {
     project: {
       grant: uuid(),
       recalledTransfer: uuid(),
-      submittedByHolc: uuid()
+      submittedByHolc: uuid(),
+      continuation: uuid()
     }
   },
   model: {
@@ -40,7 +41,18 @@ module.exports = {
       recalledTransfer: uuid(),
       updateIssueDate: uuid(),
       updateLicenceNumber: uuid(),
-      updateStubLicenceHolder: uuid()
+      updateStubLicenceHolder: uuid(),
+      continuation: uuid(),
+      continuation2: uuid(),
+      notAContinuation: uuid()
+    },
+    projectVersion: {
+      recalledTransfer: uuid(),
+      continution: uuid(),
+      continuation2: uuid(),
+      notAContinuation: uuid(),
+      transfer: uuid(),
+      grant: uuid()
     }
   }
 };

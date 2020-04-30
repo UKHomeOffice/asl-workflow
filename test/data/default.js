@@ -1,6 +1,6 @@
 const ids = require('./ids');
 const uuid = require('uuid/v4');
-const { userAtMultipleEstablishments, ntco101 } = require('./profiles');
+const { userAtMultipleEstablishments, ntco101, user, userWithActivePil } = require('./profiles');
 
 module.exports = models => {
 
@@ -207,7 +207,7 @@ module.exports = models => {
                 licenceNumber: 'xyz123',
                 version: [
                   {
-                    id: uuid(),
+                    id: ids.model.projectVersion.transfer,
                     status: 'draft',
                     data: {
                       transferToEstablishment: 101
@@ -246,6 +246,102 @@ module.exports = models => {
                     status: 'granted',
                     data: {
                       duration: { years: 5, months: 0 }
+                    }
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.recalledTransfer,
+                title: 'Test project 8',
+                licenceHolderId: userAtMultipleEstablishments.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1234',
+                version: [
+                  {
+                    id: ids.model.projectVersion.recalledTransfer,
+                    status: 'draft'
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.grant,
+                title: 'Test project 9',
+                licenceHolderId: userAtMultipleEstablishments.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1235',
+                version: [
+                  {
+                    id: ids.model.projectVersion.grant,
+                    status: 'draft'
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.continuation,
+                title: 'Test project 9',
+                licenceHolderId: user.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1235',
+                version: [
+                  {
+                    id: ids.model.projectVersion.continution,
+                    status: 'draft',
+                    data: {
+                      'transfer-expiring': true,
+                      'project-continuation': [
+                        {
+                          'licence-number': '70/1234',
+                          'expiry-date': '2022-02-01'
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.continuation2,
+                title: 'Test project 10',
+                licenceHolderId: userWithActivePil.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1235',
+                version: [
+                  {
+                    id: ids.model.projectVersion.continuation2,
+                    status: 'draft',
+                    data: {
+                      'transfer-expiring': true,
+                      'project-continuation': [
+                        {
+                          'licence-number': '30/1234',
+                          'expiry-date': '2021-02-01'
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.notAContinuation,
+                title: 'Test project 11',
+                licenceHolderId: user.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1236',
+                version: [
+                  {
+                    id: ids.model.projectVersion.notAContinuation,
+                    status: 'draft',
+                    data: {
+                      'project-continuation': [
+                        {
+                          'licence-number': '70/1234',
+                          'expiry-date': '2022-02-01'
+                        }
+                      ]
                     }
                   }
                 ]

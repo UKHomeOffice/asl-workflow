@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, userAtMultipleEstablishments, holc, inspector, ntco } = require('./profiles');
+const { user, userAtMultipleEstablishments, holc, inspector, ntco, userWithActivePil } = require('./profiles');
 const ids = require('./ids');
 const moment = require('moment');
 
@@ -99,7 +99,7 @@ module.exports = query => query.insert([
       id: ids.model.project.grant,
       data: {
         name: 'recalled ppl',
-        version: uuid()
+        versionId: ids.model.projectVersion.grant
       },
       meta: {
         authority: 'yes'
@@ -494,7 +494,7 @@ module.exports = query => query.insert([
       id: ids.model.project.grant,
       data: {
         name: 'ppl submitted by HOLC for user',
-        version: uuid()
+        versionId: uuid()
       },
       meta: {
         authority: 'yes'
@@ -507,6 +507,27 @@ module.exports = query => query.insert([
       changedBy: holc.id
     },
     status: 'with-inspectorate',
+    ...generateDates(25)
+  },
+  {
+    id: ids.task.project.continuation,
+    data: {
+      id: ids.model.project.continuation2,
+      data: {
+        versionId: ids.model.projectVersion.continuation2,
+        name: 'ppl with continuation'
+      },
+      meta: {
+        authority: 'yes'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: userWithActivePil.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: userWithActivePil.id
+    },
+    status: 'recalled-by-applicant',
     ...generateDates(25)
   }
 ]);
