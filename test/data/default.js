@@ -275,6 +275,10 @@ module.exports = models => {
                   {
                     id: ids.model.projectVersion.grant,
                     status: 'draft'
+                  },
+                  {
+                    id: ids.model.projectVersion.grant2,
+                    status: 'draft'
                   }
                 ]
               },

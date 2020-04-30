@@ -30,7 +30,7 @@ describe('Project continuation', () => {
       establishmentId: 100,
       id: ids.model.project.continuation,
       data: {
-        versionId: ids.model.projectVersion.continution
+        version: ids.model.projectVersion.continution
       }
     };
     const expected = [
@@ -56,7 +56,7 @@ describe('Project continuation', () => {
       establishmentId: 100,
       id: ids.model.project.notAContinuation,
       data: {
-        versionId: ids.model.projectVersion.notAContinuation
+        version: ids.model.projectVersion.notAContinuation
       }
     };
     return request(this.workflow)

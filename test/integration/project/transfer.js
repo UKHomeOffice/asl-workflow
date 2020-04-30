@@ -22,7 +22,7 @@ describe('Project transfer', () => {
       changedBy: userAtMultipleEstablishments.id,
       establishmentId: 100,
       data: {
-        versionId: ids.model.projectVersion.transfer
+        version: ids.model.projectVersion.transfer
       }
     };
     return Promise.resolve()

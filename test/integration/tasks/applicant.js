@@ -1,5 +1,4 @@
 const assert = require('assert');
-const uuid = require('uuid/v4');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
 const { user, licensing } = require('../../data/profiles');
@@ -151,20 +150,19 @@ describe('Applicant', () => {
     });
 
     it('can resubmit a recalled ppl application', () => {
-      const version = uuid();
       return request(this.workflow)
         .put(`/${ids.task.project.grant}/status`)
         .send({
           status: resubmitted.id,
           meta: {
-            version,
+            version: ids.model.projectVersion.grant2,
             comment: 'resubmitting a pil'
           }
         })
         .expect(200)
         .expect(response => {
           assert.equal(response.body.data.status, withInspectorate.id);
-          assert.equal(response.body.data.data.data.version, version);
+          assert.equal(response.body.data.data.data.version, ids.model.projectVersion.grant2);
         });
     });
 

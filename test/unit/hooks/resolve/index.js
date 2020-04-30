@@ -21,13 +21,13 @@ describe('Resolve hook', () => {
     };
   });
 
-  it('updates the data.versionId if task is a project fork', () => {
+  it('updates the data.version if task is a project fork', () => {
     this.model.data.model = 'project';
     this.model.data.action = 'fork';
     const expected = {
       data: {
         ...this.model.data.data,
-        versionId: createdId
+        version: createdId
       }
     };
     return Promise.resolve()

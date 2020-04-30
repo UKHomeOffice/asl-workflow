@@ -52,7 +52,8 @@ module.exports = {
       continuation2: uuid(),
       notAContinuation: uuid(),
       transfer: uuid(),
-      grant: uuid()
+      grant: uuid(),
+      grant2: uuid()
     }
   }
 };
