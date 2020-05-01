@@ -37,8 +37,9 @@ module.exports = {
       .then(() => aslDb(settings.db).init(fixtures.default, keepalive));
   },
 
-  seedTaskList: () => {
+  seedTaskList: (tasks) => {
     return Promise.resolve()
-      .then(() => tfdb.seed());
+      .then(() => tfdb.reset())
+      .then(() => tfdb.seed(tasks));
   }
 };
