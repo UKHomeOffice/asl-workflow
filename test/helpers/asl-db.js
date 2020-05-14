@@ -12,6 +12,7 @@ module.exports = settings => {
         'Authorisation',
         'PilTransfer',
         'PIL',
+        'PlaceRole',
         'Place',
         'Role',
         'Exemption',
