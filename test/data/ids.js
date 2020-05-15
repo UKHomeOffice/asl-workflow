@@ -33,7 +33,13 @@ module.exports = {
     place: {
       applied: uuid(),
       resolved: uuid(),
-      returned: uuid()
+      returned: uuid(),
+      deleted: uuid(),
+      withRoles: uuid()
+    },
+    role: {
+      nacwoClive: uuid(),
+      nacwoDerek: uuid()
     },
     project: {
       grant: uuid(),

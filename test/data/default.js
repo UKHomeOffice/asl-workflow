@@ -49,6 +49,16 @@ module.exports = models => {
           telephone: '01234567890'
         },
         {
+          id: '1c4544a3-428d-4ded-9eac-73b7a455c230',
+          title: 'Dr',
+          firstName: 'Derek',
+          lastName: 'Nacwo',
+          address: '1 Some Road',
+          postcode: 'A1 1AA',
+          email: 'd.nacwo@example.com',
+          telephone: '01234567890'
+        },
+        {
           id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0',
           title: 'Dr',
           firstName: 'Noddy',
@@ -158,12 +168,19 @@ module.exports = models => {
                 holding: ['STH']
               },
               {
-                id: 'a50331bb-c1d0-4068-87ca-b5a41143b0d0',
+                id: ids.model.place.deleted,
                 site: 'Lunar House',
                 name: 'Deleted room',
                 suitability: ['SA'],
                 holding: ['STH'],
                 deleted: '2018-01-01T14:00:00Z'
+              },
+              {
+                id: ids.model.place.withRoles,
+                site: 'Lunar House',
+                name: 'Has assigned roles',
+                suitability: ['SA'],
+                holding: ['STH']
               }
             ],
             projects: [
@@ -402,6 +419,7 @@ module.exports = models => {
             { profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9', establishmentId: 100, role: 'basic' },
             { profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0', establishmentId: 100, role: 'basic' },
             { profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f', establishmentId: 100, role: 'basic' },
+            { profileId: '1c4544a3-428d-4ded-9eac-73b7a455c230', establishmentId: 100, role: 'basic' },
 
             { profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f', establishmentId: 101, role: 'basic' },
             { profileId: ntco101.id, establishmentId: 101, role: 'basic' },
@@ -412,45 +430,63 @@ module.exports = models => {
           ]).returning('*'); // permissions table has no id field so we need this otherwise it tries to return id
         })
         .then(() => {
-          return Role.query().insert([
+          return Role.query().insertGraph([
             {
+              id: uuid(),
               type: 'pelh',
               profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f',
               establishmentId: 100
             },
             {
+              id: ids.model.role.nacwoClive,
               type: 'nacwo',
               profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d9',
+              establishmentId: 100,
+              places: [
+                {
+                  id: ids.model.place.withRoles
+                }
+              ]
+            },
+            {
+              id: ids.model.role.nacwoDerek,
+              type: 'nacwo',
+              profileId: '1c4544a3-428d-4ded-9eac-73b7a455c230',
               establishmentId: 100
             },
             {
+              id: uuid(),
               type: 'ntco',
               profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d0',
               establishmentId: 100
             },
 
             {
+              id: uuid(),
               type: 'pelh',
               profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f',
               establishmentId: 101
             },
             {
+              id: uuid(),
               type: 'holc',
               profileId: '143e500a-d42d-4010-840e-35418660cdc2',
               establishmentId: 101
             },
             {
+              id: uuid(),
               type: 'ntco',
               profileId: ntco101.id,
               establishmentId: 101
             },
 
             {
+              id: uuid(),
               type: 'pelh',
               profileId: '2b05d5b6-c11a-4ebe-a05a-5e3cba8397fa',
               establishmentId: 103
             }
-          ]);
+          ], { relate: true });
         })
         .then(() => {
           return PIL.query().insertGraph([
