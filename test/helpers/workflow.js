@@ -8,6 +8,7 @@ const settings = require('./database-settings');
 
 let knex = {};
 let tfdb = {};
+let workflow;
 
 module.exports = {
   create: (options = {}) => {
@@ -16,7 +17,7 @@ module.exports = {
 
     return Promise.resolve()
       .then(() => {
-        const workflow = Workflow(Object.assign({
+        workflow = Workflow(Object.assign({
           ...settings,
           noDownstream: true,
           auth: false,
@@ -28,13 +29,15 @@ module.exports = {
   },
 
   destroy: () => {
-    return knex.destroy();
+    return Promise.resolve()
+      .then(() => knex.destroy())
+      .then(() => workflow.flow.db.destroy());
   },
 
-  resetDBs: ({ keepalive = false } = {}) => {
+  resetDBs: () => {
     return Promise.resolve()
       .then(() => tfdb.reset())
-      .then(() => aslDb(settings.db).init(fixtures.default, keepalive));
+      .then(() => aslDb(settings.db).init(fixtures.default));
   },
 
   seedTaskList: (tasks) => {

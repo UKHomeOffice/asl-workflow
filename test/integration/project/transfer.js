@@ -26,15 +26,8 @@ describe('Project transfer', () => {
       }
     };
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs({ keepalive: true }))
-      .then(models => {
-        this.models = models;
-      })
+      .then(() => workflowHelper.resetDBs())
       .then(() => workflowHelper.seedTaskList());
-  });
-
-  afterEach(() => {
-    return this.models.destroy();
   });
 
   after(() => {
@@ -65,7 +58,7 @@ describe('Project transfer', () => {
   });
 
   it('doesn\'t update the action if transferToEstablishment is not included in version', () => {
-    const { ProjectVersion } = this.models;
+    const { ProjectVersion } = this.workflow.app.models;
     return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: null } })
       .then(() => request(this.workflow)
         .post('/')
@@ -80,7 +73,7 @@ describe('Project transfer', () => {
   });
 
   it('doesn\'t update the action if transferToEstablishment is the same as current establishment', () => {
-    const { ProjectVersion } = this.models;
+    const { ProjectVersion } = this.workflow.app.models;
     return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: 100 } })
       .then(() => request(this.workflow)
         .post('/')
@@ -95,7 +88,7 @@ describe('Project transfer', () => {
   });
 
   it('throws an error if licenceHolder is not associated with transferToEstablishment', () => {
-    const { ProjectVersion } = this.models;
+    const { ProjectVersion } = this.workflow.app.models;
     return ProjectVersion.query().findOne({ projectId: ids.model.project.transfer }).patch({ data: { transferToEstablishment: 102 } })
       .then(() => request(this.workflow)
         .post('/')

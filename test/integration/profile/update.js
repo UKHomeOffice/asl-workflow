@@ -104,6 +104,7 @@ describe('Profile update', () => {
         .send({
           model: 'profile',
           action: 'update',
+          id: user.id,
           data: {
             dob: '1999-09-09'
           },
@@ -122,6 +123,7 @@ describe('Profile update', () => {
         .send({
           model: 'profile',
           action: 'update',
+          id: user.id,
           data: {
             phone: '01818118181'
           },
