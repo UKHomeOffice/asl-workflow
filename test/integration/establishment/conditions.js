@@ -12,12 +12,12 @@ describe('Update conditions', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   it('can be created even if an open task for the establishment exists', () => {

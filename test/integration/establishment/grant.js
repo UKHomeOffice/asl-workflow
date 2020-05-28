@@ -17,12 +17,12 @@ describe('Establishment grant', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   it('sends grant requests to the inspectorate', () => {
@@ -56,7 +56,7 @@ describe('Establishment grant', () => {
         status: withInspectorate.id
       }
     ];
-    return workflowHelper.seedTaskList(existing)
+    return this.workflow.seedTaskList(existing)
       .then(() => {
         return request(this.workflow)
           .post('/')
@@ -94,7 +94,7 @@ describe('Establishment grant', () => {
         status: withInspectorate.id
       }
     ];
-    return workflowHelper.seedTaskList(existing)
+    return this.workflow.seedTaskList(existing)
       .then(() => {
         return request(this.workflow)
           .post('/')

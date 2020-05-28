@@ -15,12 +15,12 @@ describe('PIL Review', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   it('resolves if submitted by an NTCO', () => {

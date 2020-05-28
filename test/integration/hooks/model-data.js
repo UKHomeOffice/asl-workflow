@@ -14,12 +14,12 @@ describe('Model data hook', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   describe('Establishment', () => {
@@ -115,7 +115,7 @@ describe('Model data hook', () => {
         .then(response => response.body.data)
         .then(task => {
           assert.equal(task.data.modelData.name, 'Has assigned roles');
-          const role = task.data.modelData.roles[0]
+          const role = task.data.modelData.roles[0];
           assert.equal(role.type, 'nacwo');
           assert.equal(role.profile.firstName, 'Clive');
         });

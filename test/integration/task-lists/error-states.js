@@ -15,12 +15,12 @@ describe('Task list error states', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   it('returns an empty list if no profile is found', () => {
