@@ -26,12 +26,12 @@ describe('Project transfer', () => {
       }
     };
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   it('updates the action to `transfer` and adds the transferToEstablishment to data, and to and from establishments to meta', () => {

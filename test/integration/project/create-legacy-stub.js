@@ -14,11 +14,11 @@ describe('Project create legacy stub', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs());
+      .then(() => this.workflow.resetDBs());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   it('prevents project stubs being created by external users', () => {

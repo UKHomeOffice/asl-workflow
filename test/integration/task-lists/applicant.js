@@ -18,12 +18,12 @@ describe('Applicant', () => {
     this.workflow.setUser({ profile: user });
 
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   describe('outstanding tasks', () => {
