@@ -375,6 +375,13 @@ module.exports = models => {
             country: 'england',
             address: '101 High Street',
             email: 'test@example.com',
+            authorisations: [
+              {
+                type: 'killing',
+                method: 'cuddles',
+                description: 'A description'
+              }
+            ],
             places: [
               {
                 id: 'e859d43a-e8ab-4ae6-844a-95c978082a48',

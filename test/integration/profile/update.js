@@ -15,12 +15,12 @@ describe('Profile update', () => {
 
   beforeEach(() => {
     return Promise.resolve()
-      .then(() => workflowHelper.resetDBs())
-      .then(() => workflowHelper.seedTaskList());
+      .then(() => this.workflow.resetDBs())
+      .then(() => this.workflow.seedTaskList());
   });
 
   after(() => {
-    return workflowHelper.destroy();
+    return this.workflow.destroy();
   });
 
   describe('create profile', () => {
@@ -104,6 +104,7 @@ describe('Profile update', () => {
         .send({
           model: 'profile',
           action: 'update',
+          id: user.id,
           data: {
             dob: '1999-09-09'
           },
@@ -122,6 +123,7 @@ describe('Profile update', () => {
         .send({
           model: 'profile',
           action: 'update',
+          id: user.id,
           data: {
             phone: '01818118181'
           },
