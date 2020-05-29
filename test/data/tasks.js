@@ -64,7 +64,6 @@ module.exports = query => query.insert([
   {
     id: ids.task.pil.transfer,
     data: {
-      id: ids.model.pil.transfer,
       data: {
         name: 'pil transfer recalled'
       },
@@ -677,10 +676,10 @@ module.exports = query => query.insert([
       },
       initiatedByAsru: false,
       establishmentId: 101,
-      subject: userAtMultipleEstablishments.id,
+      subject: user101.id,
       model: 'pil',
       action: 'grant',
-      changedBy: userAtMultipleEstablishments.id
+      changedBy: user101.id
     },
     status: 'resolved',
     ...generateDates(34)

@@ -57,7 +57,8 @@ describe('NTCO', () => {
       const expected = [
         'pil returned',
         'pil with licensing',
-        'ntco pil with ntco'
+        'ntco pil with ntco',
+        'holc pil with licensing'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

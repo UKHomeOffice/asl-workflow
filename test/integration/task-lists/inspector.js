@@ -97,7 +97,9 @@ describe('Inspector', () => {
         'place update recommended',
         'place update recommend rejected',
         'Submitted by HOLC',
-        'another with-licensing to test ordering'
+        'another with-licensing to test ordering',
+        'holc pil with licensing',
+        'holc owned project'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
@@ -126,7 +128,13 @@ describe('Inspector', () => {
         'granted place update',
         'granted place update - other establishment',
         'rejected pil',
-        'discarded ppl'
+        'discarded ppl',
+        'profile update',
+        'profile update holc',
+        'profile update user101',
+        'granted establishment update',
+        'granted nio role at croydon',
+        'pil at marvell'
       ];
       return request(this.workflow)
         .get('/?progress=completed')
