@@ -4,7 +4,7 @@ const { user } = require('../../data/profiles');
 const ids = require('../../data/ids');
 const assertTasks = require('../../helpers/assert-tasks');
 
-describe('Tasks for a model', () => {
+describe('Open tasks for a model', () => {
   before(() => {
     return workflowHelper.create()
       .then(workflow => {
@@ -23,9 +23,9 @@ describe('Tasks for a model', () => {
     return this.workflow.destroy();
   });
 
-  describe('outstanding tasks', () => {
+  describe('open tasks', () => {
 
-    it('sees tasks for a specific model id', () => {
+    it('returns all open tasks for a specific model id', () => {
       const expected = [
         'pil with ntco',
         'ntco pil with ntco',
@@ -33,7 +33,7 @@ describe('Tasks for a model', () => {
       ];
 
       return request(this.workflow)
-        .get(`/model-tasks/${ids.model.pil.applied}`)
+        .get(`/open-tasks/${ids.model.pil.applied}`)
         .expect(200)
         .expect(response => {
           assertTasks(expected, response.body.data);

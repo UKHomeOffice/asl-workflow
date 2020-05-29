@@ -6,6 +6,11 @@ module.exports = {
     establishments: [ { id: 100, role: 'basic' } ],
     roles: []
   },
+  user101: { // Vincent Malloy
+    id: 'ae28fb31-d867-4371-9b4f-79019e71232e',
+    establishments: [ { id: 101, role: 'basic' } ],
+    roles: []
+  },
   userWithActivePil: { // Noddy Holder
     id: 'b2b8315b-82c0-4b2d-bc13-eb13e605ee88',
     establishments: [ { id: 100, role: 'basic' } ],

@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, userAtMultipleEstablishments, holc, inspector, ntco, userWithActivePil } = require('./profiles');
+const { user, user101, userAtMultipleEstablishments, holc, inspector, ntco, userWithActivePil } = require('./profiles');
 const ids = require('./ids');
 const moment = require('moment');
 
@@ -64,6 +64,7 @@ module.exports = query => query.insert([
   {
     id: ids.task.pil.transfer,
     data: {
+      id: ids.model.pil.transfer,
       data: {
         name: 'pil transfer recalled'
       },
@@ -246,6 +247,7 @@ module.exports = query => query.insert([
   {
     id: uuid(),
     data: {
+      id: ids.model.pil.active,
       data: {
         name: 'granted pil'
       },
@@ -320,7 +322,7 @@ module.exports = query => query.insert([
       id: user.id,
       changedBy: user.id
     },
-    status: 'autoresolved',
+    status: 'resolved',
     ...generateDates(15)
   },
   {
@@ -529,5 +531,158 @@ module.exports = query => query.insert([
     },
     status: 'recalled-by-applicant',
     ...generateDates(25)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'profile update holc'
+      },
+      initiatedByAsru: false,
+      subject: holc.id,
+      model: 'profile',
+      action: 'update',
+      id: holc.id,
+      changedBy: holc.id
+    },
+    status: 'resolved',
+    ...generateDates(26)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'profile update user101'
+      },
+      initiatedByAsru: false,
+      subject: user101.id,
+      model: 'profile',
+      action: 'update',
+      id: user101.id,
+      changedBy: user101.id
+    },
+    status: 'resolved',
+    ...generateDates(27)
+  },
+  {
+    id: uuid(),
+    data: {
+      id: uuid(),
+      data: {
+        name: 'project at Croydon'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: userAtMultipleEstablishments.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: userAtMultipleEstablishments.id
+    },
+    status: 'awaiting-endorsement',
+    ...generateDates(28)
+  },
+  {
+    id: uuid(),
+    data: {
+      id: ids.model.project.marvell,
+      data: {
+        name: 'project at Marvell'
+      },
+      initiatedByAsru: false,
+      establishmentId: 101,
+      subject: userAtMultipleEstablishments.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: userAtMultipleEstablishments.id
+    },
+    status: 'awaiting-endorsement',
+    ...generateDates(29)
+  },
+  {
+    id: uuid(),
+    data: {
+      id: ids.model.pil.holc,
+      data: {
+        name: 'holc pil with licensing'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: holc.id,
+      model: 'pil',
+      action: 'grant',
+      changedBy: holc.id
+    },
+    status: 'with-licensing',
+    ...generateDates(30)
+  },
+  {
+    id: uuid(),
+    data: {
+      id: ids.model.project.holc,
+      data: {
+        name: 'holc owned project'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      changedBy: holc.id,
+      subject: holc.id,
+      model: 'project',
+      modelData: {
+        licenceHolderId: holc.id
+      }
+    },
+    status: 'returned-to-applicant',
+    ...generateDates(31)
+  },
+  {
+    id: uuid(),
+    data: {
+      id: 100,
+      data: {
+        name: 'granted establishment update'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      changedBy: holc.id,
+      subject: holc.id,
+      model: 'establishment'
+    },
+    status: 'resolved',
+    ...generateDates(32)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'granted nio role at croydon',
+        type: 'nio',
+        profileId: userAtMultipleEstablishments.id,
+        establishmentId: 100
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      changedBy: holc.id,
+      subject: holc.id,
+      model: 'role'
+    },
+    status: 'resolved',
+    ...generateDates(33)
+  },
+  {
+    id: uuid(),
+    data: {
+      id: ids.model.pil.marvell,
+      data: {
+        name: 'pil at marvell'
+      },
+      initiatedByAsru: false,
+      establishmentId: 101,
+      subject: userAtMultipleEstablishments.id,
+      model: 'pil',
+      action: 'grant',
+      changedBy: userAtMultipleEstablishments.id
+    },
+    status: 'resolved',
+    ...generateDates(34)
   }
 ]);
