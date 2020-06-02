@@ -1,15 +1,19 @@
 const request = require('supertest');
+const sinon = require('sinon');
 const workflowHelper = require('../../helpers/workflow');
 const { holc, user, user101, userAtMultipleEstablishments, licensing } = require('../../data/profiles');
 const ids = require('../../data/ids');
 const assert = require('assert');
 const assertTasks = require('../../helpers/assert-tasks');
 
+const can = sinon.stub().resolves(false);
+
 describe('Related tasks', () => {
   before(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
+        this.workflow.setUser({ profile: user, can });
       });
   });
 
@@ -85,8 +89,12 @@ describe('Related tasks', () => {
   describe('Establishment tasks', () => {
 
     describe('Establishment admin', () => {
+      beforeEach(() => {
+        can.withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+      });
+
       it('returns all establishment, place and role tasks associated with the current establishment', () => {
-        this.workflow.setUser({ profile: holc });
         const expected = [
           'place update with licensing',
           'place update with inspector',
@@ -108,6 +116,11 @@ describe('Related tasks', () => {
     });
 
     describe('Asru user', () => {
+      beforeEach(() => {
+        can.withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: user, can });
+      });
+
       it('returns all establishment, place and role tasks associated with the current establishment', () => {
         this.workflow.setUser({ profile: licensing });
         const expected = [
@@ -131,8 +144,12 @@ describe('Related tasks', () => {
     });
 
     describe('Basic user', () => {
+      beforeEach(() => {
+        can.withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(false);
+        this.workflow.setUser({ profile: user, can });
+      });
+
       it('throws an unauthorised error when trying to fetch establishment tasks', () => {
-        this.workflow.setUser({ profile: user });
         return request(this.workflow)
           .get('/related-tasks?model=establishment&modelId=100&limit=10000')
           .expect(403)
