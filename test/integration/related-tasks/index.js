@@ -6,14 +6,11 @@ const ids = require('../../data/ids');
 const assert = require('assert');
 const assertTasks = require('../../helpers/assert-tasks');
 
-const can = sinon.stub().resolves(false);
-
 describe('Related tasks', () => {
   before(() => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
-        this.workflow.setUser({ profile: user, can });
       });
   });
 
@@ -90,7 +87,7 @@ describe('Related tasks', () => {
 
     describe('Establishment admin', () => {
       beforeEach(() => {
-        can.withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(true);
+        const can = sinon.stub().withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(true);
         this.workflow.setUser({ profile: holc, can });
       });
 
@@ -117,12 +114,11 @@ describe('Related tasks', () => {
 
     describe('Asru user', () => {
       beforeEach(() => {
-        can.withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(true);
-        this.workflow.setUser({ profile: user, can });
+        const can = sinon.stub().withArgs('establishment.relatedTasks', sinon.match.any).resolves(true);
+        this.workflow.setUser({ profile: licensing, can });
       });
 
       it('returns all establishment, place and role tasks associated with the current establishment', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = [
           'place update with licensing',
           'place update with inspector',
@@ -145,7 +141,7 @@ describe('Related tasks', () => {
 
     describe('Basic user', () => {
       beforeEach(() => {
-        can.withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(false);
+        const can = sinon.stub().withArgs('establishment.relatedTasks', sinon.match.any).resolves(false);
         this.workflow.setUser({ profile: user, can });
       });
 
@@ -154,7 +150,7 @@ describe('Related tasks', () => {
           .get('/related-tasks?model=establishment&modelId=100&limit=10000')
           .expect(403)
           .expect(response => {
-            assert.equal(response.body.message, 'you do not have permission to view related tasks for establishment 100');
+            assert.equal(response.body.message, 'you do not have permission to view related tasks for establishment: 100');
           });
       });
     });
@@ -165,7 +161,9 @@ describe('Related tasks', () => {
 
     describe('Establishment admin', () => {
       it('returns all tasks for their own profile', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: holc.id, establishment: undefined }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = ['profile update holc'];
 
         return request(this.workflow)
@@ -177,20 +175,25 @@ describe('Related tasks', () => {
       });
 
       it('throws an unauthorised error for other unscoped profiles', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: user.id, establishment: undefined }).resolves(false);
+        this.workflow.setUser({ profile: holc, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=profile&modelId=${user.id}&limit=10000`)
           .expect(403)
           .expect(response => {
-            assert.equal(response.body.message, `you do not have permission to view related tasks for profile ${user.id}`);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for profile: ${user.id}`);
           });
       });
     });
 
     describe('Asru user', () => {
+      beforeEach(() => {
+        const can = sinon.stub().withArgs('profile.relatedTasks', sinon.match.any).resolves(true);
+        this.workflow.setUser({ profile: licensing, can });
+      });
+
       it('returns all tasks for the requested profile', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = ['profile update'];
 
         return request(this.workflow)
@@ -202,7 +205,6 @@ describe('Related tasks', () => {
       });
 
       it('returns all tasks for the requested profile at any establishment', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = ['profile update user101'];
 
         return request(this.workflow)
@@ -216,7 +218,9 @@ describe('Related tasks', () => {
 
     describe('Basic user', () => {
       it('returns all tasks for their own profile', () => {
-        this.workflow.setUser({ profile: user });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: user.id, establishment: undefined }).resolves(true);
+        this.workflow.setUser({ profile: user, can });
+
         const expected = ['profile update'];
 
         return request(this.workflow)
@@ -228,13 +232,14 @@ describe('Related tasks', () => {
       });
 
       it('throws an unauthorised error for other profiles', () => {
-        this.workflow.setUser({ profile: user });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: user101.id, establishment: undefined }).resolves(false);
+        this.workflow.setUser({ profile: user, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=profile&modelId=${user101.id}&limit=10000`)
           .expect(403)
           .expect(response => {
-            assert.equal(response.body.message, `you do not have permission to view related tasks for profile ${user101.id}`);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for profile: ${user101.id}`);
           });
       });
     });
@@ -245,7 +250,9 @@ describe('Related tasks', () => {
 
     describe('Establishment admin', () => {
       it('returns all tasks their own profile has interacted with', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: sinon.match.any, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = [
           'pil returned',
           'pil with licensing',
@@ -275,7 +282,9 @@ describe('Related tasks', () => {
       });
 
       it('returns all tasks a user interacted with at an establishment the admin is an admin at', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: sinon.match.any, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = [
           'project at Croydon',
           'granted nio role at croydon'
@@ -291,20 +300,25 @@ describe('Related tasks', () => {
       });
 
       it('throws an unauthorised error for establishments the user is not an admin at', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('profile.relatedTasks', { id: sinon.match.any, establishment: '101' }).resolves(false);
+        this.workflow.setUser({ profile: holc, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=profile-touched&modelId=${userAtMultipleEstablishments.id}&establishmentId=101&limit=10000`)
           .expect(403)
           .expect(response => {
-            assert.equal(response.body.message, `you do not have permission to view related tasks for profile ${userAtMultipleEstablishments.id}`);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for profile: ${userAtMultipleEstablishments.id}`);
           });
       });
     });
 
     describe('Asru user', () => {
+      beforeEach(() => {
+        const can = sinon.stub().withArgs('profile.relatedTasks', sinon.match.any).resolves(true);
+        this.workflow.setUser({ profile: licensing, can });
+      });
+
       it('returns all tasks interacted with by the user at all establishments', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = [
           'pil transfer recalled',
           'project at Croydon',
@@ -323,7 +337,11 @@ describe('Related tasks', () => {
 
     describe('Basic user', () => {
       it('returns all tasks their own profile has interacted with', () => {
-        this.workflow.setUser({ profile: userAtMultipleEstablishments });
+        const can = sinon.stub()
+          .withArgs('profile.relatedTasks', { id: userAtMultipleEstablishments.id, establishment: undefined })
+          .resolves(true);
+        this.workflow.setUser({ profile: userAtMultipleEstablishments, can });
+
         const expected = [
           'pil transfer recalled',
           'project at Croydon',
@@ -340,13 +358,16 @@ describe('Related tasks', () => {
       });
 
       it('throws an error when trying to fetch tasks for other profiles', () => {
-        this.workflow.setUser({ profile: userAtMultipleEstablishments });
+        const can = sinon.stub()
+          .withArgs('profile.relatedTasks', { id: user.id, establishment: undefined })
+          .resolves(false);
+        this.workflow.setUser({ profile: userAtMultipleEstablishments, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=profile-touched&modelId=${user.id}&limit=10000`)
           .expect(403)
           .expect(response => {
-            assert.equal(response.body.message, `you do not have permission to view related tasks for profile ${user.id}`);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for profile: ${user.id}`);
           });
       });
     });
@@ -357,7 +378,9 @@ describe('Related tasks', () => {
 
     describe('Establishment admin', () => {
       it('returns all tasks related to their own PIL', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('pil.relatedTasks', { id: ids.model.pil.holc, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = [
           'holc pil with licensing'
         ];
@@ -371,7 +394,9 @@ describe('Related tasks', () => {
       });
 
       it('returns all tasks related to another users PIL at their admin establishment', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('pil.relatedTasks', { id: ids.model.pil.active, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = [
           'granted pil'
         ];
@@ -384,25 +409,26 @@ describe('Related tasks', () => {
           });
       });
 
-      it('returns zero results for PILs at non admin establishments', () => {
-        this.workflow.setUser({ profile: holc });
-
-        const expected = [
-          // 'pil at marvell' this task should be hidden
-        ];
+      it('throws an unauthorised error for PILs at non-admin establishments', () => {
+        const can = sinon.stub().withArgs('pil.relatedTasks', { id: sinon.match.any, establishment: '101' }).resolves(false);
+        this.workflow.setUser({ profile: holc, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=pil&modelId=${ids.model.pil.marvell}&establishmentId=101&limit=10000`)
-          .expect(200)
+          .expect(403)
           .expect(response => {
-            assertTasks(expected, response.body.data);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for pil: ${ids.model.pil.marvell}`);
           });
       });
     });
 
     describe('Asru user', () => {
+      beforeEach(() => {
+        const can = sinon.stub().withArgs('pil.relatedTasks', sinon.match.any).resolves(true);
+        this.workflow.setUser({ profile: licensing, can });
+      });
+
       it('returns all tasks related to a PIL', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = [
           'holc pil with licensing'
         ];
@@ -416,7 +442,6 @@ describe('Related tasks', () => {
       });
 
       it('returns all tasks related to a PIL at any establishment', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = [
           'pil at marvell'
         ];
@@ -432,6 +457,9 @@ describe('Related tasks', () => {
 
     describe('Basic user', () => {
       it('returns all tasks related to their own PIL', () => {
+        const can = sinon.stub().withArgs('pil.relatedTasks', { id: ids.model.pil.active, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: user, can });
+
         const expected = [
           'granted pil'
         ];
@@ -445,18 +473,15 @@ describe('Related tasks', () => {
           });
       });
 
-      it('returns zero results for other users PILs', () => {
-        this.workflow.setUser({ profile: user });
-
-        const expected = [
-          // 'holc pil with licensing' this task should be hidden
-        ];
+      it('throws an unauthorised error for other users PILs', () => {
+        const can = sinon.stub().withArgs('pil.relatedTasks', { id: ids.model.pil.holc, establishment: '100' }).resolves(false);
+        this.workflow.setUser({ profile: user, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=pil&modelId=${ids.model.pil.holc}&establishmentId=100&limit=10000`)
-          .expect(200)
+          .expect(403)
           .expect(response => {
-            assertTasks(expected, response.body.data);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for pil: ${ids.model.pil.holc}`);
           });
       });
     });
@@ -467,7 +492,9 @@ describe('Related tasks', () => {
 
     describe('Establishment admin', () => {
       it('returns all tasks related to their own project', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('project.relatedTasks', { id: ids.model.project.holc, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = [
           'holc owned project'
         ];
@@ -481,7 +508,9 @@ describe('Related tasks', () => {
       });
 
       it('returns all tasks related to another users project at their admin establishment', () => {
-        this.workflow.setUser({ profile: holc });
+        const can = sinon.stub().withArgs('project.relatedTasks', { id: ids.model.project.grant, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: holc, can });
+
         const expected = [
           'recalled ppl',
           'ppl submitted by HOLC for user'
@@ -495,25 +524,26 @@ describe('Related tasks', () => {
           });
       });
 
-      it('returns zero results for projects at non admin establishments', () => {
-        this.workflow.setUser({ profile: holc });
-
-        const expected = [
-          // 'project at Marvell' this task should be hidden
-        ];
+      it('throws an unauthorised error for projects at non admin establishments', () => {
+        const can = sinon.stub().withArgs('project.relatedTasks', { id: ids.model.project.marvell, establishment: '101' }).resolves(false);
+        this.workflow.setUser({ profile: holc, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=project&modelId=${ids.model.project.marvell}&establishmentId=101&limit=10000`)
-          .expect(200)
+          .expect(403)
           .expect(response => {
-            assertTasks(expected, response.body.data);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for project: ${ids.model.project.marvell}`);
           });
       });
     });
 
     describe('Asru user', () => {
+      beforeEach(() => {
+        const can = sinon.stub().withArgs('project.relatedTasks', sinon.match.any).resolves(true);
+        this.workflow.setUser({ profile: licensing, can });
+      });
+
       it('returns all tasks related to a project', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = [
           'holc owned project'
         ];
@@ -527,7 +557,6 @@ describe('Related tasks', () => {
       });
 
       it('returns all tasks related to a project at any establishment', () => {
-        this.workflow.setUser({ profile: licensing });
         const expected = [
           'project at Marvell'
         ];
@@ -543,7 +572,9 @@ describe('Related tasks', () => {
 
     describe('Basic user', () => {
       it('returns all tasks related to their own project', () => {
-        this.workflow.setUser({ profile: user });
+        const can = sinon.stub().withArgs('project.relatedTasks', { id: ids.model.project.grant, establishment: '100' }).resolves(true);
+        this.workflow.setUser({ profile: user, can });
+
         const expected = [
           'recalled ppl',
           'ppl submitted by HOLC for user'
@@ -557,17 +588,15 @@ describe('Related tasks', () => {
           });
       });
 
-      it('returns zero results for other users projects', () => {
-        this.workflow.setUser({ profile: user });
-        const expected = [
-          // 'holc owned project' this task should be hidden
-        ];
+      it('throws an unauthorised error for other users projects', () => {
+        const can = sinon.stub().withArgs('project.relatedTasks', { id: ids.model.project.holc, establishment: '100' }).resolves(false);
+        this.workflow.setUser({ profile: user, can });
 
         return request(this.workflow)
           .get(`/related-tasks?model=project&modelId=${ids.model.project.holc}&establishmentId=100&limit=10000`)
-          .expect(200)
+          .expect(403)
           .expect(response => {
-            assertTasks(expected, response.body.data);
+            assert.equal(response.body.message, `you do not have permission to view related tasks for project: ${ids.model.project.holc}`);
           });
       });
     });
