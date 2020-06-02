@@ -86,12 +86,10 @@ describe('Related tasks', () => {
   describe('Establishment tasks', () => {
 
     describe('Establishment admin', () => {
-      beforeEach(() => {
+      it('returns all establishment, place and role tasks associated with the current establishment', () => {
         const can = sinon.stub().withArgs('establishment.relatedTasks', { establishment: '100' }).resolves(true);
         this.workflow.setUser({ profile: holc, can });
-      });
 
-      it('returns all establishment, place and role tasks associated with the current establishment', () => {
         const expected = [
           'place update with licensing',
           'place update with inspector',
@@ -113,12 +111,10 @@ describe('Related tasks', () => {
     });
 
     describe('Asru user', () => {
-      beforeEach(() => {
+      it('returns all establishment, place and role tasks associated with the current establishment', () => {
         const can = sinon.stub().withArgs('establishment.relatedTasks', sinon.match.any).resolves(true);
         this.workflow.setUser({ profile: licensing, can });
-      });
 
-      it('returns all establishment, place and role tasks associated with the current establishment', () => {
         const expected = [
           'place update with licensing',
           'place update with inspector',
@@ -140,12 +136,10 @@ describe('Related tasks', () => {
     });
 
     describe('Basic user', () => {
-      beforeEach(() => {
+      it('throws an unauthorised error when trying to fetch establishment tasks', () => {
         const can = sinon.stub().withArgs('establishment.relatedTasks', sinon.match.any).resolves(false);
         this.workflow.setUser({ profile: user, can });
-      });
 
-      it('throws an unauthorised error when trying to fetch establishment tasks', () => {
         return request(this.workflow)
           .get('/related-tasks?model=establishment&modelId=100&limit=10000')
           .expect(403)
