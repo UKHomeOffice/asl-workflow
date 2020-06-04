@@ -661,7 +661,7 @@ module.exports = query => query.insert([
       initiatedByAsru: false,
       establishmentId: 100,
       changedBy: holc.id,
-      subject: holc.id,
+      subject: userAtMultipleEstablishments.id,
       model: 'role'
     },
     status: 'resolved',
