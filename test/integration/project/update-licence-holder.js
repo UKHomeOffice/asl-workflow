@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { licensing, user } = require('../../data/profiles');
+const { licensing, user, userAtMultipleEstablishments } = require('../../data/profiles');
 const { autoResolved } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
@@ -21,6 +21,27 @@ describe('Project update licence holder', () => {
 
   after(() => {
     return this.workflow.destroy();
+  });
+
+  it('sets the subject to the current licence holder', () => {
+    const params = {
+      model: 'project',
+      action: 'update',
+      id: ids.model.project.transfer,
+      changedBy: userAtMultipleEstablishments.id,
+      data: {
+        establishmentId: 100,
+        licenceHolderId: user.id
+      }
+    };
+    return request(this.workflow)
+      .post('/')
+      .send(params)
+      .expect(200)
+      .then(response => response.body.data)
+      .then(task => {
+        assert.equal(task.data.subject.id, userAtMultipleEstablishments.id);
+      });
   });
 
   it('autoresolves licence holder updates to stubs by a licensing officer', () => {
