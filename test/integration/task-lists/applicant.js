@@ -121,7 +121,7 @@ describe('Applicant', () => {
   describe('completed tasks', () => {
 
     it('sees tasks for which they are the subject', () => {
-      const expected = [ 'granted pil', 'discarded ppl' ];
+      const expected = [ 'granted pil', 'discarded ppl', 'profile update' ];
       return request(this.workflow)
         .get('/?progress=completed')
         .expect(200)

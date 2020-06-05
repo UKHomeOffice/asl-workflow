@@ -28,7 +28,9 @@ module.exports = {
       active: uuid(),
       applied: uuid(),
       rejected: uuid(),
-      transfer: uuid()
+      transfer: uuid(),
+      holc: uuid(),
+      marvell: uuid()
     },
     place: {
       applied: uuid(),
@@ -50,7 +52,9 @@ module.exports = {
       updateStubLicenceHolder: uuid(),
       continuation: uuid(),
       continuation2: uuid(),
-      notAContinuation: uuid()
+      notAContinuation: uuid(),
+      holc: uuid(),
+      marvell: uuid()
     },
     projectVersion: {
       recalledTransfer: uuid(),

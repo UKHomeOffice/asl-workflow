@@ -61,7 +61,8 @@ describe('Licensing Officer', () => {
         'place update with licensing - other establishment',
         'place update recommended',
         'place update recommend rejected',
-        'another with-licensing to test ordering'
+        'another with-licensing to test ordering',
+        'holc pil with licensing'
       ];
       return request(this.workflow)
         .get('/')
@@ -111,7 +112,8 @@ describe('Licensing Officer', () => {
         'Submitted by HOLC',
         'another with-inspectorate to test ordering',
         'holc with multiple establishments',
-        'ppl submitted by HOLC for user'
+        'ppl submitted by HOLC for user',
+        'holc owned project'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
@@ -140,7 +142,13 @@ describe('Licensing Officer', () => {
         'granted place update',
         'granted place update - other establishment',
         'rejected pil',
-        'discarded ppl'
+        'discarded ppl',
+        'profile update',
+        'profile update holc',
+        'profile update user101',
+        'granted establishment update',
+        'granted nio role at croydon',
+        'pil at marvell'
       ];
       return request(this.workflow)
         .get('/?progress=completed')

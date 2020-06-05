@@ -36,7 +36,9 @@ describe('Establishment Admin', () => {
         'recalled ppl',
         'project awaiting endorsement',
         'recalled project transfer',
-        'ppl with continuation'
+        'ppl with continuation',
+        'project at Croydon',
+        'holc owned project'
       ];
       return request(this.workflow)
         .get('/')
@@ -71,7 +73,9 @@ describe('Establishment Admin', () => {
         'another with-ntco to test ordering',
         'holc with multiple establishments',
         'project awaiting endorsement',
-        'ppl submitted by HOLC for user'
+        'ppl submitted by HOLC for user',
+        'project at Croydon',
+        'holc pil with licensing'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
@@ -99,7 +103,10 @@ describe('Establishment Admin', () => {
         'granted pil',
         'granted place update',
         'rejected pil',
-        'discarded ppl'
+        'discarded ppl',
+        'profile update holc',
+        'granted establishment update',
+        'granted nio role at croydon'
       ];
       return request(this.workflow)
         .get('/?progress=completed')
