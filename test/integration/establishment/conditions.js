@@ -37,6 +37,7 @@ describe('Update conditions', () => {
           .expect(200);
       })
       .then(() => {
+        this.workflow.setUser({ profile: profiles.licensing });
         return request(this.workflow)
           .post('/')
           .send({

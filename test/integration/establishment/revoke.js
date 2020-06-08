@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
 const { licensing, inspector, holc103 } = require('../../data/profiles');
-const { autoResolved } = require('../../../lib/flow/status');
+const { resolved } = require('../../../lib/flow/status');
 
 const establishmentId = 103;
 
@@ -64,6 +64,7 @@ describe('Establishment revoke', () => {
   });
 
   it('licensing can revoke establishment licences', () => {
+    this.workflow.setUser({ profile: licensing });
     return request(this.workflow)
       .post('/')
       .send({
@@ -76,7 +77,7 @@ describe('Establishment revoke', () => {
       .expect(200)
       .then(response => response.body.data)
       .then(task => {
-        assert.equal(task.status, autoResolved.id);
+        assert.equal(task.status, resolved.id);
       });
   });
 
