@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
 const { holc } = require('../../data/profiles');
-const { autoResolved, withInspectorate } = require('../../../lib/flow/status');
+const { resolved, withInspectorate } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
 const currentPlaceData = {
@@ -35,7 +35,7 @@ describe('Place update', () => {
     return this.workflow.destroy();
   });
 
-  it('autoresolves updates by external users that only modify the assigned roles', () => {
+  it('resolves updates by external users that only modify the assigned roles', () => {
     return request(this.workflow)
       .post('/')
       .send({
@@ -51,7 +51,7 @@ describe('Place update', () => {
       .expect(200)
       .then(response => response.body.data)
       .then(task => {
-        assert.equal(task.status, autoResolved.id);
+        assert.equal(task.status, resolved.id);
       });
   });
 

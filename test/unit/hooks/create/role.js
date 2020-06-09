@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { withLicensing, withInspectorate, autoResolved } = require('../../../../lib/flow/status');
+const { withLicensing, withInspectorate, resolved } = require('../../../../lib/flow/status');
 const hook = require('../../../../lib/hooks/create/role');
 const Database = require('../../../helpers/asl-db');
 const fixtures = require('../../../data');
@@ -46,23 +46,23 @@ describe('Role create hook', () => {
       });
   });
 
-  it('autoresolves if the role is holc', () => {
+  it('resolves if the role is holc', () => {
     this.model.data.data.type = 'holc';
     return Promise.resolve()
       .then(() => this.hook(this.model))
       .then(() => {
         assert.ok(this.model.setStatus.calledOnce);
-        assert.equal(this.model.setStatus.lastCall.args[0], autoResolved.id);
+        assert.equal(this.model.setStatus.lastCall.args[0], resolved.id);
       });
   });
 
-  it('autoresolves if submitted by a licensing officer', () => {
+  it('resolves if submitted by a licensing officer', () => {
     this.model.data.changedBy = LICENSING_ID;
     return Promise.resolve()
       .then(() => this.hook(this.model))
       .then(() => {
         assert.ok(this.model.setStatus.calledOnce);
-        assert.equal(this.model.setStatus.lastCall.args[0], autoResolved.id);
+        assert.equal(this.model.setStatus.lastCall.args[0], resolved.id);
       });
   });
 
