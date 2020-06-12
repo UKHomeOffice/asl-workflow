@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { user } = require('../../data/profiles');
+const { holc } = require('../../data/profiles');
 const ids = require('../../data/ids');
 const { resolved } = require('../../../lib/flow/status');
 
@@ -10,7 +10,7 @@ describe('Add/remove HOLCs', () => {
     return workflowHelper.create()
       .then(workflow => {
         this.workflow = workflow;
-        this.workflow.setUser({ profile: user });
+        this.workflow.setUser({ profile: holc });
       });
   });
 
@@ -50,10 +50,7 @@ describe('Add/remove HOLCs', () => {
         .send({
           model: 'role',
           action: 'delete',
-          id: ids.model.role.holc,
-          data: {
-            type: 'holc'
-          }
+          id: ids.model.role.holc
         })
         .expect(200)
         .then(response => response.body.data)
