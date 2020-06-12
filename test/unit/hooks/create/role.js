@@ -4,6 +4,7 @@ const { withLicensing, withInspectorate, resolved } = require('../../../../lib/f
 const hook = require('../../../../lib/hooks/create/role');
 const Database = require('../../../helpers/asl-db');
 const fixtures = require('../../../data');
+const ids = require('../../../data/ids');
 
 const settings = require('../../../helpers/database-settings');
 
@@ -48,6 +49,18 @@ describe('Role create hook', () => {
 
   it('resolves if the role is holc', () => {
     this.model.data.data.type = 'holc';
+    return Promise.resolve()
+      .then(() => this.hook(this.model))
+      .then(() => {
+        assert.ok(this.model.setStatus.calledOnce);
+        assert.equal(this.model.setStatus.lastCall.args[0], resolved.id);
+      });
+  });
+
+  it('resolves if the role is holc and the action is delete', () => {
+    this.model.data.data.type = 'holc';
+    this.model.data.action = 'delete';
+    this.model.data.id = ids.model.role.holc;
     return Promise.resolve()
       .then(() => this.hook(this.model))
       .then(() => {

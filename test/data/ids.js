@@ -41,7 +41,8 @@ module.exports = {
     },
     role: {
       nacwoClive: uuid(),
-      nacwoDerek: uuid()
+      nacwoDerek: uuid(),
+      holc: uuid()
     },
     project: {
       grant: uuid(),
