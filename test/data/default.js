@@ -475,7 +475,7 @@ module.exports = models => {
               establishmentId: 101
             },
             {
-              id: uuid(),
+              id: ids.model.role.holc,
               type: 'holc',
               profileId: '143e500a-d42d-4010-840e-35418660cdc2',
               establishmentId: 101
