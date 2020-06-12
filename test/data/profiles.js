@@ -67,13 +67,34 @@ module.exports = {
     asruUser: true,
     asruLicensing: true
   },
+  asruSuper: {
+    id: '0f7404a6-4c94-4ada-b08d-3235825b1579',
+    establishments: [],
+    roles: [],
+    asruUser: true,
+    asruAdmin: true,
+    asruLicensing: true,
+    asruInspector: true,
+    asruSupport: true
+  },
   asruAdmin: {
     id: 'a8e6f04b-f3a6-4378-91fa-f612d4ed1102',
     establishments: [],
     roles: [],
     asruUser: true,
     asruAdmin: true,
-    asruLicensing: true,
-    asruInspector: true
+    asruLicensing: false,
+    asruInspector: false,
+    asruSupport: false
+  },
+  asruSupport: {
+    id: '6891fe52-fb55-4d81-a7f5-24046d590407',
+    establishments: [],
+    roles: [],
+    asruUser: true,
+    asruAdmin: false,
+    asruLicensing: false,
+    asruInspector: false,
+    asruSupport: true
   }
 };

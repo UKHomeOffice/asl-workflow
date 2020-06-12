@@ -140,9 +140,26 @@ module.exports = models => {
           lastName: 'Admin',
           email: 'asruadmin@example.com',
           asruUser: true,
+          asruAdmin: true
+        },
+        {
+          id: '0f7404a6-4c94-4ada-b08d-3235825b1579',
+          firstName: 'Asru',
+          lastName: 'Super',
+          email: 'asru-super@example.com',
+          asruUser: true,
           asruAdmin: true,
           asruLicensing: true,
-          asruInspector: true
+          asruInspector: true,
+          asruSupport: true
+        },
+        {
+          id: '6891fe52-fb55-4d81-a7f5-24046d590407',
+          firstName: 'Asru',
+          lastName: 'Support',
+          email: 'asru-support@example.com',
+          asruUser: true,
+          asruSupport: true
         }
       ])
         .then(() => {
