@@ -129,6 +129,7 @@ describe('Inspector', () => {
         'granted place update - other establishment',
         'rejected pil',
         'discarded ppl',
+        'discarded by asru',
         'profile update',
         'profile update holc',
         'profile update user101',

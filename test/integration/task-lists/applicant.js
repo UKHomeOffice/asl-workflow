@@ -121,7 +121,11 @@ describe('Applicant', () => {
   describe('completed tasks', () => {
 
     it('sees tasks for which they are the subject', () => {
-      const expected = [ 'granted pil', 'discarded ppl', 'profile update' ];
+      const expected = [
+        'granted pil',
+        'discarded ppl',
+        'profile update'
+      ];
       return request(this.workflow)
         .get('/?progress=completed')
         .expect(200)
@@ -140,7 +144,9 @@ describe('Applicant', () => {
     });
 
     it('can filter by licence type of ppl', () => {
-      const projectTasks = ['discarded ppl'];
+      const projectTasks = [
+        'discarded ppl'
+      ];
 
       return request(this.workflow)
         .get('/?progress=completed&filters%5Blicence%5D%5B0%5D=ppl')

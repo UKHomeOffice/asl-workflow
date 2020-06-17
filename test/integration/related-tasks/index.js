@@ -264,7 +264,8 @@ describe('Related tasks', () => {
           'holc pil with licensing',
           'holc owned project',
           'granted establishment update',
-          'granted nio role at croydon'
+          'granted nio role at croydon',
+          'discarded by asru'
         ];
 
         return request(this.workflow)
