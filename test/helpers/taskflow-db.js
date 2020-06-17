@@ -13,7 +13,7 @@ module.exports = knex => {
       }),
     seed: (tasks = []) => Promise.resolve()
       .then(() => {
-        return seeds(Task.query(knex));
+        return Task.query(knex).insert(seeds);
       })
       .then(() => {
         if (tasks.length) {

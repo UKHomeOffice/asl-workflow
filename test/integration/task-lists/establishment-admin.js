@@ -104,6 +104,7 @@ describe('Establishment Admin', () => {
         'granted place update',
         'rejected pil',
         'discarded ppl',
+        'discarded by asru',
         'profile update holc',
         'granted establishment update',
         'granted nio role at croydon'

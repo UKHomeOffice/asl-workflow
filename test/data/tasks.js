@@ -11,7 +11,7 @@ const generateDates = daysAgo => {
   };
 };
 
-module.exports = query => query.insert([
+const tasks = [
   {
     id: ids.task.pil.withNtco,
     data: {
@@ -683,5 +683,23 @@ module.exports = query => query.insert([
     },
     status: 'resolved',
     ...generateDates(34)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'discarded by asru'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: holc.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: holc.id
+    },
+    status: 'discarded-by-asru',
+    ...generateDates(34)
   }
-]);
+];
+
+module.exports = tasks;
