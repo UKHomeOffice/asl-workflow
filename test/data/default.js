@@ -317,6 +317,20 @@ module.exports = models => {
                 ]
               },
               {
+                id: ids.model.project.revoke,
+                title: 'Test revocation project',
+                licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1235',
+                version: [
+                  {
+                    id: uuid(),
+                    status: 'granted'
+                  }
+                ]
+              },
+              {
                 id: ids.model.project.continuation,
                 title: 'Test project 9',
                 licenceHolderId: user.id,
