@@ -47,6 +47,7 @@ module.exports = {
     project: {
       grant: uuid(),
       transfer: uuid(),
+      revoke: uuid(),
       recalledTransfer: uuid(),
       updateIssueDate: uuid(),
       updateLicenceNumber: uuid(),
