@@ -4,7 +4,7 @@ const { userAtMultipleEstablishments, ntco101, user, userWithActivePil } = requi
 
 module.exports = models => {
 
-  const { Establishment, Profile, PIL, Permission, Role } = models;
+  const { Establishment, Profile, PIL, Permission, Role, AsruEstablishment } = models;
 
   return Promise.resolve()
     .then(() => {
@@ -571,5 +571,12 @@ module.exports = models => {
             }
           ]);
         });
+    })
+    .then(() => {
+      // assign establishments to inspector and licensing user
+      return AsruEstablishment.query().insert([
+        { profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1', establishmentId: 101 },
+        { profileId: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2', establishmentId: 101 }
+      ]);
     });
 };
