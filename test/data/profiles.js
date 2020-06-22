@@ -55,7 +55,6 @@ module.exports = {
     id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d1',
     establishments: [],
     roles: [],
-    asru: [{ id: 101 }],
     asruUser: true,
     asruInspector: true
   },
@@ -63,7 +62,6 @@ module.exports = {
     id: 'a942ffc7-e7ca-4d76-a001-0b5048a057d2',
     establishments: [],
     roles: [],
-    asru: [{ id: 101 }],
     asruUser: true,
     asruLicensing: true
   },
