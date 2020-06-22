@@ -26,11 +26,18 @@ module.exports = {
   model: {
     pil: {
       active: uuid(),
+      inactive: uuid(),
       applied: uuid(),
       rejected: uuid(),
       transfer: uuid(),
       holc: uuid(),
       marvell: uuid()
+    },
+    certificate: {
+      colinJackson: uuid()
+    },
+    exemption: {
+      colinJackson: uuid()
     },
     place: {
       applied: uuid(),
