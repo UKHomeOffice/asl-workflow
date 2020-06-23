@@ -545,7 +545,7 @@ module.exports = models => {
         .then(() => {
           return PIL.query().insertGraph([
             {
-              id: '9fbe0218-995d-47d3-88e7-641fc046d7d1',
+              id: ids.model.pil.linfordChristie,
               profileId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
               establishmentId: 100,
               licenceNumber: 'AB-123',

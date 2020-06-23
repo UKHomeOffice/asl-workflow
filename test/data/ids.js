@@ -26,6 +26,7 @@ module.exports = {
   model: {
     pil: {
       active: uuid(),
+      linfordChristie: uuid(),
       inactive: uuid(),
       applied: uuid(),
       rejected: uuid(),
