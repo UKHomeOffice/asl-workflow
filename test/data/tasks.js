@@ -49,10 +49,12 @@ const tasks = [
     id: ids.task.pil.grant,
     data: {
       data: {
-        name: 'pil returned'
+        name: 'pil returned',
+        profileId: user.id
       },
       initiatedByAsru: false,
       establishmentId: 100,
+      id: ids.model.pil.linfordChristie,
       subject: user.id,
       model: 'pil',
       action: 'grant',

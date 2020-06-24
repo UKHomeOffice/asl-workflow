@@ -86,7 +86,23 @@ module.exports = models => {
           address: '1 Some Road',
           postcode: 'A1 1AA',
           email: 'test5@example.com',
-          telephone: '01234567890'
+          telephone: '01234567890',
+          certificates: [
+            {
+              id: ids.model.certificate.colinJackson,
+              modules: [
+                {
+                  module: 'E1'
+                }
+              ]
+            }
+          ],
+          exemptions: [
+            {
+              id: ids.model.exemption.colinJackson,
+              module: 'L'
+            }
+          ]
         },
         {
           id: 'ae28fb31-d867-4371-9b4f-79019e71232e',
@@ -529,7 +545,7 @@ module.exports = models => {
         .then(() => {
           return PIL.query().insertGraph([
             {
-              id: '9fbe0218-995d-47d3-88e7-641fc046d7d1',
+              id: ids.model.pil.linfordChristie,
               profileId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
               establishmentId: 100,
               licenceNumber: 'AB-123',
@@ -552,6 +568,14 @@ module.exports = models => {
               procedures: ['D'],
               notesCatD: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
               status: 'active'
+            },
+            {
+              id: ids.model.pil.inactive,
+              profileId: 'ae28fb31-d867-4371-9b4f-79019e71232f', //colin jackson
+              establishmentId: 100,
+              procedures: ['D'],
+              notesCatD: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              status: 'inactive'
             },
             {
               id: ids.model.pil.transfer,
