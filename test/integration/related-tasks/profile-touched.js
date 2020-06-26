@@ -1,7 +1,7 @@
 const request = require('supertest');
 const sinon = require('sinon');
 const workflowHelper = require('../../helpers/workflow');
-const { holc, user, userAtMultipleEstablishments, licensing } = require('../../data/profiles');
+const { holc, user, userAtMultipleEstablishments, licensing, asruSuper } = require('../../data/profiles');
 const assert = require('assert');
 const assertTasks = require('../../helpers/assert-tasks');
 
@@ -106,6 +106,19 @@ describe('Related tasks', () => {
 
         return request(this.workflow)
           .get(`/related-tasks?model=profile-touched&modelId=${userAtMultipleEstablishments.id}&limit=10000`)
+          .expect(200)
+          .expect(response => {
+            assertTasks(expected, response.body.data);
+          });
+      });
+
+      it('includes tasks that have been actioned by the target profile', () => {
+        const expected = [
+          'discarded by asru'
+        ];
+
+        return request(this.workflow)
+          .get(`/related-tasks?model=profile-touched&modelId=${asruSuper.id}&limit=10000`)
           .expect(200)
           .expect(response => {
             assertTasks(expected, response.body.data);
