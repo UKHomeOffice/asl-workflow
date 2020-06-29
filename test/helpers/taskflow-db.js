@@ -2,6 +2,7 @@ const uuid = require('uuid/v4');
 const Task = require('@ukhomeoffice/taskflow/lib/db/task');
 const ActivityLog = require('@ukhomeoffice/taskflow/lib/db/activity-log');
 const seeds = require('../data/tasks');
+const activitySeeds = require('../data/activity');
 
 module.exports = knex => {
   return {
@@ -12,9 +13,8 @@ module.exports = knex => {
           .then(() => Task.query(knex).delete());
       }),
     seed: (tasks = []) => Promise.resolve()
-      .then(() => {
-        return Task.query(knex).insert(seeds);
-      })
+      .then(() => Task.query(knex).insert(seeds))
+      .then(() => ActivityLog.query(knex).insert(activitySeeds))
       .then(() => {
         if (tasks.length) {
           tasks = tasks.map(t => ({ id: uuid(), ...t }));

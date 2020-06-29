@@ -20,7 +20,8 @@ module.exports = {
       grant: uuid(),
       recalledTransfer: uuid(),
       submittedByHolc: uuid(),
-      continuation: uuid()
+      continuation: uuid(),
+      discardedByAsru: uuid()
     }
   },
   model: {

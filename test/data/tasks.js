@@ -687,7 +687,7 @@ const tasks = [
     ...generateDates(34)
   },
   {
-    id: uuid(),
+    id: ids.task.project.discardedByAsru,
     data: {
       data: {
         name: 'discarded by asru'
