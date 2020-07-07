@@ -39,5 +39,6 @@ module.exports = {
     secret: process.env.KEYCLOAK_SECRET,
     permissions: process.env.PERMISSIONS_SERVICE
   },
-  notifications: process.env.NOTIFICATIONS_SERVICE
+  notifications: process.env.NOTIFICATIONS_SERVICE,
+  search: process.env.SEARCH_SERVICE
 };
