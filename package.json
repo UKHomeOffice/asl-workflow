@@ -26,7 +26,7 @@
   "homepage": "https://github.com/UKHomeOffice/asl-workflow#readme",
   "dependencies": {
     "@asl/constants": "^0.8.1",
-    "@asl/schema": "^7.49.3",
+    "@asl/schema": "^7.49.4",
     "@asl/service": "^7.21.2",
     "@ukhomeoffice/taskflow": "^2.2.0",
     "aws-sdk": "^2.270.1",
