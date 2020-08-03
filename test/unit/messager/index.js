@@ -22,7 +22,9 @@ describe('Messager', () => {
     });
 
     it('returns a promise', () => {
-      assert(this.messager({}) instanceof Promise);
+      const result = this.messager({});
+      assert(result instanceof Promise);
+      return result.catch(e => null);
     });
 
   });

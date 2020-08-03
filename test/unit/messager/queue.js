@@ -9,7 +9,9 @@ describe('Messager Queue', () => {
   });
 
   it('returns a promise', () => {
-    assert(queue({})({}) instanceof Promise);
+    const result = queue({})({});
+    assert(result instanceof Promise);
+    return result.catch(e => null);
   });
 
 });

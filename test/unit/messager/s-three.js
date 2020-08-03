@@ -9,7 +9,9 @@ describe('Messager S3', () => {
   });
 
   it('returns a promise', () => {
-    assert(s3({})({}) instanceof Promise);
+    const result = s3({})({});
+    assert(result instanceof Promise);
+    return result.catch(e => null);
   });
 
 });
