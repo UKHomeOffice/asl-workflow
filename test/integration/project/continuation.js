@@ -30,7 +30,7 @@ describe('Project continuation', () => {
       establishmentId: 100,
       id: ids.model.project.continuation,
       data: {
-        version: ids.model.projectVersion.continution
+        version: ids.model.projectVersion.continuation
       }
     };
     const expected = [

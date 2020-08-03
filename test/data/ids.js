@@ -69,7 +69,7 @@ module.exports = {
     },
     projectVersion: {
       recalledTransfer: uuid(),
-      continution: uuid(),
+      continuation: uuid(),
       continuation2: uuid(),
       notAContinuation: uuid(),
       transfer: uuid(),

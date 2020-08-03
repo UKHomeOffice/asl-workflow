@@ -355,7 +355,7 @@ module.exports = models => {
                 licenceNumber: '70/1235',
                 version: [
                   {
-                    id: ids.model.projectVersion.continution,
+                    id: ids.model.projectVersion.continuation,
                     status: 'draft',
                     data: {
                       'transfer-expiring': true,
