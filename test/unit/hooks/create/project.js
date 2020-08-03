@@ -90,7 +90,46 @@ describe('Project create hook', () => {
           model: 'project',
           id: ids.model.project.grant,
           data: {
-            version: ids.model.projectVersion.grant
+            version: ids.model.projectVersion.grant,
+            modelData: {
+              status: 'inactive'
+            }
+          },
+          establishmentId: 100,
+          changedBy: BASIC_USER
+        },
+        meta: {
+          user: {
+            profile: {
+              id: BASIC_USER,
+              establishments: [
+                { id: 100, role: 'basic' }
+              ]
+            }
+          }
+        },
+        setStatus: sinon.stub()
+      };
+
+      return Promise.resolve()
+        .then(() => this.hook(model))
+        .then(() => {
+          assert.ok(model.setStatus.calledOnce);
+          assert.equal(model.setStatus.lastCall.args[0], awaitingEndorsement.id);
+        });
+    });
+
+    it('requires endorsement if it is an amendment submitted by a basic user', () => {
+      const model = {
+        data: {
+          action: 'grant',
+          model: 'project',
+          id: ids.model.project.grant,
+          data: {
+            version: ids.model.projectVersion.grant,
+            modelData: {
+              status: 'active'
+            }
           },
           establishmentId: 100,
           changedBy: BASIC_USER
@@ -123,7 +162,10 @@ describe('Project create hook', () => {
           model: 'project',
           id: ids.model.project.grant,
           data: {
-            version: ids.model.projectVersion.grant
+            version: ids.model.projectVersion.grant,
+            modelData: {
+              status: 'inactive'
+            }
           },
           establishmentId: 100,
           changedBy: BASIC_USER
@@ -156,7 +198,10 @@ describe('Project create hook', () => {
           model: 'project',
           id: ids.model.project.grant,
           data: {
-            version: ids.model.projectVersion.grant
+            version: ids.model.projectVersion.grant,
+            modelData: {
+              status: 'inactive'
+            }
           },
           meta: {
             authority: 'yes'
