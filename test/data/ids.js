@@ -38,9 +38,6 @@ module.exports = {
     certificate: {
       colinJackson: uuid()
     },
-    exemption: {
-      colinJackson: uuid()
-    },
     place: {
       applied: uuid(),
       resolved: uuid(),
