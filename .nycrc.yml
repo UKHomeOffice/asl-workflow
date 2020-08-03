@@ -1,6 +1,8 @@
 all: true
 include:
   - lib/**
+exclude:
+  - lib/messager/**
 reporter:
   - text
   - html
