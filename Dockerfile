@@ -1,4 +1,4 @@
-FROM quay.io/ukhomeofficedigital/asl-base:v1
+FROM quay.io/ukhomeofficedigital/asl-base:v12
 
 ARG NPM_AUTH_USERNAME
 ARG NPM_AUTH_TOKEN

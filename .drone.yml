@@ -1,7 +1,7 @@
 pipeline:
 
   test:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     environment:
@@ -22,7 +22,7 @@ pipeline:
         - pull_request
 
   audit:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     commands:
