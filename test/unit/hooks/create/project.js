@@ -155,6 +155,41 @@ describe('Project create hook', () => {
         });
     });
 
+    it('does not require endorsement if it is an amendment submitted by a licensing officer', () => {
+      const model = {
+        data: {
+          action: 'grant',
+          model: 'project',
+          id: ids.model.project.grant,
+          data: {
+            version: ids.model.projectVersion.grant,
+            modelData: {
+              status: 'active'
+            }
+          },
+          establishmentId: 100,
+          changedBy: LICENSING_ID
+        },
+        meta: {
+          user: {
+            profile: {
+              id: LICENSING_ID,
+              asruUser: true,
+              asruLicensing: true
+            }
+          }
+        },
+        setStatus: sinon.stub()
+      };
+
+      return Promise.resolve()
+        .then(() => this.hook(model))
+        .then(() => {
+          assert.ok(model.setStatus.calledOnce);
+          assert.equal(model.setStatus.lastCall.args[0], withInspectorate.id);
+        });
+    });
+
     it('does not require endorsement if submitted by an admin user', () => {
       const model = {
         data: {
