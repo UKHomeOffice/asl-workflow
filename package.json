@@ -4,10 +4,10 @@
   "description": "Workflow API for processing change requests",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:lint && npm run test:integration && npm run test:unit",
+    "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
-    "test:integration": "NODE_ENV=test npm run migrate:test && mocha ./test/integration",
-    "test:unit": "mocha ./test/unit",
+    "pretest:unit": "NODE_ENV=test npm run migrate:test",
+    "test:unit": "nyc mocha ./test",
     "dev": "nodemon -r dotenv/config index.js",
     "seed": "SNAKE_MAPPER=true knex seed:run",
     "migrate": "node ./scripts/migrate.js",
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/UKHomeOffice/asl-workflow#readme",
   "dependencies": {
     "@asl/constants": "^0.8.1",
-    "@asl/schema": "^7.47.4",
+    "@asl/schema": "^7.49.4",
     "@asl/service": "^7.21.2",
     "@ukhomeoffice/taskflow": "^2.2.0",
     "aws-sdk": "^2.270.1",
@@ -48,6 +48,7 @@
     "eslint-config-lennym": "^2.1.1",
     "mocha": "^7.1.2",
     "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "sinon": "^7.3.2",
     "supertest": "^3.3.0"
   }

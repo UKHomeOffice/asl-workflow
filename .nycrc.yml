@@ -1,0 +1,14 @@
+all: true
+include:
+  - lib/**
+exclude:
+  - lib/messager/**
+reporter:
+  - text
+  - html
+check-coverage: true
+per-file: true
+branches: 1
+lines: 1
+functions: 1
+statements: 1
