@@ -90,17 +90,7 @@ module.exports = models => {
           certificates: [
             {
               id: ids.model.certificate.colinJackson,
-              modules: [
-                {
-                  module: 'E1'
-                }
-              ]
-            }
-          ],
-          exemptions: [
-            {
-              id: ids.model.exemption.colinJackson,
-              module: 'L'
+              modules: ['E1']
             }
           ]
         },

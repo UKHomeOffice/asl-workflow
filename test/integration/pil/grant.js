@@ -22,7 +22,7 @@ describe('PIL application', () => {
     return this.workflow.destroy();
   });
 
-  it('adds training and exemptions to the task on submit', () => {
+  it('adds training to the task on submit', () => {
     const params = {
       model: 'pil',
       action: 'grant',
@@ -40,9 +40,7 @@ describe('PIL application', () => {
       .then(response => response.body.data)
       .then(task => {
         assert.ok(task.data.certificates);
-        assert.ok(task.data.exemptions);
         assert.equal(task.data.certificates[0].id, ids.model.certificate.colinJackson);
-        assert.equal(task.data.exemptions[0].id, ids.model.exemption.colinJackson);
       });
   });
 });
