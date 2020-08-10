@@ -104,7 +104,8 @@ const tasks = [
         version: ids.model.projectVersion.grant
       },
       meta: {
-        authority: 'yes'
+        authority: 'yes',
+        awerb: 'yes'
       },
       initiatedByAsru: false,
       establishmentId: 100,

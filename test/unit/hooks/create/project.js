@@ -226,7 +226,7 @@ describe('Project create hook', () => {
         });
     });
 
-    it('does not require endorsement if re-submitted by a basic user having been endorsed previously', () => {
+    it('requires re-endorsement if re-submitted by a basic user without awerb having been completed', () => {
       const model = {
         data: {
           action: 'grant',
@@ -240,6 +240,46 @@ describe('Project create hook', () => {
           },
           meta: {
             authority: 'yes'
+          },
+          establishmentId: 100,
+          changedBy: BASIC_USER
+        },
+        meta: {
+          user: {
+            profile: {
+              id: BASIC_USER,
+              establishments: [
+                { id: 100, role: 'basic' }
+              ]
+            }
+          }
+        },
+        setStatus: sinon.stub()
+      };
+
+      return Promise.resolve()
+        .then(() => this.hook(model))
+        .then(() => {
+          assert.ok(model.setStatus.calledOnce);
+          assert.equal(model.setStatus.lastCall.args[0], awaitingEndorsement.id);
+        });
+    });
+
+    it('does not require endorsement if re-submitted by a basic user having been endorsed and awerbed previously', () => {
+      const model = {
+        data: {
+          action: 'grant',
+          model: 'project',
+          id: ids.model.project.grant,
+          data: {
+            version: ids.model.projectVersion.grant,
+            modelData: {
+              status: 'inactive'
+            }
+          },
+          meta: {
+            authority: 'yes',
+            awerb: 'yes'
           },
           establishmentId: 100,
           changedBy: BASIC_USER

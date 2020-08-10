@@ -147,7 +147,7 @@ describe('Project transfer', () => {
       });
   });
 
-  it('doesn\'t need re-endorsing if endorsed then returned', () => {
+  it('doesn\'t need re-endorsing if endorsed and awerbed then returned', () => {
     return request(this.workflow)
       .post('/')
       .send(this.payload)
@@ -159,7 +159,8 @@ describe('Project transfer', () => {
           .send({
             status: endorsed.id,
             meta: {
-              comment: 'endorsed from sending est'
+              comment: 'endorsed from sending est',
+              awerb: 'yes'
             }
           })
           .expect(200);
