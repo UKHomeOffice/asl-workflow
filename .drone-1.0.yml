@@ -1,0 +1,102 @@
+
+kind: pipeline
+name: default
+type: kubernetes
+steps:
+  - name: install
+    image: node:12
+    environment:
+      NPM_AUTH_USERNAME:
+        from_secret: npm_auth_username
+      NPM_AUTH_TOKEN:
+        from_secret: npm_auth_token
+    commands:
+      - npm ci
+  - name: database setup
+    image: postgres
+    environment:
+      PGHOST: postgres
+      PGUSER: postgres
+      PGPASSWORD: test-password
+    commands:
+      - psql -c 'CREATE DATABASE "asl-test"'
+      - psql -c 'CREATE DATABASE "taskflow-test"'
+  - name: test
+    image: node:12
+    environment:
+      ASL_DATABASE_HOST: postgres
+      ASL_DATABASE_NAME: asl-test
+      ASL_DATABASE_USERNAME: postgres
+      ASL_DATABASE_PASSWORD: test-password
+      DATABASE_HOST: postgres
+      DATABASE_NAME: taskflow-test
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: test-password
+      NPM_AUTH_USERNAME:
+        from_secret: npm_auth_username
+      NPM_AUTH_TOKEN:
+        from_secret: npm_auth_token
+    commands:
+      - npm test
+  - name: audit
+    image: node:12
+    environment:
+      NPM_AUTH_USERNAME:
+        from_secret: npm_auth_username
+      NPM_AUTH_TOKEN:
+        from_secret: npm_auth_token
+    commands:
+      - npx @lennym/ciaudit --retries 5
+  - name: docker build
+    image: docker:dind
+    environment:
+      DOCKER_HOST: tcp://docker:2375
+      NPM_AUTH_USERNAME:
+        from_secret: npm_auth_username
+      NPM_AUTH_TOKEN:
+        from_secret: npm_auth_token
+    commands:
+      - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-workflow .
+  - name: docker push
+    image: docker:dind
+    environment:
+      DOCKER_HOST: tcp://docker:2375
+      NPM_AUTH_USERNAME:
+        from_secret: npm_auth_username
+      NPM_AUTH_TOKEN:
+        from_secret: npm_auth_token
+      DOCKER_PASSWORD:
+        from_secret: docker_password
+    commands:
+      - docker login -u="ukhomeofficedigital+asl" -p=$${DOCKER_PASSWORD} quay.io
+      - docker tag asl-workflow quay.io/ukhomeofficedigital/asl-workflow:$${DRONE_COMMIT_SHA}
+      - docker push quay.io/ukhomeofficedigital/asl-workflow:$${DRONE_COMMIT_SHA}
+    when:
+      event: push
+      branch: master
+  - name: update manifest
+    image: quay.io/ukhomeofficedigital/asl-deploy-bot:latest
+    environment:
+      GITHUB_ACCESS_TOKEN:
+        from_secret: github_access_token
+    commands:
+      - update
+        --repo ukhomeoffice/asl-deployments
+        --token $${GITHUB_ACCESS_TOKEN}
+        --file versions.yml
+        --service asl-workflow
+        --version $${DRONE_COMMIT_SHA}
+    when:
+      event: push
+      branch: master
+
+services:
+- name: docker
+  image: docker:dind
+  environment:
+    DOCKER_TLS_CERTDIR: ""
+- name: postgres
+  image: postgres
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: test-password
