@@ -62,5 +62,65 @@
       "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
       "establishmentId": 8201
     }
+  },
+  {
+    "id": "71bd42e1-7cd7-4d51-8d99-694bd4c14810",
+    "status": "with-inspectorate",
+    "data": {
+      "id": "9d83dcac-a544-4cf8-90c8-b9915ab16f80",
+      "data": {
+        "version": "b44cc7fc-5dfb-4900-9be0-c0e475d2ddc5",
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+      },
+      "meta": {
+        "awerb": "Yes",
+        "ready": "Yes",
+        "comment": "Sending for review.",
+        "version": "b44cc7fc-5dfb-4900-9be0-c0e475d2ddc5",
+        "authority": "Yes",
+        "awerb-review-date": "AWERB done."
+      },
+      "model": "project",
+      "action": "grant",
+      "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "extended": true,
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "modelData": {
+        "id": "9d83dcac-a544-4cf8-90c8-b9915ab16f80",
+        "title": "Testing deadline extension (old style)",
+        "raDate": null,
+        "status": "inactive",
+        "deleted": null,
+        "createdAt": "2020-09-02T14:27:46.595Z",
+        "issueDate": null,
+        "updatedAt": "2020-09-02T14:28:01.782Z",
+        "expiryDate": null,
+        "migratedId": null,
+        "amendedDate": null,
+        "isLegacyStub": false,
+        "licenceHolder": {
+          "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+          "name": "Bruce Banner",
+          "lastName": "Banner",
+          "firstName": "Bruce"
+        },
+        "licenceNumber": null,
+        "schemaVersion": 1,
+        "revocationDate": null,
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+        "previousProjectId": null,
+        "transferProjectId": null,
+        "transferredInDate": null,
+        "transferredOutDate": null,
+        "previousEstablishmentId": null,
+        "transferEstablishmentId": null
+      },
+      "establishmentId": 8201,
+      "initiatedByAsru": false
+    },
+    "created_at": "2020-09-01",
+    "updated_at": "2020-09-01"
   }
 ]
