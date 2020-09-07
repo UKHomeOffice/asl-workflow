@@ -367,6 +367,55 @@ describe('Deadline', () => {
     });
   });
 
+  it('sets an extended deadline if the task deadline has been extended (bc for tasks already with-inspectorate)', () => {
+    const task = {
+      status: 'with-inspectorate',
+      createdAt: '2019-09-20T10:00:00.000Z',
+      isOpen: true,
+      data: {
+        model: 'project',
+        action: 'grant',
+        deadline: {
+          isExtended: true,
+          isExtendable: false // example task was submitted before the change to deadlines and extended afterwards
+        },
+        modelData: {
+          status: 'inactive'
+        },
+        meta: {
+          authority: 'yes',
+          awerb: 'yes',
+          ready: 'yes'
+        }
+      },
+      activityLog: [
+        {
+          eventName: 'create',
+          createdAt: '2019-09-20T10:00:00.000Z'
+        },
+        {
+          eventName: 'status:new:with-inspectorate',
+          createdAt: '2019-09-20T10:00:00.100Z'
+        },
+        {
+          eventName: 'status:with-inspectorate:returned-to-applicant',
+          createdAt: '2019-09-21T10:00:00.100Z'
+        },
+        {
+          eventName: 'status:returned-to-applicant:with-inspectorate',
+          createdAt: '2019-09-24T10:00:00.100Z'
+        }
+      ]
+    };
+    return decorator()(task).then(result => {
+      assert.ok(result.data.deadline);
+      assert.equal(result.data.deadline.standard, '2019-11-19');
+      assert.equal(result.data.deadline.extended, '2019-12-10');
+      assert.equal(result.data.deadline.isExtended, true);
+      assert.equal(result.data.deadline.isExtendable, false);
+    });
+  });
+
   it('does nothing if the task deadline has been extended (new style)', () => {
     const task = {
       status: 'with-inspectorate',
