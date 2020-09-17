@@ -35,6 +35,11 @@ module.exports = {
       holc: uuid(),
       marvell: uuid()
     },
+    trainingPil: {
+      noPil: uuid(),
+      hasPil: uuid()
+    },
+    trainingCourse: uuid(),
     certificate: {
       colinJackson: uuid()
     },
@@ -62,7 +67,8 @@ module.exports = {
       continuation2: uuid(),
       notAContinuation: uuid(),
       holc: uuid(),
-      marvell: uuid()
+      marvell: uuid(),
+      marvellTest: uuid()
     },
     projectVersion: {
       recalledTransfer: uuid(),

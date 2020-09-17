@@ -75,7 +75,8 @@ describe('Establishment Admin', () => {
         'project awaiting endorsement',
         'ppl submitted by HOLC for user',
         'project at Croydon',
-        'holc pil with licensing'
+        'holc pil with licensing',
+        'trainingPil with ntco'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

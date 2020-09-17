@@ -30,7 +30,8 @@ describe('NTCO', () => {
     it('sees tasks with status "with-ntco" or "awaiting-endorsement" for their own establishment', () => {
       const expected = [
         'pil with ntco',
-        'another with-ntco to test ordering'
+        'another with-ntco to test ordering',
+        'trainingPil with ntco'
       ];
       return request(this.workflow)
         .get('/')

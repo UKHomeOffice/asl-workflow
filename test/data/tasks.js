@@ -13,6 +13,23 @@ const generateDates = daysAgo => {
 
 const tasks = [
   {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'trainingPil with ntco'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'trainingPil',
+      action: 'grant',
+      id: ids.model.trainingPil.noPil,
+      changedBy: user.id
+    },
+    status: 'awaiting-endorsement',
+    ...generateDates(3)
+  },
+  {
     id: ids.task.pil.withNtco,
     data: {
       data: {
