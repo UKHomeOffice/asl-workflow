@@ -37,7 +37,8 @@ module.exports = {
     },
     trainingPil: {
       noPil: uuid(),
-      hasPil: uuid()
+      hasPil: uuid(),
+      active: uuid()
     },
     trainingCourse: uuid(),
     certificate: {

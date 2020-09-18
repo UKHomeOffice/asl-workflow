@@ -551,6 +551,11 @@ module.exports = models => {
                 id: ids.model.trainingPil.noPil,
                 profileId: user.id,
                 status: 'inactive'
+              },
+              {
+                id: ids.model.trainingPil.active,
+                profileId: userAtMultipleEstablishments.id,
+                status: 'active'
               }
             ]
           });

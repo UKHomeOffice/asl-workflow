@@ -1,6 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
 const { withLicensing, resolved, awaitingEndorsement, endorsed } = require('../../../../lib/flow/status');
+const ids = require('../../../data/ids');
 const { ntco, user, licensing } = require('../../../data/profiles');
 const hook = require('../../../../lib/hooks/create/training-pil');
 const Database = require('../../../helpers/asl-db');
@@ -9,7 +10,7 @@ const fixtures = require('../../../data');
 const settings = require('../../../helpers/database-settings');
 
 let messagerStub;
-let changelogModel = { modelId: 'new-training-pil-id' };
+let changelogModel = { modelId: ids.model.trainingPil.noPil };
 
 describe('Training PIL create hook', () => {
   before(() => {
@@ -68,8 +69,12 @@ describe('Training PIL create hook', () => {
   });
 
   describe('revoke', () => {
-    it('is set to withLicensing if submitted by a user', () => {
+    beforeEach(() => {
       this.model.data.action = 'revoke';
+      this.model.data.id = ids.model.trainingPil.active;
+    });
+
+    it('is set to withLicensing if submitted by a user', () => {
       this.model.data.changedBy = user.id;
       this.model.meta.user.profile = user;
       return Promise.resolve()
@@ -80,7 +85,6 @@ describe('Training PIL create hook', () => {
     });
 
     it('is set to resolved if submitted by a licensing officer', () => {
-      this.model.data.action = 'revoke';
       this.model.data.changedBy = licensing.id;
       this.model.meta.user.profile = licensing;
       return Promise.resolve()
