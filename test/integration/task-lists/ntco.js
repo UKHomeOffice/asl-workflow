@@ -59,7 +59,8 @@ describe('NTCO', () => {
         'pil returned',
         'pil with licensing',
         'ntco pil with ntco',
-        'holc pil with licensing'
+        'holc pil with licensing',
+        'trainingPil at different establishment'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

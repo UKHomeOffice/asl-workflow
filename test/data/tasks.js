@@ -30,6 +30,24 @@ const tasks = [
     ...generateDates(3)
   },
   {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'trainingPil at different establishment',
+        establishmentId: 100
+      },
+      initiatedByAsru: false,
+      establishmentId: 101,
+      subject: user.id,
+      model: 'trainingPil',
+      action: 'grant',
+      id: ids.model.trainingPil.hasPil,
+      changedBy: user.id
+    },
+    status: 'awaiting-endorsement',
+    ...generateDates(3)
+  },
+  {
     id: ids.task.pil.withNtco,
     data: {
       data: {
