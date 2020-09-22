@@ -6,6 +6,8 @@ module.exports = settings => {
     init: (populate, keepAlive) => {
       const schema = Schema(settings);
       const tables = [
+        'TrainingPil',
+        'TrainingCourse',
         'AsruEstablishment',
         'ProjectVersion',
         'Project',

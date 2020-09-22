@@ -1,10 +1,11 @@
+const moment = require('moment');
 const ids = require('./ids');
 const uuid = require('uuid/v4');
 const { userAtMultipleEstablishments, ntco101, user, userWithActivePil } = require('./profiles');
 
 module.exports = models => {
 
-  const { Establishment, Profile, PIL, Permission, Role, AsruEstablishment } = models;
+  const { Establishment, Profile, PIL, Permission, Role, AsruEstablishment, TrainingCourse } = models;
 
   return Promise.resolve()
     .then(() => {
@@ -437,7 +438,7 @@ module.exports = models => {
             ],
             projects: [
               {
-                id: uuid(),
+                id: ids.model.project.marvellTest,
                 title: 'Test project 2',
                 licenceHolderId: 'ae28fb31-d867-4371-9b4f-79019e71232e',
                 expiryDate: '2040-01-01T12:00:00Z',
@@ -531,6 +532,33 @@ module.exports = models => {
               establishmentId: 103
             }
           ], { relate: true });
+        })
+        .then(() => {
+          return TrainingCourse.query().insertGraph({
+            id: ids.model.trainingCourse,
+            species: ['Mice'],
+            title: 'Test course',
+            establishmentId: 101,
+            projectId: ids.model.project.marvellTest,
+            startDate: moment().add(3, 'months').format('YYYY-MM-DD'),
+            trainingPils: [
+              {
+                id: ids.model.trainingPil.hasPil,
+                profileId: userWithActivePil.id,
+                status: 'inactive'
+              },
+              {
+                id: ids.model.trainingPil.noPil,
+                profileId: user.id,
+                status: 'inactive'
+              },
+              {
+                id: ids.model.trainingPil.active,
+                profileId: userAtMultipleEstablishments.id,
+                status: 'active'
+              }
+            ]
+          });
         })
         .then(() => {
           return PIL.query().insertGraph([
