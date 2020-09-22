@@ -120,5 +120,71 @@
       "establishmentId": 8201,
       "initiatedByAsru": false
     }
+  },
+  {
+    "id": "a6e394e5-4fbe-4494-bc1d-465e298ca171",
+    "status": "with-inspectorate",
+    "data": {
+      "id": "52949a8f-879c-45bd-b6a4-cbc01c746da0",
+      "data": {
+        "version": "cada2e28-d678-49c1-afac-11acaf325f6d",
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+      },
+      "meta": {
+        "awerb": "Yes",
+        "ready": "Yes",
+        "comment": "Submitting as HOLC.",
+        "version": "cada2e28-d678-49c1-afac-11acaf325f6d",
+        "authority": "Yes",
+        "awerb-review-date": "AWERB done"
+      },
+      "model": "project",
+      "action": "grant",
+      "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "deadline": {
+        "standard": "2020-07-24",
+        "extended": "2020-08-14",
+        "isExtended": false,
+        "isExtendable": true
+      },
+      "extended": null,
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "modelData": {
+        "id": "52949a8f-879c-45bd-b6a4-cbc01c746da0",
+        "title": null,
+        "raDate": null,
+        "status": "inactive",
+        "deleted": null,
+        "createdAt": "2020-06-01T11:28:37.567Z",
+        "issueDate": null,
+        "updatedAt": "2020-06-01T11:28:37.567Z",
+        "expiryDate": null,
+        "migratedId": null,
+        "amendedDate": null,
+        "isLegacyStub": false,
+        "licenceHolder": {
+          "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+          "name": "Bruce Banner",
+          "lastName": "Banner",
+          "firstName": "Bruce"
+        },
+        "licenceNumber": null,
+        "schemaVersion": 1,
+        "revocationDate": null,
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+        "previousProjectId": null,
+        "transferProjectId": null,
+        "transferredInDate": null,
+        "transferredOutDate": null,
+        "previousEstablishmentId": null,
+        "transferEstablishmentId": null
+      },
+      "establishmentId": 8201,
+      "initiatedByAsru": false
+    },
+    "created_at": "2020-06-01 11:29:24.936+00",
+    "updated_at": "2020-06-01 11:29:24.936+00"
   }
 ]
