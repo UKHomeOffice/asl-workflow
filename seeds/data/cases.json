@@ -185,6 +185,7 @@
       "initiatedByAsru": false
     },
     "created_at": "2020-06-01 11:29:24.936+00",
-    "updated_at": "2020-06-01 11:29:24.936+00"
+    "updated_at": "2020-06-01 11:29:24.936+00",
+    "deadline_passed": true
   }
 ]
