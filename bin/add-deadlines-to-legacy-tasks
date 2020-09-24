@@ -13,8 +13,8 @@ moment.updateLocale('en', { holidays: bankHolidays });
 const STANDARD_DEADLINE = 40;
 const EXTENDED_DEADLINE = 55;
 
-const patchTaskDeadline = async (task) => {
-  const activityLog = await task.$relatedQuery('activityLog').orderBy('createdAt', 'asc');
+const patchTaskDeadline = async (task, transaction) => {
+  const activityLog = await task.$relatedQuery('activityLog', transaction).orderBy('createdAt', 'asc');
 
   // find the last submission / extended state
   const deadline = activityLog.reduce((deadline, activity) => {
@@ -48,17 +48,18 @@ const patchTaskDeadline = async (task) => {
   }
 
   console.log(`${task.id}: ${JSON.stringify(deadline)}`);
-  return task.$query().patchAndFetch({ data: { ...task.data, deadline } });
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
 };
 
 const migrate = async () => {
   const db = Database.connect(settings.taskflowDB);
+  const transaction = await db.transaction();
   Task.db(db);
 
   // only need to patch tasks that have already been submitted, because the deadline object gets added on submission
   const withAsruOrComplete = withASRU().concat(['resolved', 'rejected']);
 
-  const tasks = await Task.query()
+  const tasks = await Task.query(transaction)
     .select('*')
     .whereIn('status', withAsruOrComplete)
     .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
@@ -67,7 +68,7 @@ const migrate = async () => {
   console.log(`found ${tasks.length} tasks with no deadline property set`);
 
   for (const task of tasks) {
-    await patchTaskDeadline(task); // process the tasks one at a time to avoid ballooning memory
+    await patchTaskDeadline(task, transaction); // process the tasks one at a time to avoid ballooning memory
   }
 
   console.log('complete.');
