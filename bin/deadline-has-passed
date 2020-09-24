@@ -6,10 +6,8 @@ const Task = require('@ukhomeoffice/taskflow/lib/models/task');
 const settings = require('../config');
 
 const setHasPassed = async (task, transaction) => {
-  const deadline = { ...task.deadline, hasPassed: true };
-  console.log(deadline);
-  return Promise.resolve();
-  // return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
+  const deadline = { ...task.data.deadline, hasPassed: true };
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
 };
 
 const migrate = async () => {
@@ -19,7 +17,7 @@ const migrate = async () => {
 
   const today = moment().format('YYYY-MM-DD');
 
-  const query = Task.query(transaction)
+  const tasks = await Task.query(transaction)
     .select('*')
     .from(builder => {
       // use a subquery to get the deadline date which can then be used in the outer where clause
@@ -36,20 +34,16 @@ const migrate = async () => {
         )
         .from('cases')
         .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
-        .whereRaw("data \\? 'deadline'") // has a deadline set
+        .whereRaw("data \\? 'deadline'") // has a deadline property
         .whereRaw("data->'deadline'->>'hasPassed' is null") // hasn't yet been marked as passed
         .as('cases');
     })
     .where('deadlineDate', '<', today);
 
-  console.log(query.toKnexQuery().toString());
-
-  const tasks = await query;
-
   console.log(`found ${tasks.length} tasks that have passed their deadlines`);
 
   for (const task of tasks) {
-    await setHasPassed(task, transaction); // process the tasks one at a time to avoid ballooning memory
+    await setHasPassed(task, transaction);
   }
 
   await transaction.commit();
