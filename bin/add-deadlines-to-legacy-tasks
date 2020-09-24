@@ -58,13 +58,12 @@ const migrate = async () => {
   // only need to patch tasks that have already been submitted, because the deadline object gets added on submission
   const withAsruOrComplete = withASRU().concat(['resolved', 'rejected']);
 
-  const query = Task.query()
+  const tasks = await Task.query()
     .select('*')
     .whereIn('status', withAsruOrComplete)
     .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
     .whereRaw("data->>'deadline' is null"); // will match both deadline: null and missing deadline key
 
-  const tasks = await query;
   console.log(`found ${tasks.length} tasks with no deadline property set`);
 
   for (const task of tasks) {
