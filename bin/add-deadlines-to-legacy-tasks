@@ -71,6 +71,7 @@ const migrate = async () => {
     await patchTaskDeadline(task, transaction); // process the tasks one at a time to avoid ballooning memory
   }
 
+  await transaction.commit();
   console.log('complete.');
 };
 
