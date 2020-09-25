@@ -6,8 +6,7 @@ const Task = require('@ukhomeoffice/taskflow/lib/models/task');
 const settings = require('../config');
 
 const setHasPassed = async (task, transaction) => {
-  const deadline = { ...task.data.deadline, hasPassed: true };
-  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadlineHasPassed: true } });
 };
 
 const migrate = async () => {
@@ -17,36 +16,42 @@ const migrate = async () => {
 
   const today = moment().format('YYYY-MM-DD');
 
-  const tasks = await Task.query(transaction)
-    .select('*')
-    .from(builder => {
-      // use a subquery to get the deadline date which can then be used in the outer where clause
-      builder
-        .select(
-          '*',
-          raw(`
-            CASE
-              WHEN (data->'deadline'->>'isExtended')::boolean = true
-              THEN data->'deadline'->>'extended'
-              ELSE data->'deadline'->>'standard'
-            END AS deadline_date`
+  try {
+    const tasks = await Task.query(transaction)
+      .select('*')
+      .from(builder => {
+        // use a subquery to get the deadline date which can then be used in the outer where clause
+        builder
+          .select(
+            '*',
+            raw(`
+              CASE
+                WHEN (data->'deadline'->>'isExtended')::boolean = true
+                THEN data->'deadline'->>'extended'
+                ELSE data->'deadline'->>'standard'
+              END AS deadline_date`
+            )
           )
-        )
-        .from('cases')
-        .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
-        .whereRaw("data \\? 'deadline'") // has a deadline property
-        .whereRaw("data->'deadline'->>'hasPassed' is null") // hasn't yet been marked as passed
-        .as('cases');
-    })
-    .where('deadlineDate', '<', today);
+          .from('cases')
+          .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
+          .whereRaw("data \\? 'deadline'") // has a deadline property
+          .whereRaw("data->>'deadlineHasPassed' is null") // hasn't yet been marked as passed
+          .as('cases');
+      })
+      .where('deadlineDate', '<', today);
 
-  console.log(`found ${tasks.length} tasks that have passed their deadlines`);
+    console.log(`found ${tasks.length} tasks that have passed their deadlines`);
 
-  for (const task of tasks) {
-    await setHasPassed(task, transaction);
+    for (const task of tasks) {
+      await setHasPassed(task, transaction);
+    }
+
+    await transaction.commit();
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
   }
 
-  await transaction.commit();
   console.log('complete.');
 };
 
