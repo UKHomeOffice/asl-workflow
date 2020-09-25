@@ -13,6 +13,8 @@ moment.updateLocale('en', { holidays: bankHolidays });
 const STANDARD_DEADLINE = 40;
 const EXTENDED_DEADLINE = 55;
 
+let taskCounts = { found: 0, patched: 0, notRequired: 0 };
+
 const patchTaskDeadline = async (taskId, transaction) => {
   const task = await Task.query(transaction).findById(taskId);
   const activityLog = await task.$relatedQuery('activityLog', transaction).orderBy('createdAt', 'asc');
@@ -36,7 +38,7 @@ const patchTaskDeadline = async (taskId, transaction) => {
         return {}; // submission was not complete and correct, reset deadline
       }
     }
-    if (activity.eventName === 'update') { // possible deadline extend event
+    if (activity.eventName === 'update' && !isEmpty(deadline)) { // possible deadline extend event
       deadline.isExtended = get(activity, 'event.data.extended', false);
       deadline.isExtendable = !deadline.isExtended;
     }
@@ -44,10 +46,12 @@ const patchTaskDeadline = async (taskId, transaction) => {
   }, {});
 
   if (isEmpty(deadline)) {
+    taskCounts.notRequired++;
     console.log(`${task.id}: no deadline required`);
     return Promise.resolve();
   }
 
+  taskCounts.patched++;
   console.log(`${task.id}: ${JSON.stringify(deadline)}`);
   return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
 };
@@ -67,7 +71,7 @@ const migrate = async () => {
       .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
       .whereRaw("data->>'deadline' is null"); // will match both deadline: null and missing deadline key
 
-    console.log(`found ${tasks.length} tasks with no deadline property set`);
+    taskCounts.found = tasks.length;
 
     for (const task of tasks) {
       await patchTaskDeadline(task.id, transaction); // process the tasks one at a time to avoid ballooning memory
@@ -79,6 +83,7 @@ const migrate = async () => {
     throw e;
   }
 
+  console.log('stats:', taskCounts);
   console.log('complete.');
 };
 
