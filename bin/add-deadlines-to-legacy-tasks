@@ -53,7 +53,7 @@ const patchTaskDeadline = async (taskId, transaction) => {
 
   stats.patched++;
   console.log(`${task.id}: ${JSON.stringify(deadline)}`);
-  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } }).context({ skipUpdatedAt: true });
 };
 
 const migrate = async () => {
