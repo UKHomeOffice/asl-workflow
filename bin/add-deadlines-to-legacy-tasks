@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+const { get, isEmpty } = require('lodash');
+const moment = require('moment-business-time');
+const { bankHolidays } = require('@asl/constants');
+const Database = require('@ukhomeoffice/taskflow/lib/db');
+const Task = require('@ukhomeoffice/taskflow/lib/models/task');
+const settings = require('../config');
+const { withASRU } = require('../lib/flow');
+
+// configure bank holidays
+moment.updateLocale('en', { holidays: bankHolidays });
+
+const STANDARD_DEADLINE = 40;
+const EXTENDED_DEADLINE = 55;
+
+const patchTaskDeadline = async (taskId, transaction) => {
+  const task = await Task.query(transaction).findById(taskId);
+  const activityLog = await task.$relatedQuery('activityLog', transaction).orderBy('createdAt', 'asc');
+
+  // find the last submission / extended state
+  const deadline = activityLog.reduce((deadline, activity) => {
+    if (activity.eventName.match(/with-inspectorate$/)) { // submission to ASRU event
+      const meta = get(activity, 'event.data.meta', {});
+      const isCompleteAndCorrect = ['authority', 'awerb', 'ready'].every(declaration => {
+        return meta[declaration] && meta[declaration].toLowerCase() === 'yes';
+      });
+
+      if (isCompleteAndCorrect) {
+        return {
+          standard: moment(activity.createdAt).addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
+          extended: moment(activity.createdAt).addWorkingTime(EXTENDED_DEADLINE, 'days').format('YYYY-MM-DD'),
+          isExtended: false,
+          isExtendable: true
+        };
+      } else {
+        return {}; // submission was not complete and correct, reset deadline
+      }
+    }
+    if (activity.eventName === 'update') { // possible deadline extend event
+      deadline.isExtended = get(activity, 'event.data.extended', false);
+      deadline.isExtendable = !deadline.isExtended;
+    }
+    return deadline;
+  }, {});
+
+  if (isEmpty(deadline)) {
+    console.log(`${task.id}: no deadline required`);
+    return Promise.resolve();
+  }
+
+  console.log(`${task.id}: ${JSON.stringify(deadline)}`);
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } });
+};
+
+const migrate = async () => {
+  const db = Database.connect(settings.taskflowDB);
+  const transaction = await db.transaction();
+  Task.db(db);
+
+  try {
+    // only need to patch tasks that have already been submitted, because the deadline object gets added on submission
+    const withAsruOrComplete = withASRU().concat(['resolved', 'rejected']);
+
+    const tasks = await Task.query(transaction)
+      .select('id')
+      .whereIn('status', withAsruOrComplete)
+      .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
+      .whereRaw("data->>'deadline' is null"); // will match both deadline: null and missing deadline key
+
+    console.log(`found ${tasks.length} tasks with no deadline property set`);
+
+    for (const task of tasks) {
+      await patchTaskDeadline(task.id, transaction); // process the tasks one at a time to avoid ballooning memory
+    }
+
+    await transaction.commit();
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
+  }
+
+  console.log('complete.');
+};
+
+migrate()
+  .then(() => process.exit(0))
+  .catch(e => {
+    console.log(e);
+    process.exit(1);
+  });
