@@ -5,10 +5,6 @@ const Database = require('@ukhomeoffice/taskflow/lib/db');
 const Task = require('@ukhomeoffice/taskflow/lib/models/task');
 const settings = require('../config');
 
-const setHasPassed = async (task, transaction) => {
-  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadlineHasPassed: true } });
-};
-
 const migrate = async () => {
   const db = Database.connect(settings.taskflowDB);
   const transaction = await db.transaction();
@@ -35,7 +31,7 @@ const migrate = async () => {
           .from('cases')
           .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
           .whereRaw("data \\? 'deadline'") // has a deadline property
-          .whereRaw("data->>'deadlineHasPassed' is null") // hasn't yet been marked as passed
+          .whereRaw("data->>'deadlinePassed' is null") // hasn't yet been marked as passed
           .as('cases');
       })
       .where('deadlineDate', '<', today);
@@ -43,7 +39,7 @@ const migrate = async () => {
     console.log(`found ${tasks.length} tasks that have passed their deadlines`);
 
     for (const task of tasks) {
-      await setHasPassed(task, transaction);
+      await task.$query(transaction).patchAndFetch({ data: { ...task.data, deadlinePassed: true } });
     }
 
     await transaction.commit();
