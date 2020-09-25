@@ -57,22 +57,28 @@ const migrate = async () => {
   const transaction = await db.transaction();
   Task.db(db);
 
-  // only need to patch tasks that have already been submitted, because the deadline object gets added on submission
-  const withAsruOrComplete = withASRU().concat(['resolved', 'rejected']);
+  try {
+    // only need to patch tasks that have already been submitted, because the deadline object gets added on submission
+    const withAsruOrComplete = withASRU().concat(['resolved', 'rejected']);
 
-  const tasks = await Task.query(transaction)
-    .select('id')
-    .whereIn('status', withAsruOrComplete)
-    .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
-    .whereRaw("data->>'deadline' is null"); // will match both deadline: null and missing deadline key
+    const tasks = await Task.query(transaction)
+      .select('id')
+      .whereIn('status', withAsruOrComplete)
+      .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
+      .whereRaw("data->>'deadline' is null"); // will match both deadline: null and missing deadline key
 
-  console.log(`found ${tasks.length} tasks with no deadline property set`);
+    console.log(`found ${tasks.length} tasks with no deadline property set`);
 
-  for (const task of tasks) {
-    await patchTaskDeadline(task.id, transaction); // process the tasks one at a time to avoid ballooning memory
+    for (const task of tasks) {
+      await patchTaskDeadline(task.id, transaction); // process the tasks one at a time to avoid ballooning memory
+    }
+
+    await transaction.commit();
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
   }
 
-  await transaction.commit();
   console.log('complete.');
 };
 
