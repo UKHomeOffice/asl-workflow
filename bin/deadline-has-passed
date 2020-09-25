@@ -4,15 +4,17 @@ const moment = require('moment');
 const Database = require('@ukhomeoffice/taskflow/lib/db');
 const Task = require('@ukhomeoffice/taskflow/lib/models/task');
 const settings = require('../config');
+const { withASRU } = require('../lib/flow');
 
 const migrate = async () => {
   const db = Database.connect(settings.taskflowDB);
   const transaction = await db.transaction();
   Task.db(db);
 
-  const today = moment().format('YYYY-MM-DD');
-
   try {
+    const withAsru = withASRU();
+    const today = moment().format('YYYY-MM-DD');
+
     const tasks = await Task.query(transaction)
       .select('*')
       .from(builder => {
@@ -29,6 +31,7 @@ const migrate = async () => {
             )
           )
           .from('cases')
+          .whereIn('status', withAsru) // a task can only pass the deadline when with ASRU
           .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
           .whereRaw("data \\? 'deadline'") // has a deadline property
           .whereRaw("data->>'deadlinePassed' is null") // hasn't yet been marked as passed
@@ -39,6 +42,7 @@ const migrate = async () => {
     console.log(`found ${tasks.length} tasks that have passed their deadlines`);
 
     for (const task of tasks) {
+      console.log(`${task.id}: marking as deadline passed`);
       await task.$query(transaction).patchAndFetch({ data: { ...task.data, deadlinePassed: true } });
     }
 
