@@ -48,7 +48,7 @@ const patchTaskDeadline = async (taskId, transaction) => {
   if (isEmpty(deadline)) {
     if (task.data.deadline) {
       stats.removed++;
-      return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline: null } }).context({ skipUpdatedAt: true });
+      return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline: null } }).context({ preserveUpdatedAt: true });
     } else {
       stats.noop++;
       console.log(`${task.id}: no deadline required`);
@@ -58,7 +58,7 @@ const patchTaskDeadline = async (taskId, transaction) => {
 
   stats.added++;
   console.log(`${task.id}: ${JSON.stringify(deadline)}`);
-  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } }).context({ skipUpdatedAt: true });
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } }).context({ preserveUpdatedAt: true });
 };
 
 const migrate = async () => {
