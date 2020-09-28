@@ -13,7 +13,7 @@ moment.updateLocale('en', { holidays: bankHolidays });
 const STANDARD_DEADLINE = 40;
 const EXTENDED_DEADLINE = 55;
 
-let stats = { found: 0, patched: 0, notRequired: 0 };
+let stats = { found: 0, added: 0, removed: 0, noop: 0 };
 
 const patchTaskDeadline = async (taskId, transaction) => {
   const task = await Task.query(transaction).findById(taskId);
@@ -46,12 +46,17 @@ const patchTaskDeadline = async (taskId, transaction) => {
   }, {});
 
   if (isEmpty(deadline)) {
-    stats.notRequired++;
-    console.log(`${task.id}: no deadline required`);
-    return Promise.resolve();
+    if (task.data.deadline) {
+      stats.removed++;
+      return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline: null } }).context({ skipUpdatedAt: true });
+    } else {
+      stats.noop++;
+      console.log(`${task.id}: no deadline required`);
+      return Promise.resolve();
+    }
   }
 
-  stats.patched++;
+  stats.added++;
   console.log(`${task.id}: ${JSON.stringify(deadline)}`);
   return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline } }).context({ skipUpdatedAt: true });
 };
@@ -69,7 +74,11 @@ const migrate = async () => {
       .select('id')
       .whereIn('status', withAsruOrComplete)
       .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
-      .whereRaw("data->>'deadline' is null"); // will match both deadline: null and missing deadline key
+      .where(builder => {
+        // will match deadline: null, missing deadline key, and missing deadline->standard key
+        builder.whereRaw("data->>'deadline' is null")
+          .orWhereRaw("data->'deadline'->>'standard' is null");
+      });
 
     stats.found = tasks.length;
 
