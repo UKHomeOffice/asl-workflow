@@ -13,7 +13,7 @@ moment.updateLocale('en', { holidays: bankHolidays });
 const STANDARD_DEADLINE = 40;
 const EXTENDED_DEADLINE = 55;
 
-let stats = { found: 0, added: 0, removed: 0, noop: 0 };
+let stats = { found: 0, added: 0, noop: 0 };
 
 const patchTaskDeadline = async (taskId, transaction) => {
   const task = await Task.query(transaction).findById(taskId);
@@ -46,14 +46,9 @@ const patchTaskDeadline = async (taskId, transaction) => {
   }, {});
 
   if (isEmpty(deadline)) {
-    if (task.data.deadline) {
-      stats.removed++;
-      return task.$query(transaction).patchAndFetch({ data: { ...task.data, deadline: null } }).context({ preserveUpdatedAt: true });
-    } else {
-      stats.noop++;
-      console.log(`${task.id}: no deadline required`);
-      return Promise.resolve();
-    }
+    stats.noop++;
+    console.log(`${task.id}: no deadline required`);
+    return Promise.resolve();
   }
 
   stats.added++;
