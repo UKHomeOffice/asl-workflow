@@ -143,8 +143,8 @@
       "action": "grant",
       "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
       "deadline": {
-        "standard": "2020-07-24",
-        "extended": "2020-08-14",
+        "standard": "2020-07-27",
+        "extended": "2020-08-17",
         "isExtended": false,
         "isExtendable": true
       },
