@@ -87,6 +87,7 @@ describe('unique hook', () => {
       .expect(200)
       .expect(response => {
         assert.equal(response.body.data.id, ids.task.project.recalledTransfer);
+        assert.equal(response.body.data.data.establishmentId, 101, 'the establishment id on the task should be left intact');
       });
   });
 
