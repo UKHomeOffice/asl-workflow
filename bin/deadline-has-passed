@@ -44,7 +44,7 @@ const migrate = async () => {
     for (const task of tasks) {
       console.log(`${task.id}: marking as deadline passed`);
       await task.$query(transaction)
-        .patchAndFetch({ data: { ...task.data, deadlinePassed: true } })
+        .patchAndFetch({ data: { ...task.data, deadlinePassed: true, deadlinePassedDate: task.deadlineDate } })
         .context({ preserveUpdatedAt: true });
     }
 
