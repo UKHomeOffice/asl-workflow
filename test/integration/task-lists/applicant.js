@@ -107,7 +107,9 @@ describe('Applicant', () => {
       const pilTasks = [
         'pil with licensing',
         'pil with ntco',
-        'another with-ntco to test ordering'
+        'another with-ntco to test ordering',
+        'trainingPil with ntco',
+        'trainingPil at different establishment'
       ];
 
       return request(this.workflow)
