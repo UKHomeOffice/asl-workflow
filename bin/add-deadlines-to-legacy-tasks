@@ -69,11 +69,7 @@ const migrate = async () => {
       .select('id')
       .whereIn('status', withAsruOrComplete)
       .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
-      .where(builder => {
-        // will match deadline: null, missing deadline key, and missing deadline->standard key
-        builder.whereRaw("data->>'deadline' is null")
-          .orWhereRaw("data->'deadline'->>'standard' is null");
-      });
+      .whereRaw("data->>'deadline' is null"); // will match deadline: null, missing deadline key
 
     stats.found = tasks.length;
 
