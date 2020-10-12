@@ -148,6 +148,8 @@
         "isExtended": false,
         "isExtendable": true
       },
+      "deadlinePassed": true,
+      "deadlinePassedDate": "2020-07-27",
       "extended": null,
       "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
       "modelData": {
