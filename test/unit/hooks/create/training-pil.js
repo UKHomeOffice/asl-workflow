@@ -52,7 +52,7 @@ describe('Training PIL create hook', () => {
         .then(() => this.hook(this.model))
         .then(() => {
           assert.ok(messagerStub.called);
-          assert.ok(this.model.patch.calledWithMatch({ id: changelogModel.modelId }));
+          assert.ok(this.model.patch.calledWithMatch({ id: changelogModel.modelId, subject: user.id }));
           assert.ok(this.model.setStatus.calledWith(awaitingEndorsement.id));
         });
     });
