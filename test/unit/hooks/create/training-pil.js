@@ -10,7 +10,7 @@ const fixtures = require('../../../data');
 const settings = require('../../../helpers/database-settings');
 
 let messagerStub;
-let changelogModel = { modelId: ids.model.trainingPil.noPil };
+let changelogModel = { modelId: ids.model.trainingPil.noPil, state: { profileId: user.id } };
 
 describe('Training PIL create hook', () => {
   before(() => {
