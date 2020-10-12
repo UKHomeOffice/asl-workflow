@@ -40,5 +40,6 @@ module.exports = {
     permissions: process.env.PERMISSIONS_SERVICE
   },
   notifications: process.env.NOTIFICATIONS_SERVICE,
-  search: process.env.SEARCH_SERVICE
+  search: process.env.SEARCH_SERVICE,
+  bodySizeLimit: process.env.BODY_SIZE_LIMIT
 };
