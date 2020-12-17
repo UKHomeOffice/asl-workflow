@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const { userAtMultipleEstablishments, holc, holc101, inspector } = require('../../data/profiles');
 const workflowHelper = require('../../helpers/workflow');
-const { endorsed, withInspectorate, returnedToApplicant, resubmitted, awaitingEndorsement } = require('../../../lib/flow/status');
+const { endorsed, returnedToApplicant, resubmitted, awaitingEndorsement } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
 describe('Project transfer', () => {
@@ -147,7 +147,7 @@ describe('Project transfer', () => {
       });
   });
 
-  it('doesn\'t need re-endorsing if endorsed and awerbed then returned', () => {
+  it('needs re-endorsing each time it is submitted, regardless of awerb status', () => {
     return request(this.workflow)
       .post('/')
       .send(this.payload)
@@ -206,7 +206,7 @@ describe('Project transfer', () => {
       })
       .then(response => {
         const task = response.body.data;
-        assert.equal(task.status, withInspectorate.id);
+        assert.equal(task.status, awaitingEndorsement.id);
       });
   });
 });

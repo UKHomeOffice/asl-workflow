@@ -1,7 +1,7 @@
 const assert = require('assert');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
-const { user, licensing } = require('../../data/profiles');
+const { user, licensing, holc } = require('../../data/profiles');
 const {
   returnedToApplicant,
   resubmitted,
@@ -9,7 +9,9 @@ const {
   withNtco,
   withInspectorate,
   discardedByApplicant,
-  recalledByApplicant
+  recalledByApplicant,
+  awaitingEndorsement,
+  endorsed
 } = require('../../../lib/flow/status');
 
 const ids = require('../../data/ids');
@@ -160,7 +162,23 @@ describe('Applicant', () => {
           }
         })
         .expect(200)
-        .expect(response => {
+        .then(response => {
+          const task = response.body.data;
+          assert.equal(task.status, awaitingEndorsement.id);
+
+          this.workflow.setUser({ profile: holc });
+          return request(this.workflow)
+            .put(`/${task.id}/status`)
+            .send({
+              status: endorsed.id,
+              meta: {
+                comment: 'endorsed by pelh',
+                awerb: 'yes'
+              }
+            })
+            .expect(200);
+        })
+        .then(response => {
           assert.equal(response.body.data.status, withInspectorate.id);
           assert.equal(response.body.data.data.data.version, ids.model.projectVersion.grant2);
         });
