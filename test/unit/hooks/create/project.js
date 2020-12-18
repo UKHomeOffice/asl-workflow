@@ -265,7 +265,7 @@ describe('Project create hook', () => {
         });
     });
 
-    it('does not require endorsement if re-submitted by a basic user having been endorsed and awerbed previously', () => {
+    it('requires endorsement every time it is resubmitted regardless of awerb status', () => {
       const model = {
         data: {
           action: 'grant',
@@ -301,7 +301,7 @@ describe('Project create hook', () => {
         .then(() => this.hook(model))
         .then(() => {
           assert.ok(model.setStatus.calledOnce);
-          assert.equal(model.setStatus.lastCall.args[0], withInspectorate.id);
+          assert.equal(model.setStatus.lastCall.args[0], awaitingEndorsement.id);
         });
     });
 
