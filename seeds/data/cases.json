@@ -122,6 +122,64 @@
     }
   },
   {
+    "id": "acb39d74-00f1-4c25-8f81-6351df15b22f",
+    "status": "with-inspectorate",
+    "data": {
+      "id": "e022533a-bc01-438a-815b-6cbf6ec1f31c",
+      "data": {
+        "version": "74ddb097-a988-4955-920b-a439e580041a",
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+      },
+      "meta": {
+        "awerb": "Yes",
+        "ready": "Yes",
+        "comment": "Sending for review.",
+        "version": "74ddb097-a988-4955-920b-a439e580041a",
+        "authority": "Yes",
+        "awerb-review-date": "AWERB done."
+      },
+      "model": "project",
+      "action": "grant",
+      "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "extended": true,
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "modelData": {
+        "id": "e022533a-bc01-438a-815b-6cbf6ec1f31c",
+        "title": "Draft Application",
+        "raDate": null,
+        "status": "inactive",
+        "deleted": null,
+        "createdAt": "2020-09-02T14:27:46.595Z",
+        "issueDate": null,
+        "updatedAt": "2020-09-02T14:28:01.782Z",
+        "expiryDate": null,
+        "migratedId": null,
+        "amendedDate": null,
+        "isLegacyStub": false,
+        "licenceHolder": {
+          "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+          "name": "Bruce Banner",
+          "lastName": "Banner",
+          "firstName": "Bruce"
+        },
+        "licenceNumber": null,
+        "schemaVersion": 1,
+        "revocationDate": null,
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+        "previousProjectId": null,
+        "transferProjectId": null,
+        "transferredInDate": null,
+        "transferredOutDate": null,
+        "previousEstablishmentId": null,
+        "transferEstablishmentId": null
+      },
+      "establishmentId": 8201,
+      "initiatedByAsru": false
+    }
+  },
+  {
     "id": "a6e394e5-4fbe-4494-bc1d-465e298ca171",
     "status": "with-inspectorate",
     "data": {
