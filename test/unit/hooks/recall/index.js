@@ -42,6 +42,20 @@ describe('Recall hook', () => {
       });
   });
 
+  it('sends a fork action to resolver on project grant-ra', () => {
+    this.model.data.action = 'grant-ra';
+    const expected = {
+      ...this.model.data,
+      action: 'fork-ra',
+      meta: { changedBy }
+    };
+    return Promise.resolve()
+      .then(() => runHook(this.model))
+      .then(() => {
+        assert.deepEqual(messagerStub.lastCall.args[0], expected);
+      });
+  });
+
   it('sends a fork action to resolver on project transfer', () => {
     this.model.data.action = 'transfer';
     const expected = {

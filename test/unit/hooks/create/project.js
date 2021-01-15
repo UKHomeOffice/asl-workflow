@@ -81,6 +81,68 @@ describe('Project create hook', () => {
 
   });
 
+  describe('grant-ra', () => {
+    it('requires endorsement if submitted by a basic user', () => {
+      const model = {
+        data: {
+          action: 'grant-ra',
+          model: 'project',
+          id: ids.model.project.grant,
+          establishmentId: 100,
+          changedBy: BASIC_USER
+        },
+        meta: {
+          user: {
+            profile: {
+              id: BASIC_USER,
+              establishments: [
+                { id: 100, role: 'basic' }
+              ]
+            }
+          }
+        },
+        setStatus: sinon.stub()
+      };
+
+      return Promise.resolve()
+        .then(() => this.hook(model))
+        .then(() => {
+          assert.ok(model.setStatus.calledOnce);
+          assert.equal(model.setStatus.lastCall.args[0], awaitingEndorsement.id);
+        });
+    });
+
+    it('doesn\'t require endorsement if submitted by an admin user', () => {
+      const model = {
+        data: {
+          action: 'grant-ra',
+          model: 'project',
+          id: ids.model.project.grant,
+          establishmentId: 100,
+          changedBy: BASIC_USER
+        },
+        meta: {
+          user: {
+            profile: {
+              id: BASIC_USER,
+              establishments: [
+                { id: 100, role: 'admin' }
+              ]
+            }
+          }
+        },
+        setStatus: sinon.stub()
+      };
+
+      return Promise.resolve()
+        .then(() => this.hook(model))
+        .then(() => {
+          assert.ok(model.setStatus.calledOnce);
+          assert.equal(model.setStatus.lastCall.args[0], endorsed.id);
+        });
+    });
+  });
+
   describe('grant', () => {
 
     it('requires endorsement if submitted by a basic user', () => {

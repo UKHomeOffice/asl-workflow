@@ -12,6 +12,15 @@ describe('Task type', () => {
     assert.ok(decorator(task).type === 'transfer');
   });
 
+  it('if the action is grant-ra, then the type is ra', () => {
+    const task = {
+      data: {
+        action: 'grant-ra'
+      }
+    };
+    assert.ok(decorator(task).type === 'ra');
+  });
+
   it('if the action is revoke, then the type is revocation', () => {
     const task = {
       data: {
