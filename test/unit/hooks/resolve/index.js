@@ -37,6 +37,22 @@ describe('Resolve hook', () => {
       });
   });
 
+  it('updates the data.raVersion if task is a project fork-ra', () => {
+    this.model.data.model = 'project';
+    this.model.data.action = 'fork-ra';
+    const expected = {
+      data: {
+        ...this.model.data.data,
+        raVersion: createdId
+      }
+    };
+    return Promise.resolve()
+      .then(() => runHook(this.model))
+      .then(() => {
+        assert.deepEqual(this.model.patch.lastCall.args[0], expected);
+      });
+  });
+
   it('updates the top level id if not already set', () => {
     this.model.data.model = 'place';
     this.model.data.action = 'create';
