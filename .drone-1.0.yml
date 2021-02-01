@@ -12,6 +12,15 @@ steps:
         from_secret: npm_auth_token
     commands:
       - npm ci
+  - name: wait
+    image: postgres
+    environment:
+      PGHOST: postgres
+      PGUSER: postgres
+      PGPASSWORD: test-password
+    commands:
+      # wait for postgres service to become available
+      - until psql -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
   - name: database setup
     image: postgres
     environment:

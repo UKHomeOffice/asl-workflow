@@ -141,6 +141,36 @@ describe('Project create hook', () => {
           assert.equal(model.setStatus.lastCall.args[0], endorsed.id);
         });
     });
+
+    it('doesn\'t require endorsement if submitted by an ASRU user', () => {
+      const model = {
+        data: {
+          action: 'grant-ra',
+          model: 'project',
+          id: ids.model.project.grant,
+          establishmentId: 100,
+          changedBy: LICENSING_ID
+        },
+        meta: {
+          user: {
+            profile: {
+              id: LICENSING_ID,
+              asruUser: true,
+              asruLicensing: true,
+              establishments: []
+            }
+          }
+        },
+        setStatus: sinon.stub()
+      };
+
+      return Promise.resolve()
+        .then(() => this.hook(model))
+        .then(() => {
+          assert.ok(model.setStatus.calledOnce);
+          assert.equal(model.setStatus.lastCall.args[0], endorsed.id);
+        });
+    });
   });
 
   describe('grant', () => {
