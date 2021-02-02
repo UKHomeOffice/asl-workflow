@@ -142,7 +142,7 @@ describe('Project create hook', () => {
         });
     });
 
-    it('doesn\'t require endorsement if submitted by an ASRU user', () => {
+    it('is resolved immediately if submitted by an ASRU user', () => {
       const model = {
         data: {
           action: 'grant-ra',
@@ -168,7 +168,7 @@ describe('Project create hook', () => {
         .then(() => this.hook(model))
         .then(() => {
           assert.ok(model.setStatus.calledOnce);
-          assert.equal(model.setStatus.lastCall.args[0], endorsed.id);
+          assert.equal(model.setStatus.lastCall.args[0], resolved.id);
         });
     });
   });
