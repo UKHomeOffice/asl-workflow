@@ -20,12 +20,18 @@ module.exports = settings => {
         'Role',
         'Exemption',
         'Certificate',
+        'EmailPreferences',
         'Profile',
         'Invitation',
         'Establishment'
       ];
       return tables.reduce((p, table) => {
-        return p.then(() => schema[table].queryWithDeleted().hardDelete());
+        return p.then(() => {
+          if (typeof schema[table].queryWithDeleted === 'function') {
+            return schema[table].queryWithDeleted().hardDelete();
+          }
+          return schema[table].query().truncate();
+        });
       }, Promise.resolve())
         .then(() => populate && populate(schema))
         .then(() => !keepAlive && schema.destroy())
