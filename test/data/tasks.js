@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, user101, userAtMultipleEstablishments, holc, inspector, ntco, userWithActivePil } = require('./profiles');
+const { user, user101, userAtMultipleEstablishments, holc, inspector, ntco, userWithActivePil, asruSuper } = require('./profiles');
 const ids = require('./ids');
 const moment = require('moment');
 
@@ -307,6 +307,9 @@ const tasks = [
       initiatedByAsru: false,
       establishmentId: 100,
       model: 'place',
+      modelData: {
+        status: 'active'
+      },
       action: 'update',
       id: ids.model.place.resolved,
       changedBy: holc.id
@@ -323,6 +326,9 @@ const tasks = [
       initiatedByAsru: false,
       establishmentId: 101,
       model: 'place',
+      modelData: {
+        status: 'active'
+      },
       action: 'update',
       changedBy: uuid()
     },
@@ -682,7 +688,10 @@ const tasks = [
       establishmentId: 100,
       changedBy: holc.id,
       subject: holc.id,
-      model: 'establishment'
+      model: 'establishment',
+      modelData: {
+        status: 'active'
+      }
     },
     status: 'resolved',
     ...generateDates(32)
@@ -737,6 +746,45 @@ const tasks = [
     },
     status: 'discarded-by-asru',
     ...generateDates(34)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'project amendment initiated by asru'
+      },
+      initiatedByAsru: true,
+      establishmentId: 100,
+      subject: holc.id,
+      model: 'project',
+      modelData: {
+        status: 'active'
+      },
+      action: 'grant',
+      changedBy: asruSuper.id
+    },
+    status: 'resolved',
+    ...generateDates(35)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'legacy project amendment'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: holc.id,
+      model: 'project',
+      modelData: {
+        status: 'active',
+        schemaVersion: 0
+      },
+      action: 'grant',
+      changedBy: holc.id
+    },
+    status: 'resolved',
+    ...generateDates(36)
   }
 ];
 

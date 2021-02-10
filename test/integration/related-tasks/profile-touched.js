@@ -48,7 +48,9 @@ describe('Related tasks', () => {
           'holc owned project',
           'granted establishment update',
           'granted nio role at croydon',
-          'discarded by asru'
+          'discarded by asru',
+          'project amendment initiated by asru',
+          'legacy project amendment'
         ];
 
         return request(this.workflow)
@@ -114,7 +116,8 @@ describe('Related tasks', () => {
 
       it('includes tasks that have been actioned by the target profile', () => {
         const expected = [
-          'discarded by asru'
+          'discarded by asru',
+          'project amendment initiated by asru'
         ];
 
         return request(this.workflow)

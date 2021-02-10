@@ -82,7 +82,9 @@ describe('ASRU user - neither inspector nor LO', () => {
         'profile update user101',
         'granted establishment update',
         'granted nio role at croydon',
-        'pil at marvell'
+        'pil at marvell',
+        'project amendment initiated by asru',
+        'legacy project amendment'
       ];
       return request(this.workflow)
         .get('/?progress=completed')

@@ -109,7 +109,9 @@ describe('Establishment Admin', () => {
         'discarded by asru',
         'profile update holc',
         'granted establishment update',
-        'granted nio role at croydon'
+        'granted nio role at croydon',
+        'project amendment initiated by asru',
+        'legacy project amendment'
       ];
       return request(this.workflow)
         .get('/?progress=completed')
