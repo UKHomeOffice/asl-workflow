@@ -47,6 +47,7 @@ describe('Establishment create hook', () => {
 
   it('resolves if submitted by a licensing officer', () => {
     this.model.data.changedBy = LICENSING_ID;
+    this.model.data.data.a = 'b';
     return Promise.resolve()
       .then(() => this.hook(this.model))
       .then(() => {
