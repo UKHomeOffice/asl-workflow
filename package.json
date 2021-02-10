@@ -7,7 +7,7 @@
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint .",
     "pretest:unit": "NODE_ENV=test npm run migrate:test",
-    "test:unit": "mocha ./test/integration/filtered-tasks",
+    "test:unit": "mocha ./test",
     "dev": "nodemon -r dotenv/config index.js",
     "seed": "SNAKE_MAPPER=true knex seed:run",
     "migrate": "node ./scripts/migrate.js",
