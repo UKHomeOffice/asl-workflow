@@ -73,7 +73,8 @@ module.exports = {
     asruAdmin: true,
     asruLicensing: true,
     asruInspector: true,
-    asruSupport: true
+    asruSupport: true,
+    asruRops: true
   },
   asruAdmin: {
     id: 'a8e6f04b-f3a6-4378-91fa-f612d4ed1102',
@@ -94,5 +95,16 @@ module.exports = {
     asruLicensing: false,
     asruInspector: false,
     asruSupport: true
+  },
+  asruRops: {
+    id: 'f0bce9a2-9832-4aa8-8a83-b7210fa6e541',
+    establishments: [],
+    roles: [],
+    asruUser: true,
+    asruAdmin: false,
+    asruLicensing: false,
+    asruInspector: false,
+    asruSupport: false,
+    asruRops: true
   }
 };
