@@ -6,6 +6,7 @@ module.exports = settings => {
     init: (populate, keepAlive) => {
       const schema = Schema(settings);
       const tables = [
+        'Notification',
         'TrainingPil',
         'TrainingCourse',
         'AsruEstablishment',
