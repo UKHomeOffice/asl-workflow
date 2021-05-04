@@ -680,6 +680,25 @@ const tasks = [
   {
     id: uuid(),
     data: {
+      id: ids.model.project.holc,
+      data: {
+        name: 'holc owned project autoresolved'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      changedBy: holc.id,
+      subject: holc.id,
+      model: 'project',
+      modelData: {
+        licenceHolderId: holc.id
+      }
+    },
+    status: 'autoresolved',
+    ...generateDates(31)
+  },
+  {
+    id: uuid(),
+    data: {
       id: 100,
       data: {
         name: 'granted establishment update'
