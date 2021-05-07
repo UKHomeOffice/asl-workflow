@@ -16,7 +16,7 @@ describe('ASRU user - neither inspector nor LO', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -46,7 +46,11 @@ describe('ASRU user - neither inspector nor LO', () => {
         'holc with multiple establishments',
         'ppl submitted by HOLC for user',
         'holc pil with licensing',
-        'holc owned project'
+        'holc owned project',
+        'assigned to licensing',
+        'assigned to inspector',
+        'with licensing assigned to superuser',
+        'with inspectorate assigned to superuser'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

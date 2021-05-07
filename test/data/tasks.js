@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4');
-const { user, user101, userAtMultipleEstablishments, holc, inspector, ntco, userWithActivePil, asruSuper } = require('./profiles');
+const { user, user101, userAtMultipleEstablishments, holc, inspector, licensing, ntco, userWithActivePil, asruSuper } = require('./profiles');
 const ids = require('./ids');
 const moment = require('moment');
 
@@ -223,6 +223,38 @@ const tasks = [
     id: uuid(),
     data: {
       data: {
+        name: 'assigned to licensing'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      model: 'place',
+      action: 'update',
+      changedBy: uuid()
+    },
+    status: 'with-licensing',
+    ...generateDates(7),
+    assignedTo: licensing.id
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'with licensing assigned to superuser'
+      },
+      initiatedByAsru: false,
+      establishmentId: 101,
+      model: 'place',
+      action: 'update',
+      changedBy: uuid()
+    },
+    status: 'with-licensing',
+    ...generateDates(7),
+    assignedTo: asruSuper.id
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
         name: 'place update with inspector'
       },
       initiatedByAsru: false,
@@ -233,6 +265,38 @@ const tasks = [
     },
     status: 'with-inspectorate',
     ...generateDates(8)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'assigned to inspector'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      model: 'place',
+      action: 'update',
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(8.5),
+    assignedTo: inspector.id
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'with inspectorate assigned to superuser'
+      },
+      initiatedByAsru: false,
+      establishmentId: 101,
+      model: 'place',
+      action: 'update',
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(8.5),
+    assignedTo: asruSuper.id
   },
   {
     id: ids.task.place.applied,
@@ -264,7 +328,7 @@ const tasks = [
       changedBy: holc.id
     },
     status: 'returned-to-applicant',
-    ...generateDates(9)
+    ...generateDates(9.5)
   },
   {
     id: uuid(),

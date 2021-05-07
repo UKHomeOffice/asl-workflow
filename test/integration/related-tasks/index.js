@@ -11,7 +11,7 @@ describe('Related tasks', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -28,6 +28,7 @@ describe('Related tasks', () => {
       'place update with licensing',
       'place update with inspector',
       'place update recommended',
+      'assigned to inspector',
       'place update returned',
       'place update recommend rejected',
       'granted pil',
@@ -67,7 +68,9 @@ describe('Related tasks', () => {
         'place update with inspector',
         'place update recommended',
         'place update returned',
-        'place update recommend rejected'
+        'place update recommend rejected',
+        'assigned to licensing',
+        'assigned to inspector'
         // 'granted place update' this task should be filtered out
       ];
 

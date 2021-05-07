@@ -16,7 +16,9 @@ describe('Applicant', () => {
 
   beforeEach(() => {
     this.workflow.setUser({ profile: user });
+  });
 
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
