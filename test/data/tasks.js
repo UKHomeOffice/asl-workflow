@@ -868,6 +868,24 @@ const tasks = [
     },
     status: 'resolved',
     ...generateDates(36)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'submitted rop',
+        projectId: ids.model.project.revoke,
+        establishmentId: 100
+      },
+      initiatedByAsru: true,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'rop',
+      action: 'submit',
+      changedBy: asruSuper.id
+    },
+    status: 'resolved',
+    ...generateDates(1)
   }
 ];
 

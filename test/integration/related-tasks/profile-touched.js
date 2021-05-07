@@ -118,7 +118,8 @@ describe('Related tasks', () => {
       it('includes tasks that have been actioned by the target profile', () => {
         const expected = [
           'discarded by asru',
-          'project amendment initiated by asru'
+          'project amendment initiated by asru',
+          'submitted rop'
         ];
 
         return request(this.workflow)

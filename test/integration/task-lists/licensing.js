@@ -184,7 +184,8 @@ describe('Licensing Officer', () => {
         'granted nio role at croydon',
         'pil at marvell',
         'project amendment initiated by asru',
-        'legacy project amendment'
+        'legacy project amendment',
+        'submitted rop'
       ];
       return request(this.workflow)
         .get('/?progress=completed')

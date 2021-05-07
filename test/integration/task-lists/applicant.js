@@ -130,7 +130,8 @@ describe('Applicant', () => {
       const expected = [
         'granted pil',
         'discarded ppl',
-        'profile update'
+        'profile update',
+        'submitted rop'
       ];
       return request(this.workflow)
         .get('/?progress=completed')
@@ -149,9 +150,10 @@ describe('Applicant', () => {
         });
     });
 
-    it('can filter by licence type of ppl', () => {
+    it('can filter by licence type of ppl (includes rop tasks)', () => {
       const projectTasks = [
-        'discarded ppl'
+        'discarded ppl',
+        'submitted rop'
       ];
 
       return request(this.workflow)
