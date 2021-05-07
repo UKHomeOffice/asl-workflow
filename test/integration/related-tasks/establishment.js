@@ -13,7 +13,7 @@ describe('Related tasks', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -38,7 +38,9 @@ describe('Related tasks', () => {
           'place update recommend rejected',
           'granted place update',
           'granted establishment update',
-          'granted nio role at croydon'
+          'granted nio role at croydon',
+          'assigned to licensing',
+          'assigned to inspector'
         ];
 
         return request(this.workflow)
@@ -63,7 +65,9 @@ describe('Related tasks', () => {
           'place update recommend rejected',
           'granted place update',
           'granted establishment update',
-          'granted nio role at croydon'
+          'granted nio role at croydon',
+          'assigned to licensing',
+          'assigned to inspector'
         ];
 
         return request(this.workflow)

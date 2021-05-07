@@ -13,7 +13,7 @@ describe('Related tasks', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -50,7 +50,8 @@ describe('Related tasks', () => {
           'granted nio role at croydon',
           'discarded by asru',
           'project amendment initiated by asru',
-          'legacy project amendment'
+          'legacy project amendment',
+          'assigned to inspector'
         ];
 
         return request(this.workflow)

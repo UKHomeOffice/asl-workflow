@@ -13,7 +13,7 @@ describe('Task list error states', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());

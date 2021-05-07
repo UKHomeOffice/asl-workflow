@@ -16,7 +16,7 @@ describe('Licensing Officer', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -31,7 +31,8 @@ describe('Licensing Officer', () => {
     it('sees tasks with correct statuses and establishments', () => {
       const expected = [
         'place update with licensing - other establishment',
-        'another with-licensing to test ordering'
+        'another with-licensing to test ordering',
+        'assigned to licensing'
       ];
       return request(this.workflow)
         .get('/?progress=myTasks')
@@ -50,6 +51,32 @@ describe('Licensing Officer', () => {
         });
     });
 
+    it('includes tasks from other establishments assigned to this user', () => {
+      const expected = [
+        'assigned to licensing'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTasks.includes(expected, response.body.data);
+        });
+    });
+
+    it('does not include tasks from assigned establishments assigned to other users', () => {
+      const expected = [
+        'with licensing assigned to superuser'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTasks.excludes(expected, response.body.data);
+        });
+    });
+
   });
 
   describe('outstanding tasks', () => {
@@ -62,7 +89,9 @@ describe('Licensing Officer', () => {
         'place update recommended',
         'place update recommend rejected',
         'another with-licensing to test ordering',
-        'holc pil with licensing'
+        'holc pil with licensing',
+        'assigned to licensing',
+        'with licensing assigned to superuser'
       ];
       return request(this.workflow)
         .get('/')
@@ -87,7 +116,9 @@ describe('Licensing Officer', () => {
         'place update with licensing - other establishment',
         'place update recommended',
         'place update recommend rejected',
-        'another with-licensing to test ordering'
+        'another with-licensing to test ordering',
+        'assigned to licensing',
+        'with licensing assigned to superuser'
       ];
 
       return request(this.workflow)
@@ -113,7 +144,9 @@ describe('Licensing Officer', () => {
         'another with-inspectorate to test ordering',
         'holc with multiple establishments',
         'ppl submitted by HOLC for user',
-        'holc owned project'
+        'holc owned project',
+        'assigned to inspector',
+        'with inspectorate assigned to superuser'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

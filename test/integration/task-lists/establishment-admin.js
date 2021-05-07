@@ -16,7 +16,7 @@ describe('Establishment Admin', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -77,7 +77,9 @@ describe('Establishment Admin', () => {
         'project at Croydon',
         'holc pil with licensing',
         'trainingPil with ntco',
-        'trainingPil at different establishment'
+        'trainingPil at different establishment',
+        'assigned to licensing',
+        'assigned to inspector'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

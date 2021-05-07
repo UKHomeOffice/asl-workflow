@@ -16,7 +16,7 @@ describe('Inspector', () => {
       });
   });
 
-  beforeEach(() => {
+  before(() => {
     return Promise.resolve()
       .then(() => this.workflow.resetDBs())
       .then(() => this.workflow.seedTaskList());
@@ -32,7 +32,8 @@ describe('Inspector', () => {
       const expected = [
         'conditions update',
         'pil conditions recalled',
-        'another with-inspectorate to test ordering'
+        'another with-inspectorate to test ordering',
+        'assigned to inspector'
       ];
 
       return request(this.workflow)
@@ -52,6 +53,32 @@ describe('Inspector', () => {
         });
     });
 
+    it('includes tasks from other establishments assigned to this user', () => {
+      const expected = [
+        'assigned to inspector'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTasks.includes(expected, response.body.data);
+        });
+    });
+
+    it('does not include tasks from assigned establishments assigned to other users', () => {
+      const expected = [
+        'with inspectorate assigned to superuser'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=myTasks')
+        .expect(200)
+        .expect(response => {
+          assertTasks.excludes(expected, response.body.data);
+        });
+    });
+
   });
 
   describe('outstanding tasks', () => {
@@ -63,7 +90,9 @@ describe('Inspector', () => {
         'conditions update',
         'another with-inspectorate to test ordering',
         'holc with multiple establishments',
-        'ppl submitted by HOLC for user'
+        'ppl submitted by HOLC for user',
+        'assigned to inspector',
+        'with inspectorate assigned to superuser'
       ];
       return request(this.workflow)
         .get('/')
@@ -99,7 +128,9 @@ describe('Inspector', () => {
         'Submitted by HOLC',
         'another with-licensing to test ordering',
         'holc pil with licensing',
-        'holc owned project'
+        'holc owned project',
+        'assigned to licensing',
+        'with licensing assigned to superuser'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
