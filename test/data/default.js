@@ -335,6 +335,19 @@ module.exports = models => {
                     id: uuid(),
                     status: 'granted'
                   }
+                ],
+                rops: [
+                  {
+                    id: ids.model.rop.submitted,
+                    status: 'submitted',
+                    year: 2020,
+                    submittedDate: '2020-01-01T12:00:00Z'
+                  },
+                  {
+                    id: ids.model.rop.draft,
+                    status: 'draft',
+                    year: 2021
+                  }
                 ]
               },
               {
