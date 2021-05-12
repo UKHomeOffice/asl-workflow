@@ -79,6 +79,10 @@ module.exports = {
       transfer: uuid(),
       grant: uuid(),
       grant2: uuid()
+    },
+    rop: {
+      draft: uuid(),
+      submitted: uuid()
     }
   }
 };
