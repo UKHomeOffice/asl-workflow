@@ -27,8 +27,8 @@
   "dependencies": {
     "@asl/constants": "^0.8.1",
     "@asl/schema": "^9.15.3",
-    "@asl/service": "^8.4.1",
-    "@ukhomeoffice/taskflow": "^2.3.0",
+    "@asl/service": "^8.8.4",
+    "@ukhomeoffice/taskflow": "^2.4.1",
     "aws-sdk": "^2.270.1",
     "deep-diff": "^1.0.2",
     "express": "^4.16.4",
