@@ -248,6 +248,77 @@
     "updated_at": "2020-06-01 11:29:24.936+00"
   },
   {
+    "id": "38e87c9d-b0fd-49a4-bfc7-0e97aa2fe660",
+    "status": "resolved",
+    "data": {
+      "id": "822892a7-d080-41f8-9e33-55f11466fdc1",
+      "data": {
+        "version": "3d2619f6-5146-4ab0-8d43-bef9e8754203",
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+      },
+      "meta": {
+        "awerb": "Yes",
+        "ready": "Yes",
+        "comment": "Submit application",
+        "version": "96e46b82-5146-4b49-8a1e-56cd69903d5a",
+        "authority": "Yes",
+        "declaration": "You confirm the establishment licence holder consents to you endorsing this application on their behalf.",
+        "awerb-review-date": "May 2021"
+      },
+      "model": "project",
+      "action": "grant",
+      "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "deadline": {
+        "extended": "2021-07-30",
+        "standard": "2021-07-09",
+        "isExtended": true,
+        "isExtendable": false
+      },
+      "extended": null,
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "modelData": {
+        "id": "822892a7-d080-41f8-9e33-55f11466fdc1",
+        "title": "Project with task history",
+        "raDate": null,
+        "status": "inactive",
+        "deleted": null,
+        "species": null,
+        "createdAt": "2021-05-13T11:43:49.857Z",
+        "issueDate": null,
+        "updatedAt": "2021-05-13T11:44:55.659Z",
+        "expiryDate": null,
+        "migratedId": null,
+        "amendedDate": null,
+        "isLegacyStub": false,
+        "licenceHolder": {
+          "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+          "name": "Bruce Banner",
+          "email": "vice-chancellor@example.com",
+          "lastName": "Banner",
+          "firstName": "Bruce"
+        },
+        "licenceNumber": "PP2617822",
+        "raGrantedDate": null,
+        "schemaVersion": 1,
+        "revocationDate": null,
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+        "previousProjectId": null,
+        "transferProjectId": null,
+        "transferredInDate": null,
+        "transferredOutDate": null,
+        "previousEstablishmentId": null,
+        "transferEstablishmentId": null
+      },
+      "establishmentId": 8201,
+      "initiatedByAsru": false
+    },
+    "created_at": "2021-05-13 11:48:14.076623+00",
+    "updated_at": "2021-05-13 11:49:35.435+00",
+    "assigned_to": null
+  },
+  {
     "status": "resolved",
     "data": {
       "model": "trainingPil",
