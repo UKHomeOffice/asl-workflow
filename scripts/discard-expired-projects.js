@@ -1,6 +1,7 @@
 try {
+  // eslint-disable-next-line
   require('dotenv/config');
-} catch(e) {
+} catch (e) {
   // ignore
 }
 
@@ -17,15 +18,16 @@ const discard = async () => {
   try {
     const tasks = await Task.query(trx)
       .whereIn('status', open())
-      .whereJsonSupersetOf('data', { model: 'project', action: 'grant' });
+      .whereJsonSupersetOf('data', { model: 'project' });
 
     for await (const task of tasks) {
-      const project = await Project.query().findById(task.data.id);
-      console.log(project.status);
-      if (project.status === 'expired') {
-        console.log(`Discarding task ${task.id}`);
-        const model = await Task.find(task.id, trx);
-        await model.status('discarded-by-asru', { payload: { meta: { comment: 'Automatically discarded when project licence expired.' } } });
+      // don't close RA related tasks as they are valid post expiry
+      if (!task.data.action.match(/-ra$/)) {
+        const project = await Project.query().findById(task.data.id);
+        if (project.status === 'expired') {
+          const model = await Task.find(task.id, trx);
+          await model.status('discarded-by-asru', { payload: { meta: { comment: 'Automatically discarded when project licence expired.' } } });
+        }
       }
     }
     await trx.commit();
