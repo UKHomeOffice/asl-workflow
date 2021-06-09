@@ -55,7 +55,7 @@ steps:
       NPM_AUTH_TOKEN:
         from_secret: npm_auth_token
     commands:
-      - npx @lennym/ciaudit --retries 5
+      - npm audit --audit-level=high --production
   - name: docker build
     image: docker:dind
     environment:
