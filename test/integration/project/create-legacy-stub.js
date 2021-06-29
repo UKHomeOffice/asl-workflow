@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { licensing, user } = require('../../data/profiles');
+const { inspector, user } = require('../../data/profiles');
 const { autoResolved } = require('../../../lib/flow/status');
 
 describe('Project create legacy stub', () => {
@@ -42,17 +42,17 @@ describe('Project create legacy stub', () => {
       .expect(403)
       .then(response => response.body)
       .then(error => {
-        assert.equal(error.message, 'Only ASRU LOs can create legacy stubs');
+        assert.equal(error.message, 'Only ASRU inspectors can create legacy stubs');
       });
   });
 
-  it('autoresolves creation of project stubs by a licensing officer', () => {
-    this.workflow.setUser({ profile: licensing });
+  it('autoresolves creation of project stubs by an inspector', () => {
+    this.workflow.setUser({ profile: inspector });
 
     const opts = {
       model: 'project',
       action: 'create',
-      changedBy: licensing.id,
+      changedBy: inspector.id,
       data: {
         title: 'Digitised Paper Licence Stub',
         establishmentId: 8201,
