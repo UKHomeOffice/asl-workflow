@@ -40,11 +40,11 @@ describe('Establishment revoke', () => {
       .expect(400)
       .then(response => response.body)
       .then(error => {
-        assert.equal(error.message, 'Only ASRU licensing officers can revoke establishments');
+        assert.equal(error.message, 'Only ASRU inspectors can revoke establishments');
       });
   });
 
-  it('inspectors cannot revoke establishment licences', () => {
+  it('inspectors can revoke establishment licences', () => {
     this.workflow.setUser({ profile: inspector });
 
     return request(this.workflow)
@@ -56,14 +56,14 @@ describe('Establishment revoke', () => {
         changedBy: inspector.id,
         data: {}
       })
-      .expect(400)
-      .then(response => response.body)
-      .then(error => {
-        assert.equal(error.message, 'Only ASRU licensing officers can revoke establishments');
+      .expect(200)
+      .then(response => response.body.data)
+      .then(task => {
+        assert.equal(task.status, resolved.id);
       });
   });
 
-  it('licensing can revoke establishment licences', () => {
+  it('licensing cannot revoke establishment licences', () => {
     this.workflow.setUser({ profile: licensing });
     return request(this.workflow)
       .post('/')
@@ -74,10 +74,10 @@ describe('Establishment revoke', () => {
         changedBy: licensing.id,
         data: {}
       })
-      .expect(200)
-      .then(response => response.body.data)
-      .then(task => {
-        assert.equal(task.status, resolved.id);
+      .expect(400)
+      .then(response => response.body)
+      .then(error => {
+        assert.equal(error.message, 'Only ASRU inspectors can revoke establishments');
       });
   });
 

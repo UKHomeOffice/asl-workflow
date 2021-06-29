@@ -16,7 +16,6 @@ const BASIC_USER = 'ae28fb31-d867-4371-9b4f-79019e71232f';
 const {
   awaitingEndorsement,
   endorsed,
-  withLicensing,
   withInspectorate,
   resolved
 } = statuses;
@@ -59,8 +58,8 @@ describe('Project create hook', () => {
         });
     });
 
-    it('resolves if submitted by a licensing officer', () => {
-      this.model.data.changedBy = LICENSING_ID;
+    it('resolves if submitted by an inspector', () => {
+      this.model.data.changedBy = INSPECTOR_ID;
       return Promise.resolve()
         .then(() => this.hook(this.model))
         .then(() => {
@@ -69,13 +68,13 @@ describe('Project create hook', () => {
         });
     });
 
-    it('is sent to licensing if submitted by an inspector', () => {
-      this.model.data.changedBy = INSPECTOR_ID;
+    it('is sent to inspectorate if submitted by a licensing officer', () => {
+      this.model.data.changedBy = LICENSING_ID;
       return Promise.resolve()
         .then(() => this.hook(this.model))
         .then(() => {
           assert.ok(this.model.setStatus.calledOnce);
-          assert.equal(this.model.setStatus.lastCall.args[0], withLicensing.id);
+          assert.equal(this.model.setStatus.lastCall.args[0], withInspectorate.id);
         });
     });
 

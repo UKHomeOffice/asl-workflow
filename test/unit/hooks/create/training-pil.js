@@ -1,8 +1,8 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { withLicensing, resolved, awaitingEndorsement, endorsed } = require('../../../../lib/flow/status');
+const { withInspectorate, resolved, awaitingEndorsement, endorsed } = require('../../../../lib/flow/status');
 const ids = require('../../../data/ids');
-const { ntco, user, licensing } = require('../../../data/profiles');
+const { ntco, user, inspector } = require('../../../data/profiles');
 const hook = require('../../../../lib/hooks/create/training-pil');
 const Database = require('../../../helpers/asl-db');
 const fixtures = require('../../../data');
@@ -74,19 +74,19 @@ describe('Training PIL create hook', () => {
       this.model.data.id = ids.model.trainingPil.active;
     });
 
-    it('is set to withLicensing if submitted by a user', () => {
+    it('is set to withInspectorate if submitted by a user', () => {
       this.model.data.changedBy = user.id;
       this.model.meta.user.profile = user;
       return Promise.resolve()
         .then(() => this.hook(this.model))
         .then(() => {
-          assert.ok(this.model.setStatus.calledWith(withLicensing.id));
+          assert.ok(this.model.setStatus.calledWith(withInspectorate.id));
         });
     });
 
-    it('is set to resolved if submitted by a licensing officer', () => {
-      this.model.data.changedBy = licensing.id;
-      this.model.meta.user.profile = licensing;
+    it('is set to resolved if submitted by an inspector', () => {
+      this.model.data.changedBy = inspector.id;
+      this.model.meta.user.profile = inspector;
       return Promise.resolve()
         .then(() => this.hook(this.model))
         .then(() => {

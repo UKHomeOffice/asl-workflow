@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { withLicensing, withInspectorate, resolved } = require('../../../../lib/flow/status');
+const { withInspectorate, resolved } = require('../../../../lib/flow/status');
 const hook = require('../../../../lib/hooks/create/role');
 const Database = require('../../../helpers/asl-db');
 const fixtures = require('../../../data');
@@ -69,8 +69,8 @@ describe('Role create hook', () => {
       });
   });
 
-  it('resolves if submitted by a licensing officer', () => {
-    this.model.data.changedBy = LICENSING_ID;
+  it('resolves if submitted by an inspector', () => {
+    this.model.data.changedBy = INSPECTOR_ID;
     return Promise.resolve()
       .then(() => this.hook(this.model))
       .then(() => {
@@ -79,13 +79,13 @@ describe('Role create hook', () => {
       });
   });
 
-  it('is sent to licensing if submitted by an inspector', () => {
-    this.model.data.changedBy = INSPECTOR_ID;
+  it('is sent to inspectorate if submitted by a licensing officer', () => {
+    this.model.data.changedBy = LICENSING_ID;
     return Promise.resolve()
       .then(() => this.hook(this.model))
       .then(() => {
         assert.ok(this.model.setStatus.calledOnce);
-        assert.equal(this.model.setStatus.lastCall.args[0], withLicensing.id);
+        assert.equal(this.model.setStatus.lastCall.args[0], withInspectorate.id);
       });
   });
 });

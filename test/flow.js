@@ -5,15 +5,15 @@ const {
   withNtco,
   endorsed,
   withInspectorate,
-  inspectorRecommended,
-  inspectorRejected
+  resolved,
+  rejected
 } = require('../lib/flow/status');
 
 describe('Flows', () => {
 
   it('can provide the next steps for a case', () => {
     expect(getNextSteps({ status: withNtco.id })).to.have.members([endorsed, returnedToApplicant]);
-    expect(getNextSteps({ status: withInspectorate.id })).to.have.members([inspectorRecommended, inspectorRejected, returnedToApplicant]);
+    expect(getNextSteps({ status: withInspectorate.id })).to.have.members([resolved, rejected, returnedToApplicant]);
   });
 
   it('returns an empty array of next steps if the step is not known', () => {
