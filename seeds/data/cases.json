@@ -432,5 +432,31 @@
         }
       }
     }
+  },
+  {
+    "id": "ef9608ce-f952-4766-b6e8-f82c37c7a759",
+    "status": "with-inspectorate",
+    "data": {
+      "data": {
+        "area": "",
+        "name": "Internal assign test",
+        "site": "Internal assign test",
+        "roles": [],
+        "holding": ["STH"],
+        "suitability": ["SA"],
+        "restrictions": "",
+        "establishmentId": 8201
+      },
+      "meta": {
+        "comments": "Testing"
+      },
+      "model": "place",
+      "action": "create",
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "establishmentId": 8201,
+      "initiatedByAsru": false
+    },
+    "created_at": "2020-06-01 11:29:24.936+00",
+    "updated_at": "2020-06-01 11:29:24.936+00"
   }
 ]
