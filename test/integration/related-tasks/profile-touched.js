@@ -51,7 +51,8 @@ describe('Related tasks', () => {
           'discarded by asru',
           'project amendment initiated by asru',
           'legacy project amendment',
-          'assigned to inspector'
+          'assigned to inspector',
+          'Project amendment rejection'
         ];
 
         return request(this.workflow)

@@ -1,7 +1,7 @@
 const moment = require('moment');
 const ids = require('./ids');
 const uuid = require('uuid/v4');
-const { userAtMultipleEstablishments, ntco101, user, userWithActivePil } = require('./profiles');
+const { userAtMultipleEstablishments, ntco101, user, userWithActivePil, holc } = require('./profiles');
 
 module.exports = models => {
 
@@ -320,6 +320,24 @@ module.exports = models => {
                   {
                     id: ids.model.projectVersion.grant2,
                     status: 'draft'
+                  }
+                ]
+              },
+              {
+                id: ids.model.project.rejection,
+                title: 'Test project for rejection',
+                licenceHolderId: holc.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1235',
+                version: [
+                  {
+                    id: ids.model.projectVersion.rejection,
+                    status: 'submitted'
+                  },
+                  {
+                    id: ids.model.projectVersion.rejection2,
+                    status: 'granted'
                   }
                 ]
               },

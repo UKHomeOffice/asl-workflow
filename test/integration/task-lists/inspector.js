@@ -169,7 +169,8 @@ describe('Inspector', () => {
         'pil at marvell',
         'project amendment initiated by asru',
         'legacy project amendment',
-        'submitted rop'
+        'submitted rop',
+        'Project amendment rejection'
       ];
       return request(this.workflow)
         .get('/?progress=completed')

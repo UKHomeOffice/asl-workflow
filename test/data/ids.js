@@ -18,6 +18,7 @@ module.exports = {
     },
     project: {
       grant: uuid(),
+      rejection: uuid(),
       recalledTransfer: uuid(),
       submittedByHolc: uuid(),
       continuation: uuid(),
@@ -58,6 +59,7 @@ module.exports = {
     },
     project: {
       grant: uuid(),
+      rejection: uuid(),
       transfer: uuid(),
       revoke: uuid(),
       recalledTransfer: uuid(),
@@ -72,6 +74,8 @@ module.exports = {
       marvellTest: uuid()
     },
     projectVersion: {
+      rejection: uuid(),
+      rejection2: uuid(),
       recalledTransfer: uuid(),
       continuation: uuid(),
       continuation2: uuid(),
