@@ -870,6 +870,28 @@ const tasks = [
     ...generateDates(36)
   },
   {
+    id: ids.task.project.rejection,
+    data: {
+      data: {
+        name: 'Project amendment rejection',
+        version: ids.model.projectVersion.rejection
+      },
+      id: ids.model.project.rejection,
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: holc.id,
+      model: 'project',
+      modelData: {
+        status: 'active',
+        schemaVersion: 1
+      },
+      action: 'grant',
+      changedBy: holc.id
+    },
+    status: 'rejected',
+    ...generateDates(38)
+  },
+  {
     id: uuid(),
     data: {
       data: {
