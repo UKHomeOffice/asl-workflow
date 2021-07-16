@@ -25,7 +25,15 @@ const assertComments = async (task, user, expected) => {
   const result = await decorator(settings)(task.model, user);
   const comments = result.comments;
   assert.equal(comments.length, expected.length);
-  assert.deepEqual(comments.map(c => c.comment), expected);
+  expected = expected.map(e => {
+    if (typeof e === 'string') {
+      return {
+        comment: e
+      };
+    }
+    return e;
+  });
+  expected.forEach((item, i) => sinon.assert.match(comments[i], item));
 };
 
 describe('Comment filtering', () => {
@@ -186,6 +194,29 @@ describe('Comment filtering', () => {
       return assertComments(task, users.anon, []);
     });
 
+  });
+
+  describe('when a task is rejected and recovered - bugfix', () => {
+    let task;
+
+    beforeEach(() => {
+      task = History();
+      task.status('with-inspectorate', users.external);
+      task.comment('one', users.asru);
+      task.comment('two', users.asru);
+      task.status('rejected', users.asru);
+      task.status('recovered', users.asru);
+      task.comment('three', users.asru);
+    });
+
+    it('all comments are marked as new', () => {
+      const expected = [
+        { comment: 'three', isNew: true },
+        { comment: 'two', isNew: true },
+        { comment: 'one', isNew: true }
+      ];
+      return assertComments(task, users.asru, expected);
+    });
   });
 
 });
