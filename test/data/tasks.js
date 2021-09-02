@@ -908,6 +908,116 @@ const tasks = [
     },
     status: 'resolved',
     ...generateDates(1)
+  },
+  {
+    id: ids.task.project.grantRa,
+    data: {
+      id: ids.model.project.grantRa,
+      data: {
+        name: 'retrospective assessment submitted',
+        raVersion: uuid()
+      },
+      meta: {
+        'ra-awerb-date': '2021-1-1'
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant-ra',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(1)
+  },
+  {
+    id: ids.task.project.hasDeadline,
+    data: {
+      data: {
+        name: 'project application has deadline'
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      deadline: {
+        extended: '2020-08-17',
+        standard: '2020-07-27',
+        isExtended: false,
+        isExtendable: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(1)
+  },
+  {
+    id: ids.task.project.transfer2,
+    data: {
+      id: ids.model.project.transfer2,
+      data: {
+        name: 'project transfer in progress',
+        version: uuid(),
+        establishmentId: 101
+      },
+      meta: {
+        authority: 'yes'
+      },
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'transfer',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(1)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'project amendment in progress',
+        version: uuid()
+      },
+      id: uuid(),
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      modelData: {
+        status: 'active',
+        schemaVersion: 1
+      },
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(38)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'project continuation in progress',
+        version: uuid()
+      },
+      continuation: [
+        { id: uuid() }
+      ],
+      id: uuid(),
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(38)
   }
 ];
 

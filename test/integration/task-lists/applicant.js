@@ -86,7 +86,12 @@ describe('Applicant', () => {
         'project awaiting endorsement',
         'ppl submitted by HOLC for user',
         'trainingPil with ntco',
-        'trainingPil at different establishment'
+        'trainingPil at different establishment',
+        'retrospective assessment submitted',
+        'project application has deadline',
+        'project transfer in progress',
+        'project amendment in progress',
+        'project continuation in progress'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

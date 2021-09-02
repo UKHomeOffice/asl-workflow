@@ -22,7 +22,10 @@ module.exports = {
       recalledTransfer: uuid(),
       submittedByHolc: uuid(),
       continuation: uuid(),
-      discardedByAsru: uuid()
+      discardedByAsru: uuid(),
+      grantRa: uuid(),
+      hasDeadline: uuid(),
+      transfer2: uuid()
     }
   },
   model: {
@@ -61,6 +64,7 @@ module.exports = {
       grant: uuid(),
       rejection: uuid(),
       transfer: uuid(),
+      transfer2: uuid(),
       revoke: uuid(),
       recalledTransfer: uuid(),
       updateIssueDate: uuid(),
@@ -71,7 +75,9 @@ module.exports = {
       notAContinuation: uuid(),
       holc: uuid(),
       marvell: uuid(),
-      marvellTest: uuid()
+      marvellTest: uuid(),
+      grantRa: uuid(),
+      hasDeadline: uuid()
     },
     projectVersion: {
       rejection: uuid(),
@@ -81,6 +87,7 @@ module.exports = {
       continuation2: uuid(),
       notAContinuation: uuid(),
       transfer: uuid(),
+      transfer2: uuid(),
       grant: uuid(),
       grant2: uuid()
     },

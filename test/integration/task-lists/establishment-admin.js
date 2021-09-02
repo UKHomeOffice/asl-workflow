@@ -79,7 +79,12 @@ describe('Establishment Admin', () => {
         'trainingPil with ntco',
         'trainingPil at different establishment',
         'assigned to licensing',
-        'assigned to inspector'
+        'assigned to inspector',
+        'retrospective assessment submitted',
+        'project application has deadline',
+        'project transfer in progress',
+        'project amendment in progress',
+        'project continuation in progress'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
