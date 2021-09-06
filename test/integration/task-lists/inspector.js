@@ -92,7 +92,12 @@ describe('Inspector', () => {
         'holc with multiple establishments',
         'ppl submitted by HOLC for user',
         'assigned to inspector',
-        'with inspectorate assigned to superuser'
+        'with inspectorate assigned to superuser',
+        'retrospective assessment submitted',
+        'project application has deadline',
+        'project transfer in progress',
+        'project amendment in progress',
+        'project continuation in progress'
       ];
       return request(this.workflow)
         .get('/')

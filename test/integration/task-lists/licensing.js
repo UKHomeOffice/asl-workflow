@@ -146,7 +146,12 @@ describe('Licensing Officer', () => {
         'ppl submitted by HOLC for user',
         'holc owned project',
         'assigned to inspector',
-        'with inspectorate assigned to superuser'
+        'with inspectorate assigned to superuser',
+        'retrospective assessment submitted',
+        'project application has deadline',
+        'project transfer in progress',
+        'project amendment in progress',
+        'project continuation in progress'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

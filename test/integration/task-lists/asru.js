@@ -50,7 +50,13 @@ describe('ASRU user - neither inspector nor LO', () => {
         'assigned to licensing',
         'assigned to inspector',
         'with licensing assigned to superuser',
-        'with inspectorate assigned to superuser'
+        'with inspectorate assigned to superuser',
+        'retrospective assessment submitted',
+        'project application has deadline',
+        'project transfer in progress',
+        'project amendment in progress',
+        'project continuation in progress'
+
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
@@ -66,6 +72,80 @@ describe('ASRU user - neither inspector nor LO', () => {
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'descending');
+        });
+    });
+
+    it('can filter by licence type of ppl', () => {
+      const expected = [
+        'ppl submitted by HOLC for user',
+        'holc owned project',
+        'retrospective assessment submitted',
+        'project application has deadline',
+        'project transfer in progress',
+        'project amendment in progress',
+        'project continuation in progress'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by ppl type is amendments', () => {
+      const expected = ['project amendment in progress'];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=amendments')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by ppl type is transfers', () => {
+      const expected = ['project transfer in progress'];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=transfers')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by ppl type is continuations', () => {
+      const expected = ['project continuation in progress'];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=continuations')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by ppl type is deadline started', () => {
+      const expected = ['project application has deadline'];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=hasDeadline')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by ppl type is retrospective assessment', () => {
+      const expected = ['retrospective assessment submitted'];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=ra')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
         });
     });
 
