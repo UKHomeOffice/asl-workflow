@@ -80,11 +80,11 @@ describe('Endorse project', () => {
         this.model.data.establishmentId = 8202;
       });
 
-      it('sets authority to Yes', () => {
+      it('sets authority to true', () => {
         return Promise.resolve()
           .then(() => runHook(this.model))
           .then(() => {
-            assert.deepEqual(this.model.patch.lastCall.args[0].meta, { authority: 'Yes' });
+            assert.deepEqual(this.model.patch.lastCall.args[0].meta, { authority: true });
           });
       });
 
