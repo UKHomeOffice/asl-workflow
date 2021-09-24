@@ -1,13 +1,13 @@
 const flow = require('../../lib/flow');
 
-const History = () => {
+const History = (model) => {
 
-  const model = {
+  model = model || {
     status: 'new',
     withASRU: false,
     createdAt: '2019-09-20T10:00:00.000Z',
     activityLog: [
-      { eventName: 'create', createdAt: '2019-09-20T10:00:00.000Z' }
+      { eventName: 'create', event: {}, createdAt: '2019-09-20T10:00:00.000Z' }
     ]
   };
 
