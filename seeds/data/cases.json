@@ -10,10 +10,10 @@
         "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
       "meta": {
-        "awerb": "Yes",
+        "awerb": true,
         "version": "b603d058-267a-4f7b-8356-389271076c06",
         "comments": "Testing title amend",
-        "authority": "Yes",
+        "authority": true,
         "awerb-review-date": "Now",
         "awerb-no-review-reason": "",
         "authority-pelholder-name": "Bruce Banner",
@@ -74,11 +74,11 @@
         "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
       "meta": {
-        "awerb": "Yes",
-        "ready": "Yes",
+        "awerb": true,
+        "ready": true,
         "comment": "Sending for review.",
         "version": "b44cc7fc-5dfb-4900-9be0-c0e475d2ddc5",
-        "authority": "Yes",
+        "authority": true,
         "awerb-review-date": "AWERB done."
       },
       "model": "project",
@@ -132,11 +132,11 @@
         "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
       "meta": {
-        "awerb": "Yes",
-        "ready": "Yes",
+        "awerb": true,
+        "ready": true,
         "comment": "Sending for review.",
         "version": "74ddb097-a988-4955-920b-a439e580041a",
-        "authority": "Yes",
+        "authority": true,
         "awerb-review-date": "AWERB done."
       },
       "model": "project",
@@ -190,11 +190,11 @@
         "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
       "meta": {
-        "awerb": "Yes",
-        "ready": "Yes",
+        "awerb": true,
+        "ready": true,
         "comment": "Submitting as HOLC.",
         "version": "cada2e28-d678-49c1-afac-11acaf325f6d",
-        "authority": "Yes",
+        "authority": true,
         "awerb-review-date": "AWERB done"
       },
       "model": "project",
@@ -258,11 +258,11 @@
         "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
       "meta": {
-        "awerb": "Yes",
-        "ready": "Yes",
+        "awerb": true,
+        "ready": true,
         "comment": "Submitting as HOLC.",
         "version": "08e4cc9a-8627-48ff-b89f-24ff18224630",
-        "authority": "Yes",
+        "authority": true,
         "awerb-review-date": "AWERB done"
       },
       "model": "project",
@@ -326,11 +326,11 @@
         "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
       },
       "meta": {
-        "awerb": "Yes",
-        "ready": "Yes",
+        "awerb": true,
+        "ready": true,
         "comment": "Submit application",
         "version": "96e46b82-5146-4b49-8a1e-56cd69903d5a",
-        "authority": "Yes",
+        "authority": true,
         "declaration": "You confirm the establishment licence holder consents to you endorsing this application on their behalf.",
         "awerb-review-date": "May 2021"
       },

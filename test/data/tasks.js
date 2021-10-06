@@ -139,8 +139,8 @@ const tasks = [
         version: ids.model.projectVersion.grant
       },
       meta: {
-        authority: 'yes',
-        awerb: 'yes'
+        authority: true,
+        awerb: true
       },
       initiatedByAsru: false,
       establishmentId: 100,
@@ -162,7 +162,7 @@ const tasks = [
         establishmentId: 101
       },
       meta: {
-        authority: 'yes'
+        authority: true
       },
       establishmentId: 100,
       subject: user.id,
@@ -606,7 +606,7 @@ const tasks = [
         version: uuid()
       },
       meta: {
-        authority: 'yes'
+        authority: true
       },
       initiatedByAsru: false,
       establishmentId: 100,
@@ -627,7 +627,7 @@ const tasks = [
         name: 'ppl with continuation'
       },
       meta: {
-        authority: 'yes'
+        authority: true
       },
       initiatedByAsru: false,
       establishmentId: 100,

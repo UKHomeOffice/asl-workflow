@@ -18,9 +18,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -54,9 +54,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -90,9 +90,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'no'
+          authority: true,
+          awerb: true,
+          ready: false
         }
       },
       activityLog: [
@@ -129,9 +129,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -173,9 +173,9 @@ describe('Deadline', () => {
           status: 'active'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -206,9 +206,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -243,9 +243,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -288,9 +288,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -334,9 +334,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -383,9 +383,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -434,9 +434,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       },
       activityLog: [
@@ -480,9 +480,9 @@ describe('Deadline', () => {
           status: 'inactive'
         },
         meta: {
-          authority: 'yes',
-          awerb: 'yes',
-          ready: 'yes'
+          authority: true,
+          awerb: true,
+          ready: true
         }
       }
     };

@@ -173,7 +173,7 @@ describe('Applicant', () => {
               status: endorsed.id,
               meta: {
                 comment: 'endorsed by pelh',
-                awerb: 'yes'
+                awerb: true
               }
             })
             .expect(200);

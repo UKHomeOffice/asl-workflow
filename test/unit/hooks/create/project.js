@@ -330,7 +330,7 @@ describe('Project create hook', () => {
             }
           },
           meta: {
-            authority: 'yes'
+            authority: true
           },
           establishmentId: 100,
           changedBy: BASIC_USER
@@ -369,8 +369,8 @@ describe('Project create hook', () => {
             }
           },
           meta: {
-            authority: 'yes',
-            awerb: 'yes'
+            authority: true,
+            awerb: true
           },
           establishmentId: 100,
           changedBy: BASIC_USER

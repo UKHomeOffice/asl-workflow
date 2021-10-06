@@ -160,7 +160,7 @@ describe('Project transfer', () => {
             status: endorsed.id,
             meta: {
               comment: 'endorsed from sending est',
-              awerb: 'yes'
+              awerb: true
             }
           })
           .expect(200);
