@@ -53,6 +53,9 @@ describe('ASRU user - neither inspector nor LO', () => {
         'with inspectorate assigned to superuser',
         'retrospective assessment submitted',
         'project application has deadline',
+        'project application has deadline but returned',
+        'project amendment has deadline',
+        'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress'
@@ -81,6 +84,9 @@ describe('ASRU user - neither inspector nor LO', () => {
         'holc owned project',
         'retrospective assessment submitted',
         'project application has deadline',
+        'project application has deadline but returned',
+        'project amendment has deadline',
+        'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress'
@@ -95,7 +101,10 @@ describe('ASRU user - neither inspector nor LO', () => {
     });
 
     it('can filter by ppl type is amendments', () => {
-      const expected = ['project amendment in progress'];
+      const expected = [
+        'project amendment in progress',
+        'project amendment has deadline'
+      ];
 
       return request(this.workflow)
         .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=amendments')
@@ -139,7 +148,10 @@ describe('ASRU user - neither inspector nor LO', () => {
     });
 
     it('can filter by ppl type is retrospective assessment', () => {
-      const expected = ['retrospective assessment submitted'];
+      const expected = [
+        'retrospective assessment submitted',
+        'project application has deadline but RA'
+      ];
 
       return request(this.workflow)
         .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=ra')

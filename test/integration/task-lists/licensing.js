@@ -149,6 +149,9 @@ describe('Licensing Officer', () => {
         'with inspectorate assigned to superuser',
         'retrospective assessment submitted',
         'project application has deadline',
+        'project application has deadline but returned',
+        'project application has deadline but RA',
+        'project amendment has deadline',
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress'

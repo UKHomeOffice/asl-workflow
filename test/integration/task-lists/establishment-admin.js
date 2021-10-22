@@ -38,7 +38,8 @@ describe('Establishment Admin', () => {
         'recalled project transfer',
         'ppl with continuation',
         'project at Croydon',
-        'holc owned project'
+        'holc owned project',
+        'project application has deadline but returned'
       ];
       return request(this.workflow)
         .get('/')
@@ -82,6 +83,8 @@ describe('Establishment Admin', () => {
         'assigned to inspector',
         'retrospective assessment submitted',
         'project application has deadline',
+        'project amendment has deadline',
+        'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress'

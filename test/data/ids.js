@@ -25,6 +25,9 @@ module.exports = {
       discardedByAsru: uuid(),
       grantRa: uuid(),
       hasDeadline: uuid(),
+      hasDeadlineReturned: uuid(),
+      hasDeadlineAmendment: uuid(),
+      hasDeadlineRA: uuid(),
       transfer2: uuid()
     }
   },
