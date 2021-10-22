@@ -35,7 +35,8 @@ describe('Applicant', () => {
         'pil returned',
         'Submitted by HOLC',
         'recalled ppl',
-        'recalled project transfer'
+        'recalled project transfer',
+        'project application has deadline but returned'
       ];
       return request(this.workflow)
         .get('/')
@@ -89,6 +90,8 @@ describe('Applicant', () => {
         'trainingPil at different establishment',
         'retrospective assessment submitted',
         'project application has deadline',
+        'project amendment has deadline',
+        'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress'

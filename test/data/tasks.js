@@ -956,6 +956,82 @@ const tasks = [
     ...generateDates(1)
   },
   {
+    id: ids.task.project.hasDeadlineReturned,
+    data: {
+      data: {
+        name: 'project application has deadline but returned'
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      deadline: {
+        extended: '2020-08-17',
+        standard: '2020-07-27',
+        isExtended: false,
+        isExtendable: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'returned-to-applicant',
+    ...generateDates(1)
+  },
+  {
+    id: ids.task.project.hasDeadlineAmendment,
+    data: {
+      data: {
+        name: 'project amendment has deadline'
+      },
+      modelData: {
+        status: 'active',
+        schemaVersion: 1
+      },
+      deadline: {
+        extended: '2020-08-17',
+        standard: '2020-07-27',
+        isExtended: false,
+        isExtendable: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(1)
+  },
+  {
+    id: ids.task.project.hasDeadlineRA,
+    data: {
+      data: {
+        name: 'project application has deadline but RA'
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      deadline: {
+        extended: '2020-08-17',
+        standard: '2020-07-27',
+        isExtended: false,
+        isExtendable: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant-ra',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(1)
+  },
+  {
     id: ids.task.project.transfer2,
     data: {
       id: ids.model.project.transfer2,

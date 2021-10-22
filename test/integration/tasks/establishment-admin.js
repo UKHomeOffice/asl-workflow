@@ -1,3 +1,4 @@
+const assert = require('assert');
 const request = require('supertest');
 const workflowHelper = require('../../helpers/workflow');
 const { holc } = require('../../data/profiles');
@@ -6,10 +7,13 @@ const {
   resubmitted,
   resolved,
   withNtco,
+  awaitingEndorsement,
   endorsed,
   discardedByApplicant,
   recalledByApplicant
 } = require('../../../lib/flow/status');
+
+const ids = require('../../data/ids');
 
 describe('Establishment Admin', () => {
 
@@ -52,18 +56,17 @@ describe('Establishment Admin', () => {
 
     it('can resubmit a returned pil application', () => {
       return request(this.workflow)
-        .get('/')
-        .then(response => response.body.data.find(task => task.status === returnedToApplicant.id))
-        .then(task => {
-          return request(this.workflow)
-            .put(`/${task.id}/status`)
-            .send({
-              status: resubmitted.id,
-              meta: {
-                comment: 'resubmitting a pil'
-              }
-            })
-            .expect(200);
+        .put(`/${ids.task.pil.grant}/status`)
+        .send({
+          status: resubmitted.id,
+          meta: {
+            comment: 'resubmitting a pil'
+          }
+        })
+        .expect(200)
+        .then(response => {
+          const task = response.body.data;
+          assert.equal(task.status, awaitingEndorsement.id);
         });
     });
 

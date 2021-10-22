@@ -95,6 +95,8 @@ describe('Inspector', () => {
         'with inspectorate assigned to superuser',
         'retrospective assessment submitted',
         'project application has deadline',
+        'project amendment has deadline',
+        'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress'
@@ -135,7 +137,8 @@ describe('Inspector', () => {
         'holc pil with licensing',
         'holc owned project',
         'assigned to licensing',
-        'with licensing assigned to superuser'
+        'with licensing assigned to superuser',
+        'project application has deadline but returned'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
