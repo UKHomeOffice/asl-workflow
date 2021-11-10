@@ -54,4 +54,22 @@ describe('PIL endorse hook', () => {
       });
   });
 
+  it('moves task to inspectors if it was previously with inspectorate', () => {
+    const history = History(this.model);
+    history.status(withLicensing.id);
+    history.status(referredToInspector.id);
+    history.status(returnedToApplicant.id);
+    history.status(awaitingEndorsement.id);
+    history.status(withInspectorate.id);
+    history.status(returnedToApplicant.id);
+    history.status(awaitingEndorsement.id);
+
+    return Promise.resolve()
+      .then(() => runHook(this.model))
+      .then(() => {
+        assert.ok(this.model.setStatus.calledOnce);
+        assert.ok(this.model.setStatus.calledWith(withInspectorate.id));
+      });
+  });
+
 });
