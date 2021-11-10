@@ -28,11 +28,10 @@ describe('Inspector', () => {
 
   describe('my tasks', () => {
 
-    it('sees tasks they are responsible for actioning', () => {
+    it('sees outstanding tasks assigned to them', () => {
       const expected = [
-        'conditions update',
         'pil conditions recalled',
-        'another with-inspectorate to test ordering',
+        'conditions update',
         'assigned to inspector'
       ];
 
@@ -50,32 +49,6 @@ describe('Inspector', () => {
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'ascending');
-        });
-    });
-
-    it('includes tasks from other establishments assigned to this user', () => {
-      const expected = [
-        'assigned to inspector'
-      ];
-
-      return request(this.workflow)
-        .get('/?progress=myTasks')
-        .expect(200)
-        .expect(response => {
-          assertTasks.includes(expected, response.body.data);
-        });
-    });
-
-    it('does not include tasks from assigned establishments assigned to other users', () => {
-      const expected = [
-        'with inspectorate assigned to superuser'
-      ];
-
-      return request(this.workflow)
-        .get('/?progress=myTasks')
-        .expect(200)
-        .expect(response => {
-          assertTasks.excludes(expected, response.body.data);
         });
     });
 

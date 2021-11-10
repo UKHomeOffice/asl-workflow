@@ -28,10 +28,9 @@ describe('Licensing Officer', () => {
 
   describe('my tasks', () => {
 
-    it('sees tasks with correct statuses and establishments', () => {
+    it('sees outstanding tasks assigned to them', () => {
       const expected = [
-        'place update with licensing - other establishment',
-        'another with-licensing to test ordering',
+        'place update with licensing',
         'assigned to licensing'
       ];
       return request(this.workflow)
@@ -48,32 +47,6 @@ describe('Licensing Officer', () => {
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'ascending');
-        });
-    });
-
-    it('includes tasks from other establishments assigned to this user', () => {
-      const expected = [
-        'assigned to licensing'
-      ];
-
-      return request(this.workflow)
-        .get('/?progress=myTasks')
-        .expect(200)
-        .expect(response => {
-          assertTasks.includes(expected, response.body.data);
-        });
-    });
-
-    it('does not include tasks from assigned establishments assigned to other users', () => {
-      const expected = [
-        'with licensing assigned to superuser'
-      ];
-
-      return request(this.workflow)
-        .get('/?progress=myTasks')
-        .expect(200)
-        .expect(response => {
-          assertTasks.excludes(expected, response.body.data);
         });
     });
 

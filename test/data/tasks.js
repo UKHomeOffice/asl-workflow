@@ -202,7 +202,8 @@ const tasks = [
       changedBy: holc.id
     },
     status: 'with-licensing',
-    ...generateDates(6)
+    ...generateDates(6),
+    assignedTo: licensing.id
   },
   {
     id: uuid(),
