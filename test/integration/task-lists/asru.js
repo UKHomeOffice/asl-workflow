@@ -58,7 +58,8 @@ describe('ASRU user - neither inspector nor LO', () => {
         'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
-        'project continuation in progress'
+        'project continuation in progress',
+        'project revocation in progress'
 
       ];
       return request(this.workflow)
@@ -89,7 +90,8 @@ describe('ASRU user - neither inspector nor LO', () => {
         'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
-        'project continuation in progress'
+        'project continuation in progress',
+        'project revocation in progress'
       ];
 
       return request(this.workflow)
@@ -103,7 +105,9 @@ describe('ASRU user - neither inspector nor LO', () => {
     it('can filter by ppl type is amendments', () => {
       const expected = [
         'project amendment in progress',
-        'project amendment has deadline'
+        'project amendment has deadline',
+        'project transfer in progress',
+        'project revocation in progress'
       ];
 
       return request(this.workflow)

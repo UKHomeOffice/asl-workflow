@@ -1047,6 +1047,10 @@ const tasks = [
       establishmentId: 100,
       subject: user.id,
       model: 'project',
+      modelData: {
+        status: 'active',
+        schemaVersion: 1
+      },
       action: 'transfer',
       changedBy: user.id
     },
@@ -1070,6 +1074,28 @@ const tasks = [
         schemaVersion: 1
       },
       action: 'grant',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(38)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'project revocation in progress',
+        version: uuid()
+      },
+      id: uuid(),
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      modelData: {
+        status: 'active',
+        schemaVersion: 1
+      },
+      action: 'revoke',
       changedBy: user.id
     },
     status: 'with-inspectorate',
