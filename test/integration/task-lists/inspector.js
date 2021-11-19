@@ -73,7 +73,8 @@ describe('Inspector', () => {
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress',
-        'project revocation in progress'
+        'project revocation in progress',
+        'project change of licence holder in progress'
       ];
       return request(this.workflow)
         .get('/')
