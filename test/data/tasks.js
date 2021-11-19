@@ -1047,6 +1047,10 @@ const tasks = [
       establishmentId: 100,
       subject: user.id,
       model: 'project',
+      modelData: {
+        status: 'active',
+        schemaVersion: 1
+      },
       action: 'transfer',
       changedBy: user.id
     },
@@ -1079,6 +1083,27 @@ const tasks = [
     id: uuid(),
     data: {
       data: {
+        name: 'project revocation in progress',
+        version: uuid()
+      },
+      id: uuid(),
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      modelData: {
+        status: 'active'
+      },
+      action: 'revoke',
+      changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(38)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
         name: 'project continuation in progress',
         version: uuid()
       },
@@ -1092,6 +1117,28 @@ const tasks = [
       model: 'project',
       action: 'grant',
       changedBy: user.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(38)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'project change of licence holder in progress',
+        licenceHolderId: uuid()
+      },
+      id: uuid(),
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: uuid(),
+      model: 'project',
+      modelData: {
+        status: 'active',
+        licenceHolderId: uuid()
+      },
+      action: 'update',
+      changedBy: uuid()
     },
     status: 'with-inspectorate',
     ...generateDates(38)

@@ -58,8 +58,9 @@ describe('ASRU user - neither inspector nor LO', () => {
         'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
-        'project continuation in progress'
-
+        'project continuation in progress',
+        'project revocation in progress',
+        'project change of licence holder in progress'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
@@ -89,7 +90,9 @@ describe('ASRU user - neither inspector nor LO', () => {
         'project application has deadline but RA',
         'project transfer in progress',
         'project amendment in progress',
-        'project continuation in progress'
+        'project continuation in progress',
+        'project revocation in progress',
+        'project change of licence holder in progress'
       ];
 
       return request(this.workflow)
@@ -103,7 +106,10 @@ describe('ASRU user - neither inspector nor LO', () => {
     it('can filter by ppl type is amendments', () => {
       const expected = [
         'project amendment in progress',
-        'project amendment has deadline'
+        'project amendment has deadline',
+        'project transfer in progress',
+        'project revocation in progress',
+        'project change of licence holder in progress'
       ];
 
       return request(this.workflow)
@@ -157,6 +163,20 @@ describe('ASRU user - neither inspector nor LO', () => {
         .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=ra')
         .expect(200)
         .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by ppl type is change of licence holder', () => {
+      const expected = [
+        'project change of licence holder in progress'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=changeLicenceHolder')
+        .expect(200)
+        .expect(response => {
+          console.log(response.body.data);
           assertTasks(expected, response.body.data);
         });
     });
