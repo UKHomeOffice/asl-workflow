@@ -18,7 +18,8 @@ module.exports = {
     bucket: process.env.S3_BUCKET,
     kms: process.env.S3_KMS_KEY_ID,
     transportKey: process.env.TRANSPORT_KEY,
-    transportIV: process.env.TRANSPORT_IV
+    transportIV: process.env.TRANSPORT_IV,
+    localstackUrl: process.env.S3_LOCALSTACK_URL
   },
   taskflowDB: {
     database: process.env.DATABASE_NAME || 'taskflow',
