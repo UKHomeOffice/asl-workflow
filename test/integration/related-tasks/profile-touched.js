@@ -116,9 +116,8 @@ describe('Related tasks', () => {
           });
       });
 
-      it('includes tasks that have been actioned by the target profile', () => {
+      it('includes tasks created by the target profile', () => {
         const expected = [
-          'discarded by asru',
           'project amendment initiated by asru',
           'submitted rop'
         ];
@@ -127,7 +126,44 @@ describe('Related tasks', () => {
           .get(`/related-tasks?model=profile-touched&modelId=${asruSuper.id}&limit=10000`)
           .expect(200)
           .expect(response => {
-            assertTasks(expected, response.body.data);
+            assertTasks.includes(expected, response.body.data);
+          });
+      });
+
+      it('includes tasks that have been processed by the target profile', () => {
+        const expected = [
+          'discarded by asru'
+        ];
+
+        return request(this.workflow)
+          .get(`/related-tasks?model=profile-touched&modelId=${asruSuper.id}&limit=10000`)
+          .expect(200)
+          .expect(response => {
+            assertTasks.includes(expected, response.body.data);
+          });
+      });
+
+      it('includes tasks currently assigned to the target user', () => {
+        const expected = [
+          'with licensing assigned to superuser',
+          'with inspectorate assigned to superuser'
+        ];
+
+        return request(this.workflow)
+          .get(`/related-tasks?model=profile-touched&modelId=${asruSuper.id}&limit=10000`)
+          .expect(200)
+          .expect(response => {
+            assertTasks.includes(expected, response.body.data);
+          });
+      });
+
+      it('does not include tasks assigned to other users by the target profile', () => {
+        const unexpected = ['assigned to licensing'];
+        return request(this.workflow)
+          .get(`/related-tasks?model=profile-touched&modelId=${asruSuper.id}&limit=10000`)
+          .expect(200)
+          .expect(response => {
+            assertTasks.excludes(unexpected, response.body.data);
           });
       });
     });

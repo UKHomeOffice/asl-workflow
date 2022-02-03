@@ -19,6 +19,14 @@ const activity = [
     eventName: 'status:with-inspectorate:discarded-by-asru',
     event: {},
     ...generateDates(34)
+  },
+  {
+    id: uuid(),
+    caseId: ids.task.assignedToLicensing,
+    changedBy: asruSuper.id,
+    eventName: 'assign',
+    event: {},
+    ...generateDates(34)
   }
 ];
 
