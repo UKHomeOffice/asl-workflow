@@ -29,7 +29,8 @@ module.exports = {
       hasDeadlineAmendment: uuid(),
       hasDeadlineRA: uuid(),
       transfer2: uuid()
-    }
+    },
+    assignedToLicensing: uuid()
   },
   model: {
     pil: {

@@ -221,7 +221,7 @@ const tasks = [
     ...generateDates(7)
   },
   {
-    id: uuid(),
+    id: ids.task.assignedToLicensing,
     data: {
       data: {
         name: 'assigned to licensing'
