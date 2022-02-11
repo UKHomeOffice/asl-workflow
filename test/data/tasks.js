@@ -437,6 +437,73 @@ const tasks = [
     id: uuid(),
     data: {
       data: {
+        name: 'establishment application'
+      },
+      initiatedByAsru: false,
+      model: 'establishment',
+      modelData: {
+        status: 'inactive'
+      },
+      action: 'grant',
+      id: 888,
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(16)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'establishment amendment'
+      },
+      initiatedByAsru: false,
+      model: 'establishment',
+      action: 'update',
+      id: 100,
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(16)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'add named person',
+        type: 'nvs',
+        profileId: user.id
+      },
+      initiatedByAsru: false,
+      model: 'role',
+      action: 'create',
+      id: 100,
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(16)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
+        name: 'remove named person',
+        type: 'nvs',
+        profileId: user.id
+      },
+      initiatedByAsru: false,
+      model: 'role',
+      action: 'delete',
+      id: 100,
+      changedBy: holc.id
+    },
+    status: 'with-inspectorate',
+    ...generateDates(16)
+  },
+  {
+    id: uuid(),
+    data: {
+      data: {
         name: 'conditions update'
       },
       initiatedByAsru: true,

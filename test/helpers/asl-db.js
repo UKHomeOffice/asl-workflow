@@ -10,6 +10,7 @@ module.exports = settings => {
         'TrainingPil',
         'TrainingCourse',
         'AsruEstablishment',
+        'Procedure',
         'Rop',
         'ProjectVersion',
         'Project',

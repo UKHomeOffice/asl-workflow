@@ -41,6 +41,7 @@ describe('Related tasks', () => {
           'granted pil',
           'granted place update',
           'rejected pil',
+          'establishment amendment',
           'Submitted by HOLC',
           'ppl submitted by HOLC for user',
           'profile update holc',
