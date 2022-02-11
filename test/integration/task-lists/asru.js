@@ -40,6 +40,10 @@ describe('ASRU user - neither inspector nor LO', () => {
         'place update returned',
         'place update recommend rejected',
         'conditions update',
+        'establishment application',
+        'establishment amendment',
+        'add named person',
+        'remove named person',
         'Submitted by HOLC',
         'another with-inspectorate to test ordering',
         'another with-licensing to test ordering',
@@ -176,7 +180,102 @@ describe('ASRU user - neither inspector nor LO', () => {
         .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=ppl&filters%5BpplType%5D%5B0%5D=changeLicenceHolder')
         .expect(200)
         .expect(response => {
-          console.log(response.body.data);
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by licence type of pel', () => {
+      const expected = [
+        'place update with licensing',
+        'place update with licensing - other establishment',
+        'assigned to licensing',
+        'with licensing assigned to superuser',
+        'place update with inspector',
+        'assigned to inspector',
+        'with inspectorate assigned to superuser',
+        'place update recommended',
+        'place update returned',
+        'place update recommend rejected',
+        'establishment application',
+        'establishment amendment',
+        'add named person',
+        'remove named person',
+        'conditions update',
+        'another with-inspectorate to test ordering',
+        'another with-licensing to test ordering',
+        'holc with multiple establishments'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pel')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by pel type is amendments', () => {
+      const expected = [
+        'conditions update',
+        'establishment amendment'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pel&filters%5BpelType%5D%5B0%5D=amendments')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by pel type is applications', () => {
+      const expected = [
+        'establishment application'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pel&filters%5BpelType%5D%5B0%5D=applications')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by pel type is places', () => {
+      const expected = [
+        'place update with licensing',
+        'place update with licensing - other establishment',
+        'assigned to licensing',
+        'with licensing assigned to superuser',
+        'place update with inspector',
+        'assigned to inspector',
+        'with inspectorate assigned to superuser',
+        'place update recommended',
+        'place update returned',
+        'place update recommend rejected',
+        'another with-inspectorate to test ordering',
+        'another with-licensing to test ordering',
+        'holc with multiple establishments'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pel&filters%5BpelType%5D%5B0%5D=places')
+        .expect(200)
+        .expect(response => {
+          assertTasks(expected, response.body.data);
+        });
+    });
+
+    it('can filter by pel type is roles', () => {
+      const expected = [
+        'add named person',
+        'remove named person'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pel&filters%5BpelType%5D%5B0%5D=roles')
+        .expect(200)
+        .expect(response => {
           assertTasks(expected, response.body.data);
         });
     });
