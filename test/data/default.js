@@ -211,24 +211,27 @@ module.exports = models => {
               {
                 id: uuid(),
                 title: 'Test project 1',
-                licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+                licenceHolderId: holc.id,
                 expiryDate: '2040-01-01T12:00:00Z',
+                status: 'active',
                 licenceNumber: 'abc123'
               },
               {
                 id: uuid(),
                 title: 'Test project 3',
-                licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+                licenceHolderId: holc.id,
                 expiryDate: '2010-01-01T12:00:00Z',
+                status: 'active',
                 licenceNumber: 'abc456'
               },
               {
                 id: ids.model.project.updateIssueDate,
                 title: 'Test project 4',
-                licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+                licenceHolderId: holc.id,
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: 'xyz123',
+                status: 'active',
                 version: [
                   {
                     id: '6cd77ff4-8de7-4b10-8d5c-e9bdbf65ccfb',
@@ -246,6 +249,7 @@ module.exports = models => {
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: 'xyz123',
+                status: 'active',
                 version: [
                   {
                     id: ids.model.projectVersion.transfer,
@@ -263,6 +267,7 @@ module.exports = models => {
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: 'xyz123',
+                status: 'active',
                 version: [
                   {
                     id: uuid(),
@@ -281,6 +286,7 @@ module.exports = models => {
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: 'xyz123',
                 isLegacyStub: true,
+                status: 'active',
                 version: [
                   {
                     id: uuid(),
@@ -298,6 +304,7 @@ module.exports = models => {
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: '70/1234',
+                status: 'active',
                 version: [
                   {
                     id: ids.model.projectVersion.recalledTransfer,
@@ -308,10 +315,8 @@ module.exports = models => {
               {
                 id: ids.model.project.grant,
                 title: 'Test project 9',
-                licenceHolderId: userAtMultipleEstablishments.id,
-                issueDate: '2020-01-01T12:00:00Z',
-                expiryDate: '2025-01-01T12:00:00Z',
-                licenceNumber: '70/1235',
+                licenceHolderId: holc.id,
+                status: 'inactive',
                 version: [
                   {
                     id: ids.model.projectVersion.grant,
@@ -324,12 +329,32 @@ module.exports = models => {
                 ]
               },
               {
+                id: ids.model.project.amend,
+                title: 'Test project 9',
+                licenceHolderId: holc.id,
+                issueDate: '2020-01-01T12:00:00Z',
+                expiryDate: '2025-01-01T12:00:00Z',
+                licenceNumber: '70/1235',
+                status: 'active',
+                version: [
+                  {
+                    id: ids.model.projectVersion.amend,
+                    status: 'draft'
+                  },
+                  {
+                    id: ids.model.projectVersion.amend2,
+                    status: 'granted'
+                  }
+                ]
+              },
+              {
                 id: ids.model.project.rejection,
                 title: 'Test project for rejection',
                 licenceHolderId: holc.id,
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: '70/1235',
+                status: 'active',
                 version: [
                   {
                     id: ids.model.projectVersion.rejection,
@@ -344,10 +369,11 @@ module.exports = models => {
               {
                 id: ids.model.project.revoke,
                 title: 'Test revocation project',
-                licenceHolderId: 'f0835b01-00a0-4c7f-954c-13ed2ef7efd9',
+                licenceHolderId: holc.id,
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: '70/1235',
+                status: 'active',
                 version: [
                   {
                     id: uuid(),
@@ -372,9 +398,7 @@ module.exports = models => {
                 id: ids.model.project.continuation,
                 title: 'Test project 9',
                 licenceHolderId: user.id,
-                issueDate: '2020-01-01T12:00:00Z',
-                expiryDate: '2025-01-01T12:00:00Z',
-                licenceNumber: '70/1235',
+                status: 'inactive',
                 version: [
                   {
                     id: ids.model.projectVersion.continuation,
@@ -395,9 +419,7 @@ module.exports = models => {
                 id: ids.model.project.continuation2,
                 title: 'Test project 10',
                 licenceHolderId: userWithActivePil.id,
-                issueDate: '2020-01-01T12:00:00Z',
-                expiryDate: '2025-01-01T12:00:00Z',
-                licenceNumber: '70/1235',
+                status: 'inactive',
                 version: [
                   {
                     id: ids.model.projectVersion.continuation2,
@@ -418,9 +440,7 @@ module.exports = models => {
                 id: ids.model.project.notAContinuation,
                 title: 'Test project 11',
                 licenceHolderId: user.id,
-                issueDate: '2020-01-01T12:00:00Z',
-                expiryDate: '2025-01-01T12:00:00Z',
-                licenceNumber: '70/1236',
+                status: 'inactive',
                 version: [
                   {
                     id: ids.model.projectVersion.notAContinuation,
@@ -473,6 +493,7 @@ module.exports = models => {
                 title: 'Test project 2',
                 licenceHolderId: 'ae28fb31-d867-4371-9b4f-79019e71232e',
                 expiryDate: '2040-01-01T12:00:00Z',
+                status: 'active',
                 licenceNumber: 'abc789'
               }
             ]
