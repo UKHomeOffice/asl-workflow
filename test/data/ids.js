@@ -66,6 +66,7 @@ module.exports = {
     },
     project: {
       grant: uuid(),
+      amend: uuid(),
       rejection: uuid(),
       transfer: uuid(),
       transfer2: uuid(),
@@ -93,7 +94,9 @@ module.exports = {
       transfer: uuid(),
       transfer2: uuid(),
       grant: uuid(),
-      grant2: uuid()
+      grant2: uuid(),
+      amend: uuid(),
+      amend2: uuid()
     },
     rop: {
       draft: uuid(),

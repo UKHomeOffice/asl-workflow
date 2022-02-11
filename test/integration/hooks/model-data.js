@@ -89,7 +89,7 @@ describe('Model data hook', () => {
         .expect(200)
         .then(response => response.body.data)
         .then(task => {
-          assert.equal(task.data.modelData.status, 'inactive');
+          assert.equal(task.data.modelData.status, 'active');
           assert.equal(task.data.modelData.licenceHolder.firstName, 'Colin');
         });
     });

@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
-const { licensing, user, userAtMultipleEstablishments } = require('../../data/profiles');
+const { inspector, licensing, user, userAtMultipleEstablishments } = require('../../data/profiles');
 const { autoResolved } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
@@ -44,7 +44,29 @@ describe('Project update licence holder', () => {
       });
   });
 
-  it('autoresolves licence holder updates to stubs by a licensing officer', () => {
+  it('autoresolves licence holder updates to stubs by an inspector', () => {
+    this.workflow.setUser({ profile: inspector });
+
+    return request(this.workflow)
+      .post('/')
+      .send({
+        model: 'project',
+        action: 'update',
+        id: ids.model.project.updateStubLicenceHolder,
+        changedBy: inspector.id,
+        data: {
+          establishmentId: 100,
+          licenceHolderId: user.id
+        }
+      })
+      .expect(200)
+      .then(response => response.body.data)
+      .then(task => {
+        assert.equal(task.status, autoResolved.id);
+      });
+  });
+
+  it('does not allow licence holder updates to stubs by a non-inspector', () => {
     this.workflow.setUser({ profile: licensing });
 
     return request(this.workflow)
@@ -59,10 +81,6 @@ describe('Project update licence holder', () => {
           licenceHolderId: user.id
         }
       })
-      .expect(200)
-      .then(response => response.body.data)
-      .then(task => {
-        assert.equal(task.status, autoResolved.id);
-      });
+      .expect(403);
   });
 });
