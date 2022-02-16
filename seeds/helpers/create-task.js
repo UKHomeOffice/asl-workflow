@@ -7,10 +7,13 @@ module.exports = knex => async (opts = {}) => {
 
   if (opts.model === 'project') {
 
-    const modelData = await Project.query().findById(opts.id);
+    const modelData = opts.licenceNumber
+      ? await Project.query().findOne({ licenceNumber: opts.licenceNumber })
+      : await Project.query().findById(opts.id);
+
     const version = await ProjectVersion.query()
       .select('id')
-      .where({ projectId: opts.id, status: 'submitted' })
+      .where({ projectId: modelData.id, status: 'submitted' })
       .orderBy('updatedAt', 'desc')
       .first();
     const changedBy = opts.changedBy || modelData.licenceHolderId;
@@ -23,17 +26,16 @@ module.exports = knex => async (opts = {}) => {
       id,
       status,
       data: {
+        ...opts.data,
         model: 'project',
         action: opts.action || 'grant',
-        id: opts.id,
+        id: modelData.id,
         data: {
           version: version.id,
           licenceHolderId: modelData.licenceHolderId,
           establishmentId: modelData.establishmentId
         },
-        meta: {
-
-        },
+        meta: opts.meta || {},
         subject: modelData.licenceHolderId,
         establishmentId: modelData.establishmentId,
         changedBy,
