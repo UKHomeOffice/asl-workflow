@@ -20,6 +20,7 @@ module.exports = knex => {
           tasks = tasks.map(t => ({ id: uuid(), ...t }));
           return Task.query(knex).insert(tasks);
         }
-      })
+      }),
+    insert: async (tasks = []) => Task.query(knex).insert(tasks)
   };
 };
