@@ -37,7 +37,9 @@ module.exports = {
             return Promise.resolve()
               .then(() => tfdb.reset())
               .then(() => tfdb.seed(tasks));
-          }
+          },
+
+          db: tfdb
         });
       });
   }
