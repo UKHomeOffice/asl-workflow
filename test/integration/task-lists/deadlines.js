@@ -76,7 +76,7 @@ describe('ASRU task deadlines', () => {
 
     it('can sort by active deadline ascending', () => {
       return request(this.workflow)
-        .get('/?progress=inProgress&sort%5Bcolumn%5D=deadline&sort%5Bascending%5D=true')
+        .get('/?progress=inProgress&sort%5Bcolumn%5D=activeDeadline&sort%5Bascending%5D=true')
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'ascending', 'activeDeadline');
@@ -85,7 +85,7 @@ describe('ASRU task deadlines', () => {
 
     it('can sort by active deadline descending', () => {
       return request(this.workflow)
-        .get('/?progress=inProgress&sort%5Bcolumn%5D=deadline&sort%5Bdescending%5D=true')
+        .get('/?progress=inProgress&sort%5Bcolumn%5D=activeDeadline&sort%5Bdescending%5D=true')
         .expect(200)
         .expect(response => {
           assertTaskOrder(response.body.data, 'descending', 'activeDeadline');
