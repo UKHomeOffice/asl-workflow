@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+const moment = require('moment-business-time');
+const { bankHolidays } = require('@asl/constants');
+moment.updateLocale('en', { holidays: bankHolidays });
+
+const { get } = require('lodash');
+const Database = require('@ukhomeoffice/taskflow/lib/db');
+const Task = require('@ukhomeoffice/taskflow/lib/models/task');
+const settings = require('../config');
+const { withASRU } = require('../lib/flow');
+
+const STANDARD_DEADLINE = 40;
+const EXTENDED_DEADLINE = 55;
+const RESUBMISSION_DEADLINE = 20;
+const AMENDMENT_DEADLINE = 20;
+const AMENDMENT_RESUBMISSION_DEADLINE = 15;
+
+let stats = { found: 0, application: 0, amendment: 0, resubmitted: 0 };
+
+const patchInternalDeadline = async (taskId, transaction) => {
+  const task = await Task.query(transaction).findById(taskId);
+  const activityLog = await task.$relatedQuery('activityLog', transaction).orderBy('createdAt', 'asc');
+
+  let internalDeadline;
+
+  const isAmendment = get(task, 'data.modelData.status') !== 'inactive';
+  const resubmitted = activityLog.filter(a => /^status:.+:with-inspectorate$/.test(a.eventName)).length > 1;
+  stats.resubmitted += resubmitted ? 1 : 0;
+
+  if (isAmendment) {
+    const interval = resubmitted ? AMENDMENT_RESUBMISSION_DEADLINE : AMENDMENT_DEADLINE;
+    internalDeadline = {
+      standard: moment(task.updatedAt).addWorkingTime(interval, 'days').format('YYYY-MM-DD'),
+      resubmitted
+    };
+    stats.amendment++;
+  } else {
+    if (resubmitted) {
+      internalDeadline = {
+        standard: moment(task.updatedAt).addWorkingTime(RESUBMISSION_DEADLINE, 'days').format('YYYY-MM-DD'),
+        resubmitted
+      };
+    } else {
+      internalDeadline = {
+        standard: moment(task.updatedAt).addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
+        extended: moment(task.updatedAt).addWorkingTime(EXTENDED_DEADLINE, 'days').format('YYYY-MM-DD')
+      };
+    }
+    stats.application++;
+  }
+
+  console.log(`${task.id}: ${JSON.stringify(internalDeadline)}`);
+  return task.$query(transaction).patchAndFetch({ data: { ...task.data, internalDeadline } }).context({ preserveUpdatedAt: true });
+};
+
+const migrate = async () => {
+  const db = Database.connect(settings.taskflowDB);
+  const transaction = await db.transaction();
+  Task.db(db);
+
+  try {
+    // only need to patch tasks that have already been submitted
+    const withAsruOrComplete = withASRU().concat(['resolved', 'rejected']);
+
+    const tasks = await Task.query(transaction)
+      .select('id')
+      .whereIn('status', withAsruOrComplete)
+      .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
+      .whereRaw("data->>'internalDeadline' is null"); // will match internalDeadline: null, missing internalDeadline key
+
+    stats.found = tasks.length;
+
+    for (const task of tasks) {
+      await patchInternalDeadline(task.id, transaction); // process the tasks one at a time to avoid ballooning memory
+    }
+
+    await transaction.commit();
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
+  }
+
+  console.log('stats:', stats);
+  console.log('complete.');
+};
+
+migrate()
+  .then(() => process.exit(0))
+  .catch(e => {
+    console.log(e);
+    process.exit(1);
+  });
