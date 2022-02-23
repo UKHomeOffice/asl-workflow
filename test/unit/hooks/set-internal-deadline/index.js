@@ -90,6 +90,7 @@ describe('Set internal deadline hook', () => {
       const expected = {
         internalDeadline: {
           standard: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
+          extended: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
           resubmitted: false
         }
       };
@@ -129,6 +130,7 @@ describe('Set internal deadline hook', () => {
       const expected = {
         internalDeadline: {
           standard: moment().addWorkingTime(15, 'days').format('YYYY-MM-DD'),
+          extended: moment().addWorkingTime(15, 'days').format('YYYY-MM-DD'),
           resubmitted: true
         }
       };
@@ -166,7 +168,8 @@ describe('Set internal deadline hook', () => {
       const expected = {
         internalDeadline: {
           standard: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
-          extended: moment().addWorkingTime(55, 'days').format('YYYY-MM-DD')
+          extended: moment().addWorkingTime(55, 'days').format('YYYY-MM-DD'),
+          resubmitted: false
         }
       };
 
@@ -205,6 +208,7 @@ describe('Set internal deadline hook', () => {
       const expected = {
         internalDeadline: {
           standard: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
+          extended: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
           resubmitted: true
         }
       };

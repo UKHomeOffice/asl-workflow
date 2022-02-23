@@ -12,7 +12,8 @@ const projects = [
     licenceNumber: 'INTDL-FUT',
     data: {
       internalDeadline: {
-        standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD')
+        standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
+        extended: moment().addWorkingTime(EXTENDED_DEADLINE, 'days').format('YYYY-MM-DD')
       }
     }
   },
@@ -21,7 +22,8 @@ const projects = [
     licenceNumber: 'INTDL-URG',
     data: {
       internalDeadline: {
-        standard: moment().addWorkingTime(5, 'days').format('YYYY-MM-DD')
+        standard: moment().addWorkingTime(5, 'days').format('YYYY-MM-DD'),
+        extended: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD')
       }
     }
   },
@@ -30,7 +32,8 @@ const projects = [
     licenceNumber: 'INTDL-PAST',
     data: {
       internalDeadline: {
-        standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD')
+        standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD'),
+        extended: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD')
       }
     }
   },
@@ -39,7 +42,8 @@ const projects = [
     licenceNumber: 'INTDL-STAT-FUT',
     data: {
       internalDeadline: {
-        standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD')
+        standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
+        extended: moment().addWorkingTime(EXTENDED_DEADLINE, 'days').format('YYYY-MM-DD')
       },
       deadline: {
         standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
@@ -53,7 +57,8 @@ const projects = [
     licenceNumber: 'INTDL-EARLY-STAT',
     data: {
       internalDeadline: {
-        standard: moment().addWorkingTime(RESUBMISSION_DEADLINE, 'days').format('YYYY-MM-DD')
+        standard: moment().addWorkingTime(RESUBMISSION_DEADLINE, 'days').format('YYYY-MM-DD'),
+        extended: moment().addWorkingTime(RESUBMISSION_DEADLINE, 'days').format('YYYY-MM-DD')
       },
       deadline: {
         standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
@@ -67,7 +72,8 @@ const projects = [
     licenceNumber: 'INTDL-PAST-STAT-FUT',
     data: {
       internalDeadline: {
-        standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD')
+        standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD'),
+        extended: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD')
       },
       deadline: {
         standard: moment().addWorkingTime(STANDARD_DEADLINE, 'days').format('YYYY-MM-DD'),
@@ -81,7 +87,8 @@ const projects = [
     licenceNumber: 'INTDL-PAST-STAT-PAST',
     data: {
       internalDeadline: {
-        standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD')
+        standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD'),
+        extended: moment().subtractWorkingTime(13, 'days').format('YYYY-MM-DD')
       },
       deadline: {
         standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD'),
