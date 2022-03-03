@@ -25,7 +25,7 @@ const discard = async () => {
       // don't close RA related tasks as they are valid post expiry
       if (!task.data.action.match(/-ra$/)) {
         const project = await Project.query().findById(task.data.id);
-        if (project.status === 'expired') {
+        if (project && project.status === 'expired') {
           const model = await Task.find(task.id, trx);
           await model.status('discarded-by-asru', { payload: { meta: { comment: 'Automatically discarded when project licence expired.' } } });
         }
