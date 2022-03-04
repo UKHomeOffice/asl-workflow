@@ -21,6 +21,8 @@ module.exports = knex => async (opts = {}) => {
     const id = uuid();
     const status = opts.status || 'with-inspectorate';
     const profile = await Profile.query().findById(changedBy).withGraphFetched('establishments');
+    // eslint-disable-next-line camelcase
+    const created_at = opts.date || (new Date()).toISOString();
 
     const task = {
       id,
@@ -40,7 +42,9 @@ module.exports = knex => async (opts = {}) => {
         establishmentId: modelData.establishmentId,
         changedBy,
         modelData
-      }
+      },
+      created_at,
+      updated_at: created_at
     };
 
     const activity = [
@@ -50,8 +54,8 @@ module.exports = knex => async (opts = {}) => {
         event_name: `status:new:${status}`,
         changed_by: profile.id,
         event: {
-          id: uuid,
-          data: task,
+          id: uuid(),
+          data: task.data,
           event: `status:new:${status}`,
           status,
           meta: {
@@ -59,13 +63,70 @@ module.exports = knex => async (opts = {}) => {
               profile
             }
           }
-        }
+        },
+        created_at,
+        updated_at: created_at
       }
     ];
 
     await knex('cases').insert(task);
     await knex('activity_log').insert(activity);
-    return;
+    return {
+      activity: async (date, opts = {}) => {
+        const { status } = knex('cases').where({id});
+
+        if (opts.status) {
+          await knex('cases').where({id}).update({
+            status: opts.status,
+            updated_at: date
+          });
+          await knex('activity_log').insert({
+            id: uuid(),
+            case_id: id,
+            event_name: `status:${status}:${opts.status}`,
+            event: {
+              id: uuid(),
+              data: task.data,
+              event: `status:${status}:${opts.status}`,
+              status: opts.status,
+              meta: {
+                user: {
+                  profile
+                }
+              }
+            },
+            changed_by: profile.id,
+            created_at: date,
+            updated_at: date
+          });
+        }
+        if (opts.assign) {
+          await knex('cases').where({id}).update({
+            assigned_to: opts.assign,
+            updated_at: date
+          });
+          await knex('activity_log').insert({
+            id: uuid(),
+            case_id: id,
+            event_name: 'assign',
+            event: {
+              id: uuid(),
+              data: task,
+              event: `status:${status}:${opts.status}`,
+              status: opts.status,
+              meta: {
+                user: {
+                  profile
+                }
+              }
+            },
+            changed_by: profile.id,
+            created_at: date,
+            updated_at: date
+          });
+        }
+      }
+    };
 
   }
 
