@@ -25,7 +25,8 @@ const projects = [
         standard: moment().addWorkingTime(5, 'days').format('YYYY-MM-DD'),
         extended: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD')
       }
-    }
+    },
+    date: moment().subtractWorkingTime(STANDARD_DEADLINE - 5, 'days').format('YYYY-MM-DD')
   },
   {
     title: 'Internal deadline past',
@@ -35,7 +36,8 @@ const projects = [
         standard: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD'),
         extended: moment().subtractWorkingTime(2, 'days').format('YYYY-MM-DD')
       }
-    }
+    },
+    date: moment().subtractWorkingTime(STANDARD_DEADLINE + 2, 'days').format('YYYY-MM-DD')
   },
   {
     title: 'Internal deadline future, statutory deadline future (same date)',
@@ -80,7 +82,8 @@ const projects = [
         extended: moment().addWorkingTime(EXTENDED_DEADLINE, 'days').format('YYYY-MM-DD'),
         isExtended: false
       }
-    }
+    },
+    date: moment().subtractWorkingTime(RESUBMISSION_DEADLINE + 2, 'days').format('YYYY-MM-DD')
   },
   {
     title: 'Internal deadline past, statutory deadline past',
@@ -95,7 +98,8 @@ const projects = [
         extended: moment().addWorkingTime(13, 'days').format('YYYY-MM-DD'),
         isExtended: false
       }
-    }
+    },
+    date: moment().subtractWorkingTime(STANDARD_DEADLINE + 2, 'days').format('YYYY-MM-DD')
   }
 ];
 
