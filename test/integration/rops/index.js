@@ -2,7 +2,7 @@ const request = require('supertest');
 const assert = require('assert');
 const workflowHelper = require('../../helpers/workflow');
 const { asruSuper } = require('../../data/profiles');
-const { resolved, autoResolved } = require('../../../lib/flow/status');
+const { resolved } = require('../../../lib/flow/status');
 const ids = require('../../data/ids');
 
 describe('ROPs resubmission', () => {
@@ -28,6 +28,9 @@ describe('ROPs resubmission', () => {
         action: 'submit',
         id: ids.model.rop.draft,
         changedBy: asruSuper.id,
+        data: {
+          projectId: ids.model.project.revoke
+        },
         meta: {
           comment: 'first submission'
         }
@@ -46,12 +49,15 @@ describe('ROPs resubmission', () => {
         model: 'rop',
         action: 'unsubmit',
         id: ids.model.rop.submitted,
+        data: {
+          projectId: ids.model.project.revoke
+        },
         changedBy: asruSuper.id
       })
       .expect(200)
       .then(response => response.body.data)
       .then(task => {
-        assert.deepStrictEqual(task.status, autoResolved.id);
+        assert.deepStrictEqual(task.status, resolved.id);
       });
   });
 
@@ -63,6 +69,9 @@ describe('ROPs resubmission', () => {
         action: 'submit',
         id: ids.model.rop.submitted,
         changedBy: asruSuper.id,
+        data: {
+          projectId: ids.model.project.revoke
+        },
         meta: {
           comment: 'resubmission'
         }
