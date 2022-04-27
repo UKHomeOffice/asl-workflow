@@ -36,11 +36,12 @@
     "knex": "^0.95.11",
     "lodash": "^4.17.21",
     "minimatch": "^3.0.4",
-    "moment": "^2.29.2",
+    "moment": "^2.29.3",
     "moment-business-time": "^2.0.0",
     "node-fetch": "^2.6.7",
     "objection": "^2.2.17",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "uuid-validate": "0.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
