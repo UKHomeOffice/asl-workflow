@@ -79,20 +79,25 @@ describe('Deadline', () => {
     });
   });
 
-  it('does not set a deadline on tasks with incomplete declarations', () => {
+  it('does not set a deadline on tasks with deadline removed', () => {
     const task = {
       status: 'with-inspectorate',
       createdAt: '2019-09-20T10:00:00.000Z',
       data: {
         model: 'project',
         action: 'grant',
+        removedDeadline: {
+          standard: '2019-11-19',
+          extended: '2019-12-10',
+          isExtended: false,
+          isExtendable: true
+        },
         modelData: {
           status: 'inactive'
         },
         meta: {
           authority: true,
-          awerb: true,
-          ready: false
+          awerb: true
         }
       },
       activityLog: [
