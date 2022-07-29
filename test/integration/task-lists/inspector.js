@@ -78,7 +78,10 @@ describe('Inspector', () => {
         'project amendment in progress',
         'project continuation in progress',
         'project revocation in progress',
-        'project change of licence holder in progress'
+        'project change of licence holder in progress',
+        'ppl application submitted',
+        'ppl notified of intention to refuse - resubmitted - deadline not passed',
+        'ppl notified of intention to refuse - resubmitted - deadline has passed'
       ];
       return request(this.workflow)
         .get('/')
@@ -117,7 +120,9 @@ describe('Inspector', () => {
         'holc owned project',
         'assigned to licensing',
         'with licensing assigned to superuser',
-        'project application has deadline but returned'
+        'project application has deadline but returned',
+        'ppl notified of intention to refuse - deadline not passed',
+        'ppl notified of intention to refuse - deadline has passed'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

@@ -36,7 +36,9 @@ describe('Applicant', () => {
         'Submitted by HOLC',
         'recalled ppl',
         'recalled project transfer',
-        'project application has deadline but returned'
+        'project application has deadline but returned',
+        'ppl notified of intention to refuse - deadline not passed',
+        'ppl notified of intention to refuse - deadline has passed'
       ];
       return request(this.workflow)
         .get('/')
@@ -95,7 +97,10 @@ describe('Applicant', () => {
         'project transfer in progress',
         'project amendment in progress',
         'project continuation in progress',
-        'project revocation in progress'
+        'project revocation in progress',
+        'ppl application submitted',
+        'ppl notified of intention to refuse - resubmitted - deadline not passed',
+        'ppl notified of intention to refuse - resubmitted - deadline has passed'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')
