@@ -526,5 +526,29 @@
     },
     "created_at": "2020-06-01 11:29:24.936+00",
     "updated_at": "2020-06-01 11:29:24.936+00"
+  },
+  {
+    "id": "e70cefed-dd19-43ff-8456-4d0cee5fe2db",
+    "status": "with-inspectorate",
+    "data": {"id": 8201, "data": {"name": "University of Croydon", "address": "University of Croydon, 99 George St, Croydon, CR0 1LD", "country": "england", "breeding": false, "procedure": false, "supplying": true, "authorisations": []}, "meta": {"comments": "Changes to licence", "declaration": "By submitting this change, I confirm that I also have the consent of the Establishment Licence holder"}, "model": "establishment", "action": "update", "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd", "modelData": {"id": 8201, "name": "University of Croydon", "type": "University, medical school", "email": "vice-chancellor@croydon.ac.uk", "status": "active", "address": "University of Croydon, 99 George St, Croydon, CR0 1LD", "billing": null, "company": null, "country": "england", "deleted": null, "killing": true, "rehomes": true, "breeding": true, "keywords": ["UoC"], "cjsmEmail": null, "createdAt": "2014-08-01T10:27:00.000Z", "issueDate": "2017-07-04T10:54:00.000Z", "procedure": true, "sharedKey": null, "supplying": true, "updatedAt": "2017-07-04T10:54:00.000Z", "conditions": "Qui non cillum ea cupidatat ex sunt eu officia proident quis labore incididunt incididunt. Amet proident voluptate nisi pariatur nisi. Nostrud aliquip ea adipisicing ut reprehenderit consectetur minim duis ullamco ipsum cillum commodo mollit.", "migratedId": "8201", "licenceNumber": "XCC09J64D", "authorisations": [], "revocationDate": null, "isTrainingEstablishment": true}, "establishmentId": 8201, "initiatedByAsru": false},
+    "created_at": "2022-07-29 10:17:33.141096 +00:00",
+    "updated_at": "2022-07-29 10:17:33.364000 +00:00",
+    "assigned_to": null
+  },
+  {
+    "id": "6a76b1a1-4662-4235-a7e1-9119574136d3",
+    "status": "with-inspectorate",
+    "data": {"data": {"type": "nacwo", "profileId": "7816dcdc-47d6-42ab-b561-aa5fef591e83", "establishmentId": 8201}, "meta": {"comment": "Imojean would make a great NACWO."}, "model": "role", "action": "create", "subject": "7816dcdc-47d6-42ab-b561-aa5fef591e83", "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd", "establishmentId": 8201, "initiatedByAsru": false},
+    "created_at": "2022-07-29 15:41:33.604638 +00:00",
+    "updated_at": "2022-07-29 15:41:33.760000 +00:00",
+    "assigned_to": null
+  },
+  {
+    "id": "b6b16546-e577-4799-83b9-2766c4ccdffb",
+    "status": "with-inspectorate",
+    "data": {"data": {"type": "nio", "profileId": "f3fdd3a1-319b-4e74-b9e4-71fa2fdfafee", "establishmentId": 8201}, "meta": {"comment": "Dagny would make a great NIO."}, "model": "role", "action": "create", "subject": "f3fdd3a1-319b-4e74-b9e4-71fa2fdfafee", "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd", "establishmentId": 8201, "initiatedByAsru": false},
+    "created_at": "2022-07-30 16:17:45.380598 +00:00",
+    "updated_at": "2022-07-30 16:17:45.547000 +00:00",
+    "assigned_to": null
   }
 ]
