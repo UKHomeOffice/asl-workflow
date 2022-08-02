@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+try {
+  // eslint-disable-next-line
+  require('dotenv/config');
+} catch (e) {
+  // ignore
+}
+
+const { raw } = require('objection');
+const moment = require('moment');
+const Database = require('@ukhomeoffice/taskflow/lib/db');
+const Task = require('@ukhomeoffice/taskflow/lib/models/task');
+const settings = require('../config');
+const notifyHook = require('../lib/hooks/notify');
+
+const migrate = async () => {
+  const db = Database.connect(settings.taskflowDB);
+  const transaction = await db.transaction();
+  Task.db(db);
+  const notify = notifyHook(settings);
+
+  try {
+    const today = moment().format('YYYY-MM-DD');
+
+    const tasks = await Task.query(transaction)
+      .select('*')
+      .from(builder => {
+        // use a subquery to get the deadline date which can then be used in the outer where clause
+        builder
+          .select(
+            '*',
+            raw(`data->'intentionToRefuse'->>'deadline' AS refusal_deadline`)
+          )
+          .from('cases')
+          .whereJsonSupersetOf('data', { model: 'project', action: 'grant' })
+          .whereRaw("data \\? 'intentionToRefuse'") // has been notified of intention to refuse
+          .whereRaw("data->'intentionToRefuse'->>'deadlinePassed' is null") // hasn't yet been marked as passed
+          .as('cases');
+      })
+      .where('refusal_deadline', '<', today);
+
+    console.log(`found ${tasks.length} tasks that have passed their refusal deadlines`);
+
+    for (const task of tasks) {
+      const project = task.data.modelData;
+      const intentionToRefuse = task.data.intentionToRefuse;
+      intentionToRefuse.deadlinePassed = true;
+
+      console.log(`${task.id}: notifying inspector that the refusal deadline has passed for task`);
+
+      await notify({
+        id: task.id,
+        event: 'direct-notification',
+        data: {
+          id: project.id,
+          model: 'project',
+          action: 'refusal-deadline-passed',
+          establishmentId: project.establishmentId,
+          subject: project.licenceHolderId,
+          intentionToRefuse
+        }
+      });
+
+      console.log(`${task.id}: marking refusal deadline as passed`);
+      await task.$query(transaction)
+        .patchAndFetch({ data: { ...task.data, intentionToRefuse } })
+        .context({ preserveUpdatedAt: true });
+    }
+
+    await transaction.commit();
+  } catch (e) {
+    await transaction.rollback();
+    throw e;
+  }
+
+  console.log('complete.');
+};
+
+migrate()
+  .then(() => process.exit(0))
+  .catch(e => {
+    console.log(e);
+    process.exit(1);
+  });
