@@ -8,8 +8,8 @@ module.exports = knex => async (opts = {}) => {
   if (opts.model === 'project') {
 
     const modelData = opts.licenceNumber
-      ? await Project.query().findOne({ licenceNumber: opts.licenceNumber })
-      : await Project.query().findById(opts.id);
+      ? await Project.query().findOne({ licenceNumber: opts.licenceNumber }).withGraphFetched('licenceHolder')
+      : await Project.query().findById(opts.id).withGraphFetched('licenceHolder');
 
     const version = await ProjectVersion.query()
       .select('id')
@@ -71,9 +71,12 @@ module.exports = knex => async (opts = {}) => {
 
     await knex('cases').insert(task);
     await knex('activity_log').insert(activity);
+
     return {
       activity: async (date, opts = {}) => {
-        const { status } = knex('cases').where({id});
+        const { status: prevStatus } = await knex('cases').where({id}).first();
+        const changedBy = opts.changedBy || modelData.licenceHolderId;
+        const profile = await Profile.query().findById(changedBy).withGraphFetched('establishments');
 
         if (opts.status) {
           await knex('cases').where({id}).update({
@@ -83,11 +86,11 @@ module.exports = knex => async (opts = {}) => {
           await knex('activity_log').insert({
             id: uuid(),
             case_id: id,
-            event_name: `status:${status}:${opts.status}`,
+            event_name: `status:${prevStatus}:${opts.status}`,
             event: {
               id: uuid(),
               data: task.data,
-              event: `status:${status}:${opts.status}`,
+              event: `status:${prevStatus}:${opts.status}`,
               status: opts.status,
               meta: {
                 user: {
@@ -112,7 +115,7 @@ module.exports = knex => async (opts = {}) => {
             event: {
               id: uuid(),
               data: task,
-              event: `status:${status}:${opts.status}`,
+              event: `status:${prevStatus}:${opts.status}`,
               status: opts.status,
               meta: {
                 user: {
