@@ -1209,6 +1209,141 @@ const tasks = [
     },
     status: 'with-inspectorate',
     ...generateDates(38)
+  },
+  {
+    id: ids.task.project.refuseSubmitted,
+    data: {
+      id: ids.model.project.refused,
+      data: {
+        name: 'ppl application submitted',
+        version: uuid()
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      meta: {
+        authority: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant'
+    },
+    status: 'with-inspectorate',
+    ...generateDates(2)
+  },
+  {
+    id: ids.task.project.refuseDeadlineFutureWithUser,
+    data: {
+      id: ids.model.project.refused,
+      data: {
+        name: 'ppl notified of intention to refuse - deadline not passed',
+        version: uuid()
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      intentionToRefuse: {
+        deadline: moment().add(1, 'day').format('YYYY-MM-DD'),
+        markddown: 'This is the reason for refusal',
+        inspectorId: inspector.id
+      },
+      meta: {
+        authority: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant'
+    },
+    status: 'returned-to-applicant',
+    ...generateDates(27)
+  },
+  {
+    id: ids.task.project.refuseDeadlinePassedWithUser,
+    data: {
+      id: ids.model.project.refused,
+      data: {
+        name: 'ppl notified of intention to refuse - deadline has passed',
+        version: uuid()
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      intentionToRefuse: {
+        deadline: moment().subtract(1, 'day').format('YYYY-MM-DD'),
+        markddown: 'This is the reason for refusal',
+        inspectorId: inspector.id
+      },
+      meta: {
+        authority: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant'
+    },
+    status: 'returned-to-applicant',
+    ...generateDates(29)
+  },
+  {
+    id: ids.task.project.refuseDeadlineFutureWithAsru,
+    data: {
+      id: ids.model.project.refused,
+      data: {
+        name: 'ppl notified of intention to refuse - resubmitted - deadline not passed',
+        version: uuid()
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      intentionToRefuse: {
+        deadline: moment().add(1, 'day').format('YYYY-MM-DD'),
+        markddown: 'This is the reason for refusal',
+        inspectorId: inspector.id
+      },
+      meta: {
+        authority: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant'
+    },
+    status: 'with-inspectorate',
+    ...generateDates(27)
+  },
+  {
+    id: ids.task.project.refuseDeadlinePassedWithAsru,
+    data: {
+      id: ids.model.project.refused,
+      data: {
+        name: 'ppl notified of intention to refuse - resubmitted - deadline has passed',
+        version: uuid()
+      },
+      modelData: {
+        status: 'inactive'
+      },
+      intentionToRefuse: {
+        deadline: moment().subtract(1, 'day').format('YYYY-MM-DD'),
+        markddown: 'This is the reason for refusal',
+        inspectorId: inspector.id
+      },
+      meta: {
+        authority: true
+      },
+      initiatedByAsru: false,
+      establishmentId: 100,
+      subject: user.id,
+      model: 'project',
+      action: 'grant'
+    },
+    status: 'with-inspectorate',
+    ...generateDates(29)
   }
 ];
 

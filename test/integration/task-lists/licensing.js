@@ -133,7 +133,12 @@ describe('Licensing Officer', () => {
         'project amendment in progress',
         'project continuation in progress',
         'project revocation in progress',
-        'project change of licence holder in progress'
+        'project change of licence holder in progress',
+        'ppl application submitted',
+        'ppl notified of intention to refuse - deadline not passed',
+        'ppl notified of intention to refuse - deadline has passed',
+        'ppl notified of intention to refuse - resubmitted - deadline not passed',
+        'ppl notified of intention to refuse - resubmitted - deadline has passed'
       ];
       return request(this.workflow)
         .get('/?progress=inProgress')

@@ -22,6 +22,11 @@ module.exports = {
       recalledTransfer: uuid(),
       submittedByHolc: uuid(),
       continuation: uuid(),
+      refuseSubmitted: uuid(),
+      refuseDeadlineFutureWithUser: uuid(),
+      refuseDeadlinePassedWithUser: uuid(),
+      refuseDeadlineFutureWithAsru: uuid(),
+      refuseDeadlinePassedWithAsru: uuid(),
       discardedByAsru: uuid(),
       grantRa: uuid(),
       hasDeadline: uuid(),
@@ -82,7 +87,8 @@ module.exports = {
       marvell: uuid(),
       marvellTest: uuid(),
       grantRa: uuid(),
-      hasDeadline: uuid()
+      hasDeadline: uuid(),
+      refused: uuid()
     },
     projectVersion: {
       rejection: uuid(),

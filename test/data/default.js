@@ -455,6 +455,18 @@ module.exports = models => {
                     }
                   }
                 ]
+              },
+              {
+                id: ids.model.project.refused,
+                title: 'Test project 12',
+                licenceHolderId: user.id,
+                status: 'inactive',
+                version: [
+                  {
+                    id: uuid(),
+                    status: 'draft'
+                  }
+                ]
               }
             ]
           },
