@@ -12,7 +12,8 @@
     "seed": "SNAKE_MAPPER=true knex seed:run",
     "postseed": "bin/deadline-has-passed",
     "migrate": "node ./scripts/migrate.js",
-    "migrate:test": "node ./scripts/migrate-test.js"
+    "migrate:test": "node ./scripts/migrate-test.js",
+    "nightly-job": "bin/nightly-jobs"
   },
   "repository": {
     "type": "git",
