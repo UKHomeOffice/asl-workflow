@@ -20,10 +20,10 @@ const executeJobs = async () => {
     await new Promise((resolve, reject) => {
       exec(`./bin/${job}`, (error, stdout, stderr) => {
         if (stdout) {
-          console.log('stdout', stdout);
+          console.log(stdout);
         }
         if (stderr) {
-          console.error('stderr', stderr);
+          console.error(stderr);
         }
         return error ? reject(error) : resolve();
       });
