@@ -1,41 +1,17 @@
 const Schema = require('@asl/schema');
+const snakeCase = str => str.replace(/[A-Z]/g, s => `_${s.toLowerCase()}`);
 
 module.exports = settings => {
 
   return {
     init: (populate, keepAlive) => {
       const schema = Schema(settings);
-      const tables = [
-        'Notification',
-        'TrainingPil',
-        'TrainingCourse',
-        'AsruEstablishment',
-        'Procedure',
-        'Rop',
-        'ProjectVersion',
-        'Project',
-        'Permission',
-        'Authorisation',
-        'PilTransfer',
-        'PIL',
-        'PlaceRole',
-        'Place',
-        'Role',
-        'Exemption',
-        'Certificate',
-        'EmailPreferences',
-        'Profile',
-        'Invitation',
-        'Establishment'
-      ];
-      return tables.reduce((p, table) => {
-        return p.then(() => {
-          if (typeof schema[table].queryWithDeleted === 'function') {
-            return schema[table].queryWithDeleted().hardDelete();
-          }
-          return schema[table].query().truncate();
-        });
-      }, Promise.resolve())
+
+      const tableNames = Object.keys(schema)
+        .filter(key => !!schema[key].tableName)
+        .map(key => snakeCase(schema[key].tableName));
+
+      return schema.knex.raw(`TRUNCATE TABLE ${tableNames.join(', ')} CASCADE;`)
         .then(() => populate && populate(schema))
         .then(() => !keepAlive && schema.destroy())
         .then(() => schema)
@@ -44,7 +20,6 @@ module.exports = settings => {
           throw err;
         });
     }
-
   };
 
 };
