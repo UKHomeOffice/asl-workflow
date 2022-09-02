@@ -471,7 +471,7 @@ module.exports = models => {
               {
                 id: ids.model.project.suspend,
                 title: 'Test project 13',
-                licenceHolderId: user.id,
+                licenceHolderId: userWithActivePil.id,
                 issueDate: '2020-01-01T12:00:00Z',
                 expiryDate: '2025-01-01T12:00:00Z',
                 licenceNumber: 'SUS-1',
