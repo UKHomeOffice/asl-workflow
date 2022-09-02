@@ -88,7 +88,8 @@ module.exports = {
       marvellTest: uuid(),
       grantRa: uuid(),
       hasDeadline: uuid(),
-      refused: uuid()
+      refused: uuid(),
+      suspend: uuid()
     },
     projectVersion: {
       rejection: uuid(),
