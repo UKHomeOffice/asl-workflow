@@ -22,6 +22,18 @@ module.exports = async makeTask => {
     });
   };
 
+  const applicationSubmittedWithNoLicenceHolderTask = async () => {
+    const eventTime = moment().subtract(1, 'day');
+
+    await makeTask({
+      ...defaultOpts,
+      excludeLicenceHolder: true,
+      id: '482fa74c-56b2-40ca-9dca-6b00d174b5e4',
+      title: 'Refuse PPL: submitted - No licenceHolder on task',
+      date: eventTime.toISOString()
+    });
+  };
+
   const canResubmitTask = async () => {
     const eventTime = moment().subtract(1, 'day');
 
@@ -152,6 +164,7 @@ module.exports = async makeTask => {
   };
 
   await applicationSubmittedTask();
+  await applicationSubmittedWithNoLicenceHolderTask();
   await canResubmitTask();
   await deadlineFutureWithApplicantTask();
   await deadlineFutureWithAsruTask();
