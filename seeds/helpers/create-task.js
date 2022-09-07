@@ -7,9 +7,18 @@ module.exports = knex => async (opts = {}) => {
 
   if (opts.model === 'project') {
 
-    const modelData = opts.licenceNumber
-      ? await Project.query().findOne({ licenceNumber: opts.licenceNumber }).withGraphFetched('licenceHolder')
-      : await Project.query().findById(opts.id).withGraphFetched('licenceHolder');
+    let query = Project.query();
+    if (opts.licenceNumber) {
+      query = query.findOne({ licenceNumber: opts.licenceNumber });
+    } else {
+      query = query.findById(opts.id);
+    }
+
+    if (!opts.excludeLicenceHolder) {
+      query = query.withGraphFetched('licenceHolder');
+    }
+
+    const modelData = await query;
 
     const version = await ProjectVersion.query()
       .select('id')
