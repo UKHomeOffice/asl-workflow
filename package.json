@@ -30,7 +30,7 @@
     "@asl/constants": "^1.2.2",
     "@asl/schema": "^10.13.0",
     "@asl/service": "^8.10.0",
-    "@ukhomeoffice/taskflow": "^2.6.1",
+    "@ukhomeoffice/taskflow": "^2.7.0",
     "aws-sdk": "^2.814.0",
     "deep-diff": "^1.0.2",
     "express": "^4.16.4",
