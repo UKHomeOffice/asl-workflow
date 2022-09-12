@@ -248,6 +248,78 @@
     "updated_at": "2020-06-01 11:29:24.936+00"
   },
   {
+    "id": "86e843b2-e8ea-4080-9c30-9f4508cdc14f",
+    "status": "with-inspectorate",
+    "data": {
+      "id": "04e9f8f0-ba3c-4357-b4ef-39e8bb4445f1",
+      "data": {
+        "version": "4e1b4de2-4e9d-4c9d-9009-6fcffff47443",
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd"
+      },
+      "meta": {
+        "awerb": true,
+        "ready": true,
+        "comment": "Submitting as HOLC.",
+        "version": "4e1b4de2-4e9d-4c9d-9009-6fcffff47443",
+        "authority": true,
+        "awerb-review-date": "AWERB done"
+      },
+      "model": "project",
+      "action": "grant",
+      "subject": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "deadline": {
+        "standard": "2020-07-27",
+        "extended": "2020-08-17",
+        "isExtended": false,
+        "isExtendable": true
+      },
+      "internalDeadline": {
+        "standard": "2020-07-27",
+        "extended": "2020-08-17"
+      },
+      "deadlinePassed": true,
+      "deadlinePassedDate": "2020-07-27",
+      "extended": null,
+      "changedBy": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+      "modelData": {
+        "id": "04e9f8f0-ba3c-4357-b4ef-39e8bb4445f1",
+        "title": "Testing deadline remove",
+        "raDate": null,
+        "status": "inactive",
+        "deleted": null,
+        "createdAt": "2020-06-01T11:28:37.567Z",
+        "issueDate": null,
+        "updatedAt": "2020-06-01T11:28:37.567Z",
+        "expiryDate": null,
+        "migratedId": null,
+        "amendedDate": null,
+        "isLegacyStub": false,
+        "licenceHolder": {
+          "id": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+          "name": "Bruce Banner",
+          "lastName": "Banner",
+          "firstName": "Bruce"
+        },
+        "licenceNumber": null,
+        "schemaVersion": 1,
+        "revocationDate": null,
+        "establishmentId": 8201,
+        "licenceHolderId": "5b7bad13-f34b-4959-bd08-c6067ae2fcdd",
+        "previousProjectId": null,
+        "transferProjectId": null,
+        "transferredInDate": null,
+        "transferredOutDate": null,
+        "previousEstablishmentId": null,
+        "transferEstablishmentId": null
+      },
+      "establishmentId": 8201,
+      "initiatedByAsru": false
+    },
+    "created_at": "2020-06-01 11:29:24.936+00",
+    "updated_at": "2020-06-01 11:29:24.936+00"
+  },
+  {
     "id": "f41280ff-87a4-43d8-af8e-ac049323d11f",
     "status": "with-inspectorate",
     "data": {
