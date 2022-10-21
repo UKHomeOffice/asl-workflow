@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+try {
+  // eslint-disable-next-line
+  require('dotenv/config');
+} catch (e) {
+  // ignore
+}
+
+const { get } = require('lodash');
+const Taskflow = require('@ukhomeoffice/taskflow');
+const schema = require('@asl/schema');
+const settings = require('../config');
+
+const logProfileMerges = async () => {
+  const { Task } = Taskflow({ db: settings.taskflowDB });
+  const { Profile, ProfileMergeLog, transaction } = schema(settings.db);
+  const trx = await transaction();
+
+  try {
+    const tasks = await Task.query()
+      .where({ status: 'autoresolved' })
+      .whereJsonSupersetOf('data', { model: 'profile', action: 'merge' });
+
+    for (const task of tasks) {
+      const fromProfile = await Profile.query(trx).findById(get(task, 'data.subject'));
+      const toProfile = await Profile.query(trx).findById(get(task, 'data.data.target'));
+
+      if (!fromProfile || !toProfile) {
+        continue;
+      }
+
+      await ProfileMergeLog.query(trx).insert({
+        fromProfileId: fromProfile.id,
+        toProfileId: toProfile.id,
+        createdAt: task.updatedAt.toISOString(),
+        updatedAt: task.updatedAt.toISOString()
+      });
+    }
+
+    await trx.commit();
+  } catch (e) {
+    await trx.rollback();
+    throw e;
+  }
+};
+
+Promise.resolve()
+  .then(() => logProfileMerges())
+  .then(() => process.exit())
+  .catch(err => {
+    console.error(err.stack);
+    process.exit(1);
+  });
