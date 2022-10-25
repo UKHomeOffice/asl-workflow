@@ -17,36 +17,36 @@ const logProfileMerges = async () => {
   const trx = await transaction();
 
   try {
-    const previousMerges = await ProfileMergeLog.query(trx).select('taskId').whereNotNull('taskId');
+    const previousMerges = await ProfileMergeLog.query(trx);
 
-    const taskQuery = Task.query()
+    const tasks = await Task.query()
       .where({ status: 'autoresolved' })
       .whereJsonSupersetOf('data', { model: 'profile', action: 'merge' });
-
-    if (previousMerges.length > 0) {
-      console.log(`Found ${previousMerges.length} profile merge logs, excluding them from this run`);
-      const taskIds = previousMerges.map(l => l.taskId);
-      taskQuery.whereNotIn('id', taskIds);
-    }
-
-    const tasks = await taskQuery;
 
     console.log(`Found ${tasks.length} profile merge tasks`);
 
     for (const task of tasks) {
-      const fromProfile = await Profile.query(trx).findById(get(task, 'data.subject'));
-      const toProfile = await Profile.query(trx).findById(get(task, 'data.data.target'));
+      const fromProfileId = get(task, 'data.subject');
+      const toProfileId = get(task, 'data.data.target');
+
+      if (previousMerges.find(merge => merge.fromProfileId === fromProfileId && merge.toProfileId === toProfileId)) {
+        console.log(`merge from ${fromProfileId} into ${toProfileId} was previously logged, skipping`);
+        continue;
+      }
+
+      const fromProfile = await Profile.query(trx).findById(fromProfileId);
+      const toProfile = await Profile.query(trx).findById(toProfileId);
 
       if (!fromProfile || !toProfile) {
+        console.log(`missing profile(s), skipping`);
         continue;
       }
 
       const mergeTime = task.updatedAt.toISOString();
 
-      console.log(`Profile ${fromProfile.id} was merged into ${toProfile.id} at ${mergeTime}`);
+      console.log(`profile ${fromProfile.id} was merged into ${toProfile.id} at ${mergeTime}`);
 
       await ProfileMergeLog.query(trx).insert({
-        taskId: task.id,
         fromProfileId: fromProfile.id,
         toProfileId: toProfile.id,
         createdAt: mergeTime,
