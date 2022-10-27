@@ -42,7 +42,7 @@ const logProfileMerges = async () => {
         continue;
       }
 
-      const mergeTime = task.updatedAt.toISOString();
+      const mergeTime = typeof task.updatedAt === 'object' ? task.updatedAt.toISOString() : task.updatedAt;
 
       console.log(`profile ${fromProfile.id} was merged into ${toProfile.id} at ${mergeTime}`);
 
