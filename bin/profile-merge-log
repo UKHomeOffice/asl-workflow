@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+try {
+  // eslint-disable-next-line
+  require('dotenv/config');
+} catch (e) {
+  // ignore
+}
+
+const { get } = require('lodash');
+const Taskflow = require('@ukhomeoffice/taskflow');
+const schema = require('@asl/schema');
+const settings = require('../config');
+
+const logProfileMerges = async () => {
+  const { Task } = Taskflow({ db: settings.taskflowDB });
+  const { Profile, ProfileMergeLog, transaction } = schema(settings.db);
+  const trx = await transaction();
+
+  try {
+    const previousMerges = await ProfileMergeLog.query(trx);
+
+    const tasks = await Task.query()
+      .where({ status: 'autoresolved' })
+      .whereJsonSupersetOf('data', { model: 'profile', action: 'merge' });
+
+    console.log(`Found ${tasks.length} profile merge tasks`);
+
+    for (const task of tasks) {
+      const fromProfileId = get(task, 'data.subject');
+      const toProfileId = get(task, 'data.data.target');
+
+      if (previousMerges.find(merge => merge.fromProfileId === fromProfileId && merge.toProfileId === toProfileId)) {
+        console.log(`merge from ${fromProfileId} into ${toProfileId} was previously logged, skipping`);
+        continue;
+      }
+
+      const fromProfile = await Profile.query(trx).findById(fromProfileId);
+      const toProfile = await Profile.query(trx).findById(toProfileId);
+
+      if (!fromProfile || !toProfile) {
+        console.log(`missing profile(s), skipping`);
+        continue;
+      }
+
+      const mergeTime = task.updatedAt.toISOString();
+
+      console.log(`profile ${fromProfile.id} was merged into ${toProfile.id} at ${mergeTime}`);
+
+      await ProfileMergeLog.query(trx).insert({
+        fromProfileId: fromProfile.id,
+        toProfileId: toProfile.id,
+        createdAt: mergeTime,
+        updatedAt: mergeTime
+      });
+    }
+
+    await trx.commit();
+    console.log('Profile merge log complete.');
+  } catch (e) {
+    await trx.rollback();
+    throw e;
+  }
+};
+
+Promise.resolve()
+  .then(() => logProfileMerges())
+  .then(() => process.exit())
+  .catch(err => {
+    console.error(err.stack);
+    process.exit(1);
+  });
