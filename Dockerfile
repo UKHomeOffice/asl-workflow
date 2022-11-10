@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.2
 
-FROM quay.io/ukhomeofficedigital/asl-base:v16
+FROM quay.io/ukhomeofficedigital/asl-base:v18
 
 RUN apk upgrade --no-cache
 

@@ -4,7 +4,7 @@ name: default
 type: kubernetes
 steps:
   - name: install
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -31,7 +31,7 @@ steps:
       - psql -c 'CREATE DATABASE "asl-test"'
       - psql -c 'CREATE DATABASE "taskflow-test"'
   - name: test
-    image: node:14
+    image: node:18
     environment:
       ASL_DATABASE_HOST: postgres
       ASL_DATABASE_NAME: asl-test
@@ -48,7 +48,7 @@ steps:
     commands:
       - npm test
   - name: audit
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
