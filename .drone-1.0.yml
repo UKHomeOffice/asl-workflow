@@ -55,7 +55,7 @@ steps:
       NPM_AUTH_TOKEN:
         from_secret: npm_auth_token
     commands:
-      - npm audit --audit-level=high --production
+      - npm run test:audit
   - name: docker build
     image: docker:dind
     environment:
