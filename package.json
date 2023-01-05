@@ -8,6 +8,7 @@
     "test:lint": "eslint .",
     "pretest:unit": "NODE_ENV=test npm run migrate:test",
     "test:unit": "mocha ./test",
+    "test:audit": "audit-ci --high --skip-dev --config .auditrc.json",
     "dev": "nodemon -r dotenv/config index.js",
     "seed": "SNAKE_MAPPER=true knex seed:run",
     "postseed": "bin/deadline-has-passed",
@@ -44,6 +45,7 @@
     "uuid-validate": "0.0.3"
   },
   "devDependencies": {
+    "audit-ci": "^6.5.0",
     "chai": "^4.2.0",
     "dotenv": "^6.0.0",
     "eslint": "^5.0.1",
