@@ -62,7 +62,7 @@ describe('Set internal deadline hook', () => {
       assert.ok(pplUpdateTask.patch.notCalled);
     });
 
-    it('adds a 20 working day internal deadline for ppl amendment first submission', () => {
+    it('adds a 40 working day internal deadline for ppl amendment first submission', () => {
       const pplAmendmentTask = {
         data: {
           model: 'project',
@@ -89,8 +89,8 @@ describe('Set internal deadline hook', () => {
 
       const expected = {
         internalDeadline: {
-          standard: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
-          extended: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
+          standard: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
+          extended: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
           resubmitted: false
         }
       };
@@ -100,7 +100,7 @@ describe('Set internal deadline hook', () => {
       assert.deepEqual(pplAmendmentTask.patch.lastCall.args[0], expected);
     });
 
-    it('adds a 15 working day internal deadline for ppl amendment subsequent submissions', () => {
+    it('adds a 40 working day internal deadline for ppl amendment subsequent submissions', () => {
       const pplAmendmentResub = {
         data: {
           model: 'project',
@@ -129,8 +129,8 @@ describe('Set internal deadline hook', () => {
 
       const expected = {
         internalDeadline: {
-          standard: moment().addWorkingTime(15, 'days').format('YYYY-MM-DD'),
-          extended: moment().addWorkingTime(15, 'days').format('YYYY-MM-DD'),
+          standard: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
+          extended: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
           resubmitted: true
         }
       };
@@ -178,7 +178,7 @@ describe('Set internal deadline hook', () => {
       assert.deepEqual(pplAmendmentResub.patch.lastCall.args[0], expected);
     });
 
-    it('adds internal deadline of 20 days for ppl applications subsequent submissions', () => {
+    it('adds internal deadline of 40 days for ppl applications subsequent submissions', () => {
       const pplAmendmentResub = {
         data: {
           model: 'project',
@@ -207,8 +207,8 @@ describe('Set internal deadline hook', () => {
 
       const expected = {
         internalDeadline: {
-          standard: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
-          extended: moment().addWorkingTime(20, 'days').format('YYYY-MM-DD'),
+          standard: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
+          extended: moment().addWorkingTime(40, 'days').format('YYYY-MM-DD'),
           resubmitted: true
         }
       };

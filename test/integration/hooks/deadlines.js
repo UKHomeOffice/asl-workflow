@@ -62,7 +62,7 @@ describe('Project deadlines', () => {
       .then(response => response.body)
       .then(body => {
         assert.ok(body.data.data.internalDeadline.standard);
-        assert.equal(moment(body.data.data.internalDeadline.standard).workingDiff(moment(), 'calendarDays'), 20);
+        assert.equal(moment(body.data.data.internalDeadline.standard).workingDiff(moment(), 'calendarDays'), 40);
       });
   });
 
