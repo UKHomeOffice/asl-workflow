@@ -67,6 +67,12 @@ steps:
         from_secret: npm_auth_token
     commands:
       - docker build --secret id=username,env=NPM_AUTH_USERNAME --secret id=token,env=NPM_AUTH_TOKEN -t asl-workflow .
+  - name: scan-image
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: asl-workflow
+      WHITELIST_FILE: cve-exceptions.txt
   - name: docker push
     image: docker:dind
     environment:
@@ -110,3 +116,8 @@ services:
   environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test-password
+- name: anchore-submission-server
+  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+  pull: always
+  commands:
+    - /run.sh server
