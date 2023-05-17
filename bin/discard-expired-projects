@@ -6,7 +6,7 @@ try {
   // ignore
 }
 
-const Taskflow = require('@ukhomeoffice/taskflow');
+const Taskflow = require('@ukhomeoffice/asl-taskflow');
 const schema = require('@asl/schema');
 const { transaction } = require('objection');
 const settings = require('../config');

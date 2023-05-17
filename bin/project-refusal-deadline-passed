@@ -8,8 +8,8 @@ try {
 
 const { raw } = require('objection');
 const moment = require('moment');
-const Database = require('@ukhomeoffice/taskflow/lib/db');
-const Task = require('@ukhomeoffice/taskflow/lib/models/task');
+const Database = require('@ukhomeoffice/asl-taskflow/lib/db');
+const Task = require('@ukhomeoffice/asl-taskflow/lib/models/task');
 const settings = require('../config');
 const notifyHook = require('../lib/hooks/notify');
 

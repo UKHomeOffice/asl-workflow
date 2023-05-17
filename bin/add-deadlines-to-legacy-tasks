@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const { get, isEmpty } = require('lodash');
 const moment = require('moment-business-time');
-const { bankHolidays } = require('@asl/constants');
-const Database = require('@ukhomeoffice/taskflow/lib/db');
-const Task = require('@ukhomeoffice/taskflow/lib/models/task');
+const { bankHolidays } = require('@ukhomeoffice/asl-constants');
+const Database = require('@ukhomeoffice/asl-taskflow/lib/db');
+const Task = require('@ukhomeoffice/asl-taskflow/lib/models/task');
 const settings = require('../config');
 const { withASRU } = require('../lib/flow');
 

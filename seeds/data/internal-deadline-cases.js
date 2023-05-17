@@ -1,5 +1,5 @@
 const moment = require('moment-business-time');
-const { bankHolidays } = require('@asl/constants');
+const { bankHolidays } = require('@ukhomeoffice/asl-constants');
 moment.updateLocale('en', { holidays: bankHolidays });
 
 const STANDARD_DEADLINE = 40;

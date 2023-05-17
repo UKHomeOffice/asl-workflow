@@ -7,7 +7,7 @@ try {
 }
 
 const { get } = require('lodash');
-const Taskflow = require('@ukhomeoffice/taskflow');
+const Taskflow = require('@ukhomeoffice/asl-taskflow');
 const schema = require('@asl/schema');
 const settings = require('../config');
 

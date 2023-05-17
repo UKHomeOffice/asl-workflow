@@ -6,10 +6,10 @@ steps:
   - name: install
     image: node:18
     environment:
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
       - npm ci
   - name: wait
@@ -41,19 +41,15 @@ steps:
       DATABASE_NAME: taskflow-test
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: test-password
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
       - npm test
   - name: audit
     image: node:18
     environment:
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
     commands:
       - npm run test:audit
   - name: docker build
@@ -61,26 +57,20 @@ steps:
     environment:
       DOCKER_HOST: tcp://docker:2375
       DOCKER_BUILDKIT: 1
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
-      - docker build --secret id=username,env=NPM_AUTH_USERNAME --secret id=token,env=NPM_AUTH_TOKEN -t asl-workflow .
-  - name: scan-image
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-    pull: always
-    environment:
-      IMAGE_NAME: asl-workflow
-      WHITELIST_FILE: cve-exceptions.txt
+      - docker build --secret id=github_token,env=GITHUB_AUTH_TOKEN --secret id=token,env=ART_AUTH_TOKEN -t asl-workflow .
   - name: docker push
     image: docker:dind
     environment:
       DOCKER_HOST: tcp://docker:2375
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
       DOCKER_PASSWORD:
         from_secret: docker_password
     commands:
@@ -116,8 +106,3 @@ services:
   environment:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test-password
-- name: anchore-submission-server
-  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-  pull: always
-  commands:
-    - /run.sh server
