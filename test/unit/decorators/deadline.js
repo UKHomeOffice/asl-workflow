@@ -1,7 +1,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
 
-const { Task } = require('@ukhomeoffice/taskflow');
+const { Task } = require('@ukhomeoffice/asl-taskflow');
 
 const decorator = require('../../../lib/decorators/deadline');
 

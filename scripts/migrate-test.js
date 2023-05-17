@@ -1,6 +1,6 @@
 /* eslint-disable implicit-dependencies/no-implicit */
 const knex = require('knex');
-const Taskflow = require('@ukhomeoffice/taskflow');
+const Taskflow = require('@ukhomeoffice/asl-taskflow');
 const dbConfig = require('../knexfile');
 
 const migrate = () => {

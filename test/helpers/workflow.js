@@ -3,7 +3,7 @@ const WithUser = require('./with-user');
 const taskflowDb = require('./taskflow-db');
 const aslDb = require('./asl-db');
 const fixtures = require('../data');
-const Database = require('@ukhomeoffice/taskflow/lib/db');
+const Database = require('@ukhomeoffice/asl-taskflow/lib/db');
 const settings = require('./database-settings');
 
 module.exports = {

@@ -1,4 +1,4 @@
-const Taskflow = require('@ukhomeoffice/taskflow');
+const Taskflow = require('@ukhomeoffice/asl-taskflow');
 const config = require('../config');
 
 const migrate = () => {

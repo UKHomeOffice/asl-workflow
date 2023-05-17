@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4');
-const Task = require('@ukhomeoffice/taskflow/lib/db/task');
-const ActivityLog = require('@ukhomeoffice/taskflow/lib/db/activity-log');
+const Task = require('@ukhomeoffice/asl-taskflow/lib/db/task');
+const ActivityLog = require('@ukhomeoffice/asl-taskflow/lib/db/activity-log');
 const seeds = require('../data/tasks');
 const activitySeeds = require('../data/activity');
 
