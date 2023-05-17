@@ -47,6 +47,11 @@ steps:
         from_secret: github_token
     commands:
       - npm test
+  - name: audit
+    image: node:18
+    environment:
+    commands:
+      - npm run test:audit
   - name: docker build
     image: docker:dind
     environment:
