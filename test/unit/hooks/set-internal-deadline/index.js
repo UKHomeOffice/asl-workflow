@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { bankHolidays } = require('@asl/constants');
+const { bankHolidays } = require('@ukhomeoffice/asl-constants');
 const moment = require('moment-business-time');
 const History = require('../../../helpers/history');
 const { withInspectorate, returnedToApplicant } = require('../../../../lib/flow/status');
