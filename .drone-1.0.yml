@@ -57,7 +57,7 @@ steps:
       GITHUB_AUTH_TOKEN:
         from_secret: github_token
     commands:
-      - docker build --secret id=username,env=NPM_AUTH_USERNAME --secret id=token,env=NPM_AUTH_TOKEN -t asl-workflow .
+      - docker build --secret id=github_token,env=GITHUB_AUTH_USERNAME --secret id=token,env=ART_AUTH_TOKEN -t asl-workflow .
   - name: docker push
     image: docker:dind
     environment:
