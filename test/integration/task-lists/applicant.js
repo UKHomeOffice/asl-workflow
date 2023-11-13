@@ -123,13 +123,39 @@ describe('Applicant', () => {
       const pilTasks = [
         'pil with licensing',
         'pil with ntco',
-        'another with-ntco to test ordering',
+        'another with-ntco to test ordering'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pil')
+        .expect(200)
+        .expect(response => {
+          assertTasks(pilTasks, response.body.data);
+        });
+    });
+
+    it('can filter by licence type of pil-e', () => {
+      const pilTasks = [
         'trainingPil with ntco',
         'trainingPil at different establishment'
       ];
 
       return request(this.workflow)
-        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pil')
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=pil-e')
+        .expect(200)
+        .expect(response => {
+          assertTasks(pilTasks, response.body.data);
+        });
+    });
+
+    it('can filter by licence type of trainingPil', () => {
+      const pilTasks = [
+        'trainingPil with ntco',
+        'trainingPil at different establishment'
+      ];
+
+      return request(this.workflow)
+        .get('/?progress=inProgress&filters%5Blicence%5D%5B0%5D=trainingPil')
         .expect(200)
         .expect(response => {
           assertTasks(pilTasks, response.body.data);
