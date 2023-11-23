@@ -98,13 +98,13 @@ module.exports = async makeTask => {
     await task.activity(eventTime.add(1, 'second').toISOString(), { status: 'with-inspectorate' });
   };
 
-  const deadlinePassedWithApplicantTask = async () => {
+  const deadlinePassedWithApplicantTask = async ({uuid, title}) => {
     const eventTime = moment().subtract(30, 'days');
 
     const task = await makeTask({
       ...defaultOpts,
-      id: '92ff5870-fc92-4d71-bd14-e72f83e4dae7',
-      title: 'Refuse PPL: deadline passed with applicant',
+      id: uuid,
+      title,
       data: {
         intentionToRefuse: {
           deadline: moment(eventTime).add(28, 'days').format('YYYY-MM-DD'),
@@ -117,27 +117,13 @@ module.exports = async makeTask => {
 
     await task.activity(eventTime.add(1, 'second').toISOString(), { status: 'intention-to-refuse', changedBy: inspectorId });
     await task.activity(eventTime.add(1, 'second').toISOString(), { status: 'returned-to-applicant', changedBy: inspectorId });
+
+    return {eventTime, task};
   };
 
-  const deadlinePassedWithAsruTask = async () => {
-    const eventTime = moment().subtract(30, 'days');
+  const deadlinePassedWithAsruTask = async ({uuid, title}) => {
+    const {eventTime, task} = await deadlinePassedWithApplicantTask({uuid, title});
 
-    const task = await makeTask({
-      ...defaultOpts,
-      id: '23ab7fdc-cf39-4a50-8bbb-b1f817d06e29',
-      title: 'Refuse PPL: deadline passed with asru',
-      data: {
-        intentionToRefuse: {
-          deadline: moment(eventTime).add(28, 'days').format('YYYY-MM-DD'),
-          markdown: 'My reason for refusing this project',
-          inspectorId
-        }
-      },
-      date: eventTime.toISOString()
-    });
-
-    await task.activity(eventTime.add(1, 'second').toISOString(), { status: 'intention-to-refuse', changedBy: inspectorId });
-    await task.activity(eventTime.add(1, 'second').toISOString(), { status: 'returned-to-applicant', changedBy: inspectorId });
     await task.activity(eventTime.add(1, 'second').toISOString(), { status: 'with-inspectorate' });
   };
 
@@ -168,7 +154,26 @@ module.exports = async makeTask => {
   await canResubmitTask();
   await deadlineFutureWithApplicantTask();
   await deadlineFutureWithAsruTask();
-  await deadlinePassedWithApplicantTask();
-  await deadlinePassedWithAsruTask();
+
+  // Used by tests causing these two to be refused once tests are run
+  await deadlinePassedWithApplicantTask({
+    uuid: '92ff5870-fc92-4d71-bd14-e72f83e4dae7',
+    title: 'Refuse PPL: deadline passed with applicant'
+  });
+  await deadlinePassedWithAsruTask({
+    uuid: '23ab7fdc-cf39-4a50-8bbb-b1f817d06e29',
+    title: 'Refuse PPL: deadline passed with asru'
+  });
+
+  // Two additional tasks that are not used by tests, left pending refusal for use by UCD team
+  await deadlinePassedWithApplicantTask({
+    uuid: '1b02489d-1583-4836-9ba7-925f8c062cc5',
+    title: 'Intent to refuse PPL: deadline passed with applicant'
+  });
+  await deadlinePassedWithAsruTask({
+    uuid: 'a8c7622f-f629-4685-baa5-e55c23cb223c',
+    title: 'Intent to refuse PPL: deadline passed with asru'
+  });
+
   await refusedTask();
 };
