@@ -34,7 +34,7 @@
     "@ukhomeoffice/asl-taskflow": "^3.1.0",
     "aws-sdk": "^2.1354.0",
     "deep-diff": "^1.0.2",
-    "express": "^4.16.4",
+    "express": "^4.19.2",
     "lodash": "^4.17.21",
     "minimatch": "^3.0.4",
     "moment": "^2.29.3",
