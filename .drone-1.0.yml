@@ -63,6 +63,20 @@ steps:
         from_secret: github_token
     commands:
       - docker build --secret id=github_token,env=GITHUB_AUTH_TOKEN --secret id=token,env=ART_AUTH_TOKEN -t asl-workflow .
+  - name: scan-image
+    pull: Always
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    resources:
+      limits:
+        cpu: 1000
+        memory: 1024Mi
+    environment:
+      IMAGE_NAME: asl-workflow
+      ALLOW_CVE_LIST_FILE: cve-exceptions.txt
+    when:
+      event:
+        - pull_request
+        - push
   - name: docker push
     image: docker:dind
     environment:
