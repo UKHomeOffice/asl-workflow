@@ -1,5 +1,5 @@
 extends:
-  - lennym
+  - "@ukhomeoffice/asl"
 
 globals:
   fetch: readonly
