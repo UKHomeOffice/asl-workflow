@@ -1,6 +1,6 @@
 {
   "name": "asl-workflow",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Workflow API for processing change requests",
   "main": "index.js",
   "scripts": {

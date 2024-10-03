@@ -1,10 +1,14 @@
 {
   "comments": [
     "GHSA-grv7-fg5c-xmjg|objection>knex>liftoff>findup-sync>micromatch>braces",
-    "GHSA-4jv9-3563-23j3|knex"
+    "GHSA-4jv9-3563-23j3|knex",
+    "GHSA-qwcr-r2fm-qrc7: body-parser (npm)",
+    "GHSA-9wv6-86v2-598j: path-to-regexp (npm)"
   ],
   "allowlist": [
     "GHSA-grv7-fg5c-xmjg",
-    "GHSA-4jv9-3563-23j3"
+    "GHSA-4jv9-3563-23j3",
+    "GHSA-qwcr-r2fm-qrc7",
+    "GHSA-9wv6-86v2-598j"
   ]
 }
