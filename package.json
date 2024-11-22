@@ -1,6 +1,6 @@
 {
   "name": "asl-workflow",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Workflow API for processing change requests",
   "main": "index.js",
   "scripts": {
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-workflow#readme",
   "dependencies": {
-    "@ukhomeoffice/asl-constants": "^2.1.5",
-    "@asl/schema": "^10.18.5",
+    "@ukhomeoffice/asl-constants": "^2.1.8",
+    "@asl/schema": "^10.18.7",
     "@asl/service": "^10.5.1",
     "@ukhomeoffice/asl-taskflow": "^3.1.0",
     "aws-sdk": "2.1354.0",
